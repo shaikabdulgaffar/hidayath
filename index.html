@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidayate Amaal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="hamburger-btn" id="hamburgerBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="app-title">Hidayate Amaal</h1>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <h2>Menu</h2>
+            <button class="close-btn" id="closeBtn">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+        
+        <div class="sidebar-content">
+            <div class="menu-item" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+            
+            <div class="menu-item" id="shareBtn">
+                <i class="fas fa-share-alt"></i>
+                <span>Share App</span>
+            </div>
+            
+            <div class="menu-item" id="aboutAppBtn">
+                <i class="fas fa-info-circle"></i>
+                <span>About App</span>
+            </div>
+            
+            <div class="menu-item" id="aboutBookBtn">
+                <i class="fas fa-book"></i>
+                <span>About Book</span>
+            </div>
+
+            <div class="menu-item" id="bookmarkBtn">
+                <i class="fas fa-bookmark"></i>
+                <span>Bookmarks</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Home Screen -->
+        <div class="home-screen" id="homeScreen">
+            <div class="welcome-section" id="motivationalHadith"></div>
+            
+            <div class="index-list">
+                <h3>Contents</h3>
+                <div class="index-items" id="indexItems">
+                    <!-- Index items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Screen -->
+        <div class="content-screen" id="contentScreen" style="display: none;">
+            <div class="content-header">
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </button>
+                <button class="bookmark-icon-btn" id="bookmarkIconBtn" title="Bookmark this content" style="display: none;">
+                    <i class="fas fa-bookmark"></i>
+                </button>
+            </div>
+            <div class="content-display" id="contentDisplay">
+                <!-- Content will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Bookmarks Screen (inline, not modal) -->
+        <div class="content-screen" id="bookmarksScreen" style="display: none;">
+            <div class="content-header">
+                <button class="back-btn" id="bookmarksBackBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Contents
+                </button>
+            </div>
+            <div class="content-display">
+                <h2>Bookmarks</h2>
+                <div id="bookmarksInlineList"></div>
+            </div>
+        </div>
+
+        <!-- Bookmarks Modal -->
+        <div class="modal" id="bookmarksModal">
+            <div class="modal-content">
+                <span class="close-modal" data-modal="bookmarksModal">&times;</span>
+                <h3>Bookmarks</h3>
+                <div id="bookmarksList">
+                    <!-- Bookmarked items will appear here -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modals -->
+    <div class="modal" id="aboutAppModal">
+        <div class="modal-content">
+            <span class="close-modal" data-modal="aboutAppModal">&times;</span>
+            <h3>About App</h3>
+            <p>Hidayate Amaal is a mobile-friendly web application designed to provide easy access to Islamic teachings and guidance. This app contains essential Islamic knowledge including beliefs, practices, and fundamental concepts of Islam.</p>
+            <p><strong>Features:</strong></p>
+            <ul>
+                <li>Mobile-first responsive design</li>
+                <li>Dark/Light mode support</li>
+                <li>Easy navigation and search</li>
+                <li>Offline reading capability</li>
+                <li>Bookmark important content</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="modal" id="aboutBookModal">
+        <div class="modal-content">
+            <span class="close-modal" data-modal="aboutBookModal">&times;</span>
+            <h3>About Hidayate Amaal</h3>
+            <p>Hidayate Amaal is a comprehensive Islamic guide that covers the fundamental beliefs and practices of Islam. It includes detailed explanations of:</p>
+            <ul>
+                <li>Basic Islamic beliefs (Aqeedah)</li>
+                <li>The Five Pillars of Islam</li>
+                <li>Islamic calendar and important dates</li>
+                <li>Prophets and their teachings</li>
+                <li>Islamic terminology and concepts</li>
+            </ul>
+            <p>This book serves as an essential reference for Muslims seeking to understand and practice their faith correctly.</p>
+        </div>
+    </div>
+
+    <script src="main.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
