@@ -13,7 +13,19 @@
         <button class="hamburger-btn" id="hamburgerBtn">
             <i class="fas fa-bars"></i>
         </button>
-        <h1 class="app-title">Hidayate Amaal</h1>
+        <h1 class="app-title" id="appTitle">Hidayate Amaal</h1>
+        
+        <!-- Search input (hidden by default) -->
+        <div class="search-input-container" id="searchInputContainer">
+            <input type="text" class="header-search-input" id="headerSearchInput" placeholder="Search content...">
+        </div>
+        
+        <button class="search-btn" id="searchBtn">
+            <i class="fas fa-search"></i>
+        </button>
+        <button class="search-close-btn" id="searchCloseBtn" style="display: none;">
+            <i class="fas fa-times"></i>
+        </button>
     </header>
 
     <!-- Sidebar -->
@@ -34,6 +46,18 @@
                     <span class="slider"></span>
                 </label>
             </div>
+
+            <!-- New Language Selection Menu Item -->
+            <div class="menu-item" id="languageBtn">
+                <i class="fas fa-globe"></i>
+                <span>Language</span>
+                <i class="fas fa-chevron-right" style="margin-left: auto; color: var(--text-secondary);"></i>
+            </div>
+
+            <div class="menu-item" id="bookmarkBtn">
+                <i class="fas fa-bookmark"></i>
+                <span>Bookmarks</span>
+            </div>
             
             <div class="menu-item" id="shareBtn">
                 <i class="fas fa-share-alt"></i>
@@ -50,10 +74,20 @@
                 <span>About Book</span>
             </div>
 
-            <div class="menu-item" id="bookmarkBtn">
-                <i class="fas fa-bookmark"></i>
-                <span>Bookmarks</span>
+            <!-- New sections start here -->
+            <div class="menu-item" id="rateAppBtn">
+                <i class="fas fa-star"></i>
+                <span>Rate this App</span>
             </div>
+            <div class="menu-item" id="ourAppsBtn">
+                <i class="fas fa-th-large"></i>
+                <span>Our Apps</span>
+            </div>
+            <div class="menu-item" id="contactUsBtn">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Us</span>
+            </div>
+            <!-- New sections end here -->
         </div>
     </div>
 
@@ -67,7 +101,7 @@
             <div class="welcome-section" id="motivationalHadith"></div>
             
             <div class="index-list">
-                <h3>Contents</h3>
+                <h3 id="contentsHeading">Contents</h3>
                 <div class="index-items" id="indexItems">
                     <!-- Index items will be populated by JavaScript -->
                 </div>
@@ -90,7 +124,7 @@
             </div>
         </div>
 
-        <!-- Bookmarks Screen (inline, not modal) -->
+        <!-- Bookmarks Screen -->
         <div class="content-screen" id="bookmarksScreen" style="display: none;">
             <div class="content-header">
                 <button class="back-btn" id="bookmarksBackBtn">
@@ -104,52 +138,129 @@
             </div>
         </div>
 
-        <!-- Bookmarks Modal -->
-        <div class="modal" id="bookmarksModal">
-            <div class="modal-content">
-                <span class="close-modal" data-modal="bookmarksModal">&times;</span>
-                <h3>Bookmarks</h3>
-                <div id="bookmarksList">
-                    <!-- Bookmarked items will appear here -->
+        <!-- About App Screen -->
+        <div class="content-screen" id="aboutAppScreen" style="display: none;">
+            <div class="content-header">
+                <button class="back-btn" id="aboutAppBackBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Contents
+                </button>
+            </div>
+            <div class="content-display">
+                <h2>About App</h2>
+                <p>Hidayate Amaal is a mobile-friendly web application designed to provide easy access to Islamic teachings and guidance. This app contains essential Islamic knowledge including beliefs, practices, and fundamental concepts of Islam.</p>
+                
+                <h3>Features:</h3>
+                <ul>
+                    <li>Mobile-first responsive design</li>
+                    <li>Dark/Light mode support</li>
+                    <li>Easy navigation and search</li>
+                    <li>Offline reading capability</li>
+                    <li>Bookmark important content</li>
+                    <li>Clean and intuitive interface</li>
+                    <li>Fast and lightweight</li>
+                </ul>
+
+                <h3>How to Use:</h3>
+                <ul>
+                    <li>Browse content from the main contents list</li>
+                    <li>Use the search feature to find specific topics</li>
+                    <li>Bookmark important content for quick access</li>
+                    <li>Switch between light and dark modes</li>
+                    <li>Share the app with friends and family</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- About Book Screen -->
+        <div class="content-screen" id="aboutBookScreen" style="display: none;">
+            <div class="content-header">
+                <button class="back-btn" id="aboutBookBackBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Contents
+                </button>
+            </div>
+            <div class="content-display">
+                <h2>About Hidayate Amaal</h2>
+                <p>Hidayate Amaal is a comprehensive Islamic guide that covers the fundamental beliefs and practices of Islam. This book serves as an essential reference for Muslims seeking to understand and practice their faith correctly.</p>
+                
+                <h3>What's Included:</h3>
+                <ul>
+                    <li>Basic Islamic beliefs (Aqeedah)</li>
+                    <li>The Five Pillars of Islam</li>
+                    <li>Islamic calendar and important dates</li>
+                    <li>Prophets and their teachings</li>
+                    <li>Islamic terminology and concepts</li>
+                    <li>Prayer methods and requirements</li>
+                    <li>Fasting guidelines and rules</li>
+                    <li>Purification and cleanliness</li>
+                    <li>Islamic etiquettes and manners</li>
+                    <li>Supplications and remembrance</li>
+                </ul>
+
+                <h3>Purpose:</h3>
+                <p>This collection aims to provide Muslims with authentic Islamic knowledge in an easy-to-understand format. It covers both the theoretical aspects of faith and practical guidance for daily Islamic living.</p>
+
+                <h3>Source:</h3>
+                <p>The content is based on authentic Islamic sources including the Quran, Hadith, and classical Islamic scholarship, compiled to help Muslims strengthen their faith and practice.</p>
+            </div>
+        </div>
+
+        <!-- Language Selection Modal -->
+        <div class="language-modal" id="languageModal" style="display: none;">
+            <div class="language-modal-content">
+                <div class="language-modal-header">
+                    <h3>Select Language</h3>
+                    <button class="language-close-btn" id="languageCloseBtn">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <div class="language-options">
+                    <div class="language-option" data-lang="en">
+                        <div class="language-flag">🇺🇸</div>
+                        <div class="language-info">
+                            <div class="language-name">English - English</div>
+                        </div>
+                        <div class="language-check" id="check-en">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="language-option" data-lang="ur">
+                        <div class="language-flag">🇵🇰</div>
+                        <div class="language-info">
+                            <div class="language-name">Urdu - اردو</div>
+                        </div>
+                        <div class="language-check" id="check-ur">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="language-option" data-lang="hi">
+                        <div class="language-flag">🇮🇳</div>
+                        <div class="language-info">
+                            <div class="language-name">Hindi - हिंदी</div>
+                        </div>
+                        <div class="language-check" id="check-hi">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
+                    
+                    <div class="language-option" data-lang="ar">
+                        <div class="language-flag">🇸🇦</div>
+                        <div class="language-info">
+                            <div class="language-name">Arabic - العربية</div>
+                        </div>
+                        <div class="language-check" id="check-ar">
+                            <i class="fas fa-check"></i>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Modals -->
-    <div class="modal" id="aboutAppModal">
-        <div class="modal-content">
-            <span class="close-modal" data-modal="aboutAppModal">&times;</span>
-            <h3>About App</h3>
-            <p>Hidayate Amaal is a mobile-friendly web application designed to provide easy access to Islamic teachings and guidance. This app contains essential Islamic knowledge including beliefs, practices, and fundamental concepts of Islam.</p>
-            <p><strong>Features:</strong></p>
-            <ul>
-                <li>Mobile-first responsive design</li>
-                <li>Dark/Light mode support</li>
-                <li>Easy navigation and search</li>
-                <li>Offline reading capability</li>
-                <li>Bookmark important content</li>
-            </ul>
-        </div>
-    </div>
-
-    <div class="modal" id="aboutBookModal">
-        <div class="modal-content">
-            <span class="close-modal" data-modal="aboutBookModal">&times;</span>
-            <h3>About Hidayate Amaal</h3>
-            <p>Hidayate Amaal is a comprehensive Islamic guide that covers the fundamental beliefs and practices of Islam. It includes detailed explanations of:</p>
-            <ul>
-                <li>Basic Islamic beliefs (Aqeedah)</li>
-                <li>The Five Pillars of Islam</li>
-                <li>Islamic calendar and important dates</li>
-                <li>Prophets and their teachings</li>
-                <li>Islamic terminology and concepts</li>
-            </ul>
-            <p>This book serves as an essential reference for Muslims seeking to understand and practice their faith correctly.</p>
-        </div>
-    </div>
-
     <script src="main.js"></script>
-    <script src="script.js"></script>
+    <script src="roman_urdu.js"></script>
 </body>
 </html>

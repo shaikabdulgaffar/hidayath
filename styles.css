@@ -48,12 +48,14 @@ body {
     color: white;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 1rem;
     z-index: 1000;
     box-shadow: var(--shadow);
+    transition: all 0.3s ease;
 }
 
-.hamburger-btn {
+.hamburger-btn, .search-btn, .search-close-btn {
     background: none;
     border: none;
     color: white;
@@ -62,15 +64,104 @@ body {
     padding: 0.5rem;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    min-width: 44px;
+    height: 44px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
 }
 
-.hamburger-btn:hover {
+.hamburger-btn:hover, .search-btn:hover, .search-close-btn:hover {
     background-color: rgba(255, 255, 255, 0.1);
 }
 
 .app-title {
-    margin-left: 1rem;
-    font-size: 1.25rem;
+    position: absolute;
+    left: 60px; /* Increased from 50px to add more gap */
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    transition: all 0.3s ease;
+    color: white;
+}
+
+/* Search Input Container */
+.search-input-container {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 75%;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+    z-index: 1001;
+}
+
+.search-input-container.active {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+.header-search-input {
+    width: 100%;
+    padding: 0.75rem 1rem; /* Increased padding for more height */
+    border: none;
+    border-radius: 25px; /* Slightly more rounded */
+    font-size: 1rem;
+    background-color: white;
+    color: var(--text-primary);
+    outline: none;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    height: 44px; /* Explicit height */
+}
+
+.header-search-input:focus {
+    box-shadow: 0 0 0 2px var(--accent-color);
+    text-align: left;
+}
+
+.header-search-input::placeholder {
+    color: #999;
+    text-align: center;
+}
+
+/* Header in search mode */
+.header.search-mode .app-title {
+    opacity: 0;
+    visibility: hidden;
+    transform: scale(0.8);
+}
+
+/* Hide motivational card during search */
+.search-mode .welcome-section {
+    display: none;
+}
+
+/* Remove the old search overlay styles */
+.search-overlay {
+    display: none !important;
+}
+
+/* Search results styling */
+.search-results-info {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 1rem;
+    font-style: italic;
+    background: var(--surface-color);
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.search-highlight {
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.1rem 0.2rem;
+    border-radius: 3px;
     font-weight: 600;
 }
 
@@ -78,28 +169,27 @@ body {
 .sidebar {
     position: fixed;
     top: 0;
-    left: -300px;
-    width: 300px;
+    left: -60vw; /* Changed from -300px to use viewport width */
+    width: 60vw; /* Changed from 300px to 60% of viewport width */
     height: 100vh;
     background-color: var(--surface-color);
     z-index: 1001;
-    transition: left 0.3s ease;
+    transition: transform 0.3s ease;
     box-shadow: var(--shadow);
-    display: flex;
-    flex-direction: column;
 }
 
 .sidebar.open {
-    left: 0;
+    transform: translateX(60vw); /* Changed from translateX(300px) to match width */
 }
 
 .sidebar-header {
     background-color: var(--primary-color);
     color: white;
-    padding: 1rem;
+    padding: 5rem 1rem; /* Increased from 1rem to 1.5rem */
     display: flex;
     justify-content: space-between;
     align-items: center;
+    min-height: 80px; /* Added minimum height */
 }
 
 .close-btn {
@@ -429,6 +519,7 @@ input:checked + .slider:before {
     margin: 2rem 0;
 }
 
+/* Remove or comment out the modal styles since we won't use them for about sections */
 /* Modal */
 .modal {
     display: none;
@@ -585,88 +676,67 @@ input:checked + .slider:before {
 
 /* Responsive Design - Update mobile styles */
 @media (max-width: 768px) {
-    .sidebar {
-        width: 280px;
-        left: -280px;
-    }
-    
-    .main-content {
-        padding: 0.75rem;
-    }
-    
-    .welcome-section {
-        padding: 1.5rem 1rem;
-    }
-    
-    .welcome-section h2 {
-        font-size: 1.5rem;
-    }
-    
-    .content-display {
-        padding: 1.5rem;
-    }
-    
-    .modal-content {
-        margin: 5% auto;
-        padding: 1.5rem;
-        width: 95%;
+    .app-title {
+        font-size: 1.2rem;
+        left: 52px; /* Increased from 45px */
     }
 
-    .content-header {
-        flex-direction: row;
-        align-items: center;
-        gap: 1rem; /* Increased gap for mobile */
+    .search-input-container {
+        width: 70%;
     }
 
-    .back-btn {
-        /* Remove flex: 1 so it doesn't take full width */
-        justify-content: center;
-        padding: 0.75rem 1.25rem;
+    .header-search-input {
+        padding: 0.65rem 0.8rem;
+        font-size: 0.95rem;
+        height: 40px;
     }
 
-    .bookmark-icon-btn {
-        min-width: 44px;
-        height: 44px;
-        padding: 0.6rem;
+    .hamburger-btn, .search-btn, .search-close-btn {
+        min-width: 40px;
+        height: 40px;
         font-size: 1.1rem;
+    }
+
+    .sidebar {
+        left: -60vw;
+        width: 60vw;
+    }
+
+    .sidebar.open {
+        transform: translateX(60vw);
     }
 }
 
 @media (max-width: 480px) {
     .app-title {
         font-size: 1.1rem;
-    }
-    
-    .main-content {
-        padding: 0.5rem;
-    }
-    
-    .welcome-section h2 {
-        font-size: 1.3rem;
-    }
-    
-    .content-display {
-        padding: 1rem;
-    }
-    
-    .content-display h2 {
-        font-size: 1.5rem;
+        left: 48px; /* Increased from 40px */
     }
 
-    .content-header {
-        gap: 0.75rem; /* Adequate gap for small screens */
+    .search-input-container {
+        width: 65%;
     }
 
-    .back-btn {
-        padding: 0.6rem 1rem;
+    .header-search-input {
+        padding: 0.6rem 0.7rem;
         font-size: 0.9rem;
+        height: 38px;
     }
 
-    .bookmark-icon-btn {
-        min-width: 40px;
-        height: 40px;
-        padding: 0.5rem;
+    .hamburger-btn, .search-btn, .search-close-btn {
+        min-width: 36px;
+        height: 36px;
         font-size: 1rem;
+        padding: 0.3rem;
+    }
+
+    .sidebar {
+        left: -65vw; /* Slightly more on very small screens */
+        width: 65vw;
+    }
+
+    .sidebar.open {
+        transform: translateX(65vw);
     }
 }
 
@@ -721,5 +791,284 @@ html {
     }
     .mini-namaz-table th, .mini-namaz-table td {
         padding: 1px 2px;
+    }
+}
+
+/* Language Select Styling */
+.language-select-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex: 1;
+}
+
+#languageSelect {
+    background-color: var(--surface-color);
+    border: 2px solid var(--border-color);
+    border-radius: 8px;
+    padding: 8px 12px;
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 500;
+    min-width: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    outline: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+    background-position: right 8px center;
+    background-repeat: no-repeat;
+    background-size: 16px;
+    padding-right: 32px;
+}
+
+#languageSelect:hover {
+    border-color: var(--primary-color);
+    background-color: var(--background-color);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+#languageSelect:focus {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(44, 85, 48, 0.1);
+    background-color: var(--background-color);
+}
+
+#languageSelect option {
+    background-color: var(--surface-color);
+    color: var(--text-primary);
+    padding: 10px;
+    font-weight: 500;
+}
+
+/* Dark mode language select */
+[data-theme="dark"] #languageSelect {
+    background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%9ca3af' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+}
+
+[data-theme="dark"] #languageSelect:focus {
+    box-shadow: 0 0 0 3px rgba(127, 176, 105, 0.2);
+}
+
+/* Language menu item custom styling */
+.menu-item.language-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+    padding: 16px;
+}
+
+.language-item-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    width: 100%;
+}
+
+.language-item-header i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.language-item-header span {
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Language Modal Styles */
+.language-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 1003;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.language-modal.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.language-modal-content {
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 320px; /* Reduced from 400px to 320px */
+    max-height: 80vh;
+    overflow: hidden;
+    transform: scale(0.8) translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.language-modal.active .language-modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.language-modal-header {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    color: white;
+    padding: 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.language-modal-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.language-close-btn {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.1rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+
+.language-close-btn:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.language-options {
+    padding: 0.5rem 0;
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: 1rem 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-bottom: 1px solid var(--border-color);
+    position: relative;
+}
+
+.language-option:last-child {
+    border-bottom: none;
+}
+
+.language-option:hover {
+    background-color: var(--background-color);
+    transform: translateX(4px);
+}
+
+.language-option.selected {
+    background-color: rgba(44, 85, 48, 0.1);
+    border-left: 4px solid var(--primary-color);
+}
+
+[data-theme="dark"] .language-option.selected {
+    background-color: rgba(127, 176, 105, 0.15);
+}
+
+.language-flag {
+    font-size: 1.8rem;
+    margin-right: 1rem;
+    min-width: 32px;
+    text-align: center;
+}
+
+.language-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 0.2rem;
+}
+
+.language-name {
+    font-weight: 600;
+    color: var(--text-primary);
+    font-size: 1rem;
+}
+
+.language-native {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.language-check {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+    opacity: 0;
+    transform: scale(0.5);
+    transition: all 0.3s ease;
+}
+
+.language-option.selected .language-check {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* Language option animation */
+.language-option {
+    animation: slideInLeft 0.3s ease forwards;
+}
+
+.language-option:nth-child(1) { animation-delay: 0.1s; }
+.language-option:nth-child(2) { animation-delay: 0.2s; }
+.language-option:nth-child(3) { animation-delay: 0.3s; }
+.language-option:nth-child(4) { animation-delay: 0.4s; }
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Responsive design for language modal */
+@media (max-width: 480px) {
+    .language-modal-content {
+        width: 85%; /* Reduced from 95% to 85% for mobile */
+        margin: 1rem;
+        max-width: 280px; /* Added max-width for mobile */
+    }
+    
+    .language-modal-header {
+        padding: 1rem;
+    }
+    
+    .language-option {
+        padding: 0.8rem 1rem;
+    }
+    
+    .language-flag {
+        font-size: 1.5rem;
+        margin-right: 0.8rem;
+    }
+    
+    .language-name {
+        font-size: 0.95rem;
+    }
+    
+    .language-native {
+        font-size: 0.85rem;
     }
 }
