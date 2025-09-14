@@ -59,13 +59,13 @@ body {
     background: none;
     border: none;
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.8rem; /* Increased from 1.5rem */
     cursor: pointer;
-    padding: 0.5rem;
-    border-radius: 4px;
+    padding: 0.8rem; /* Increased from 0.7rem */
+    border-radius: 8px; /* Increased from 6px */
     transition: background-color 0.3s ease;
-    min-width: 44px;
-    height: 44px;
+    min-width: 58px; /* Increased from 52px */
+    height: 58px; /* Increased from 52px */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -78,8 +78,8 @@ body {
 
 .app-title {
     position: absolute;
-    left: 60px; /* Increased from 50px to add more gap */
-    font-size: 1.4rem;
+    left: 72px; /* Increased from 65px to accommodate larger button */
+    font-size: 1.8rem; /* Increased from 1.6rem */
     font-weight: 700;
     margin: 0;
     transition: all 0.3s ease;
@@ -677,8 +677,8 @@ input:checked + .slider:before {
 /* Responsive Design - Update mobile styles */
 @media (max-width: 768px) {
     .app-title {
-        font-size: 1.2rem;
-        left: 52px; /* Increased from 45px */
+        font-size: 1.6rem; /* Increased from 1.4rem */
+        left: 64px; /* Increased from 58px */
     }
 
     .search-input-container {
@@ -686,15 +686,16 @@ input:checked + .slider:before {
     }
 
     .header-search-input {
-        padding: 0.65rem 0.8rem;
-        font-size: 0.95rem;
-        height: 40px;
+        padding: 0.7rem 0.9rem; /* Increased padding */
+        font-size: 1rem; /* Increased from 0.95rem */
+        height: 44px; /* Increased from 40px */
     }
 
     .hamburger-btn, .search-btn, .search-close-btn {
-        min-width: 40px;
-        height: 40px;
-        font-size: 1.1rem;
+        min-width: 54px; /* Increased from 48px */
+        height: 54px; /* Increased from 48px */
+        font-size: 1.5rem; /* Increased from 1.3rem */
+        padding: 0.7rem; /* Increased from 0.6rem */
     }
 
     .sidebar {
@@ -709,8 +710,8 @@ input:checked + .slider:before {
 
 @media (max-width: 480px) {
     .app-title {
-        font-size: 1.1rem;
-        left: 48px; /* Increased from 40px */
+        font-size: 1.4rem; /* Increased from 1.25rem */
+        left: 58px; /* Increased from 54px */
     }
 
     .search-input-container {
@@ -718,16 +719,16 @@ input:checked + .slider:before {
     }
 
     .header-search-input {
-        padding: 0.6rem 0.7rem;
-        font-size: 0.9rem;
-        height: 38px;
+        padding: 0.65rem 0.8rem; /* Increased padding */
+        font-size: 0.95rem; /* Increased from 0.9rem */
+        height: 42px; /* Increased from 38px */
     }
 
     .hamburger-btn, .search-btn, .search-close-btn {
-        min-width: 36px;
-        height: 36px;
-        font-size: 1rem;
-        padding: 0.3rem;
+        min-width: 50px; /* Increased from 44px */
+        height: 50px; /* Increased from 44px */
+        font-size: 1.4rem; /* Increased from 1.2rem */
+        padding: 0.6rem; /* Increased from 0.5rem */
     }
 
     .sidebar {
