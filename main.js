@@ -1,28 +1,15 @@
-function showMotivationalHadith() {
-    const hadith = motivationalHadiths[Math.floor(Math.random() * motivationalHadiths.length)];
-    const hadithSection = document.getElementById('motivationalHadith');
-    hadithSection.innerHTML = `
-        <div class="motivational-arabic">${hadith.text}</div>
-        <div class="motivational-translation">"${hadith.translation}"</div>
-        <div class="motivational-ref">— ${hadith.ref}</div>
-    `;
-}
-
-// Call on home screen load
 function showHomeScreen() {
     homeScreen.style.display = 'block';
     contentScreen.style.display = 'none';
     bookmarksScreen.style.display = 'none';
-    aboutAppScreen.style.display = 'none'; // Add this
-    aboutBookScreen.style.display = 'none'; // Add this
+    aboutAppScreen.style.display = 'none';
+    aboutBookScreen.style.display = 'none';
     currentContentId = null;
-    showMotivationalHadith();
     window.scrollTo(0, 0);
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     initializeApp();
-    showMotivationalHadith();
 });
 
 // DOM Elements
@@ -264,7 +251,6 @@ function showHomeScreen() {
         restoreNormalView();
     }
     
-    showMotivationalHadith();
     window.scrollTo(0, 0);
 }
 
@@ -636,7 +622,6 @@ function showHomeScreen() {
         restoreNormalView();
     }
     
-    showMotivationalHadith();
     window.scrollTo(0, 0);
 }
 
@@ -794,3 +779,35 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// Add these language options to your language modal rendering function
+
+const languageOptionsData = [
+    { code: 'en', name: 'English', native: 'English', flag: '🇬🇧' },
+    { code: 'ur', name: 'Urdu', native: 'اردو', flag: '🇵🇰' },
+    { code: 'roman_ur', name: 'Roman Urdu', native: 'Roman Urdu', flag: '🇵🇰' },
+    { code: 'hi', name: 'Hindi', native: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'te', name: 'Telugu', native: 'తెలుగు', flag: '🇮🇳' },
+    { code: 'roman_te', name: 'Roman Telugu', native: 'Roman Telugu', flag: '🇮🇳' },
+    { code: 'ta', name: 'Tamil', native: 'தமிழ்', flag: '🇮🇳' },
+    { code: 'kn', name: 'Kannada', native: 'ಕನ್ನಡ', flag: '🇮🇳' }
+];
+
+// Example: Render language options in modal
+function renderLanguageOptions() {
+    const languageOptionsContainer = document.querySelector('.language-options');
+    languageOptionsContainer.innerHTML = '';
+    languageOptionsData.forEach(option => {
+        const div = document.createElement('div');
+        div.className = 'language-option';
+        div.dataset.langCode = option.code;
+        div.innerHTML = `
+            <span class="language-flag">${option.flag}</span>
+            <span class="language-name">${option.name}</span>
+            <span class="language-native">${option.native}</span>
+            <span class="language-check" style="display:none;">✔</span>
+        `;
+        languageOptionsContainer.appendChild(div);
+    });
+    updateLanguageSelection();
+}
