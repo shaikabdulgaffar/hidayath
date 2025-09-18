@@ -20,7 +20,6 @@ const overlay = document.getElementById('overlay');
 const themeToggle = document.getElementById('themeToggle');
 const shareBtn = document.getElementById('shareBtn');
 const aboutAppBtn = document.getElementById('aboutAppBtn');
-const aboutBookBtn = document.getElementById('aboutBookBtn');
 const bookmarkBtn = document.getElementById('bookmarkBtn');
 const homeScreen = document.getElementById('homeScreen');
 const contentScreen = document.getElementById('contentScreen');
@@ -30,7 +29,6 @@ const aboutBookScreen = document.getElementById('aboutBookScreen'); // Add this
 const backBtn = document.getElementById('backBtn');
 const bookmarksBackBtn = document.getElementById('bookmarksBackBtn');
 const aboutAppBackBtn = document.getElementById('aboutAppBackBtn'); // Add this
-const aboutBookBackBtn = document.getElementById('aboutBookBackBtn'); // Add this
 const contentDisplay = document.getElementById('contentDisplay');
 const indexItems = document.getElementById('indexItems');
 const bookmarkIconBtn = document.getElementById('bookmarkIconBtn');
@@ -70,12 +68,10 @@ overlay.addEventListener('click', closeSidebar);
 themeToggle.addEventListener('change', toggleTheme);
 shareBtn.addEventListener('click', shareApp);
 aboutAppBtn.addEventListener('click', showAboutApp); // Update this
-aboutBookBtn.addEventListener('click', showAboutBook); // Update this
 bookmarkBtn.addEventListener('click', showBookmarksFromSidebar);
 backBtn.addEventListener('click', showHomeScreen);
 bookmarksBackBtn.addEventListener('click', showHomeScreen);
 aboutAppBackBtn.addEventListener('click', showHomeScreen); // Add this
-aboutBookBackBtn.addEventListener('click', showHomeScreen); // Add this
 bookmarkIconBtn.addEventListener('click', toggleBookmark);
 
 // Language Event Listeners
@@ -173,18 +169,6 @@ function showAboutApp() {
     bookmarksScreen.style.display = 'none';
     aboutAppScreen.style.display = 'block';
     aboutBookScreen.style.display = 'none';
-    closeSidebar();
-    window.scrollTo(0, 0);
-}
-
-function showAboutBook() {
-    closeHeaderSearch();
-    
-    homeScreen.style.display = 'none';
-    contentScreen.style.display = 'none';
-    bookmarksScreen.style.display = 'none';
-    aboutAppScreen.style.display = 'none';
-    aboutBookScreen.style.display = 'block';
     closeSidebar();
     window.scrollTo(0, 0);
 }
