@@ -15,6 +15,7 @@ function showHomeScreen() {
     }
 
     setTabsVisible(true); // show tabs on home
+    setSearchVisible(true); // show search on Home
     window.scrollTo(0, 0);
 }
 
@@ -252,7 +253,8 @@ function showAboutApp() {
     closeHeaderSearch();
     hideAllScreens();
     aboutAppScreen.style.display = 'block';
-    setTabsVisible(false); // hide tabs on non-home
+    setTabsVisible(false);
+    setSearchVisible(false); // hide search off-Home
     closeSidebar();
     window.scrollTo(0, 0);
 }
@@ -260,13 +262,11 @@ function showAboutApp() {
 function closeHeaderSearch() {
     isSearchActive = false;
     header.classList.remove('search-mode');
-    document.body.classList.remove('search-mode'); // Add this line
+    document.body.classList.remove('search-mode');
     searchInputContainer.classList.remove('active');
     searchBtn.style.display = 'flex';
     searchCloseBtn.style.display = 'none';
     headerSearchInput.value = '';
-    
-    // Only restore normal view if we're on home screen
     if (homeScreen.style.display !== 'none') {
         restoreNormalView();
     }
@@ -275,7 +275,6 @@ function closeHeaderSearch() {
 function showContent(id) {
     const content = contentData[id];
     if (!content) return;
-
     closeHeaderSearch();
 
     // Find serial number from indexData
@@ -292,16 +291,15 @@ function showContent(id) {
     contentScreen.style.display = 'block';
     bookmarkIconBtn.style.display = 'block';
     updateBookmarkIcon();
-    setTabsVisible(false); // hide tabs on non-home
+    setTabsVisible(false);
+    setSearchVisible(false); // hide search off-Home
     window.scrollTo(0, 0);
 }
 
 function showHomeScreen() {
     hideAllScreens();
     currentContentId = null;
-
     homeScreen.style.display = 'block';
-
     if (isSearchActive) {
         if (headerSearchInput.value.trim()) {
             performLiveHeaderSearch(headerSearchInput.value.trim());
@@ -311,8 +309,8 @@ function showHomeScreen() {
     } else {
         restoreNormalView();
     }
-
-    setTabsVisible(true); // show tabs on home
+    setTabsVisible(true);
+    setSearchVisible(true); // show search on Home
     window.scrollTo(0, 0);
 }
 
@@ -343,7 +341,8 @@ function showBookmarks() {
 
     hideAllScreens();
     bookmarksScreen.style.display = 'block';
-    setTabsVisible(false); // hide tabs on non-home
+    setTabsVisible(false);
+    setSearchVisible(false); // hide search off-Home
     closeSidebar();
 }
 
@@ -552,7 +551,8 @@ function searchIndex(query) {
 
 // Header Search Functions
 function openHeaderSearch() {
-    if (sidebar.classList.contains('open')) return; // block when sidebar open
+    // Block when sidebar is open or not on Home
+    if (sidebar.classList.contains('open') || homeScreen.style.display === 'none') return;
     isSearchActive = true;
     header.classList.add('search-mode');
     document.body.classList.add('search-mode');
@@ -568,13 +568,11 @@ function openHeaderSearch() {
 function closeSearch() {
     isSearchActive = false;
     header.classList.remove('search-mode');
-    document.body.classList.remove('search-mode'); // Add this line
+    document.body.classList.remove('search-mode');
     searchInputContainer.classList.remove('active');
     searchBtn.style.display = 'flex';
     searchCloseBtn.style.display = 'none';
     headerSearchInput.value = '';
-    
-    // Only restore normal view if we're on home screen
     if (homeScreen.style.display !== 'none') {
         restoreNormalView();
     }
@@ -676,6 +674,7 @@ function showHomeScreen() {
     }
 
     setTabsVisible(true); // show tabs on home
+    setSearchVisible(true); // show search on Home
     window.scrollTo(0, 0);
 }
 
@@ -691,6 +690,7 @@ function showContactUs() {
     hideAllScreens();
     contactUsScreen.style.display = 'block';
     setTabsVisible(false); // hide tabs on non-home
+    setSearchVisible(false); // hide search off-Home
     window.scrollTo(0, 0);
     if (contactSuccess) contactSuccess.style.display = 'none';
     if (contactForm) contactForm.reset();
@@ -995,7 +995,20 @@ function setTabsVisible(isVisible) {
     tabNavigation.style.display = isVisible ? 'flex' : 'none';
 }
 
-// After initializeApp on first load, ensure tabs visible on home
+// NEW: control search icon visibility (only on Home)
+function setSearchVisible(isVisible) {
+    if (!searchBtn) return;
+    if (!isVisible) {
+        if (isSearchActive) closeHeaderSearch();
+        searchBtn.style.display = 'none';
+    } else {
+        // only show when search is not active
+        if (!isSearchActive) searchBtn.style.display = 'flex';
+    }
+}
+
+// After initializeApp on first load, ensure tabs and search visible on home
 document.addEventListener('DOMContentLoaded', () => {
     setTabsVisible(true);
+    setSearchVisible(true);
 });
