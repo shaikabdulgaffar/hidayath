@@ -51,7 +51,6 @@
                 <img src="attachments/logo.png" alt="Hidayate Amaal Logo" class="sidebar-logo">
             </div>
         </div>
-        
         <div class="sidebar-content">
             <div class="menu-item" id="darkModeToggle">
                 <i class="fas fa-moon"></i>
@@ -66,7 +65,22 @@
             <div class="menu-item" id="languageBtn">
                 <i class="fas fa-globe"></i>
                 <span>Language</span>
-                <i class="fas fa-chevron-right" style="margin-left: auto; color: var(--text-secondary);"></i>
+                <i class="fas fa-chevron-down chevron-icon" style="margin-left: auto; color: var(--text-secondary); transition: transform 0.3s;"></i>
+            </div>
+            <div class="language-options-sidebar" id="languageOptionsSidebar" style="display: none;">
+                <div class="language-option-sidebar" data-lang="en">
+                    <span class="language-flag">🇺🇸</span>
+                    <span class="language-name">English - English</span>
+                </div>
+                <div class="language-option-sidebar" data-lang="ur">
+                    <span class="language-flag">🇵🇰</span>
+                    <span class="language-name">Urdu - اُردُو</span>
+                </div>
+                <div class="language-option-sidebar" data-lang="hi">
+                    <span class="language-flag">🇮🇳</span>
+                    <span class="language-name">Hindi - हिन्दी</span>
+                </div>
+                <!-- Add more languages as needed -->
             </div>
 
             <div class="menu-item" id="bookmarkBtn">
@@ -214,50 +228,33 @@
             </div>
         </div>
 
-        <!-- Language Selection Modal -->
-        <div class="language-modal" id="languageModal" style="display: none;">
-            <div class="language-modal-content">
-                <div class="language-modal-header">
-                    <h3>Select Language</h3>
-                    <button class="language-close-btn" id="languageCloseBtn">
-                        <i class="fas fa-times"></i>
-                    </button>
-                </div>
-                <div class="language-options">
-                    <div class="language-option" data-lang="en">
-                        <div class="language-flag">🇺🇸</div>
-                        <div class="language-info">
-                            <div class="language-name">English - English</div>
-                        </div>
-                        <div class="language-check" id="check-en">
-                            <i class="fas fa-check"></i>
-                        </div>
-                    </div>
+        <!-- Contact Us Screen -->
+        <div class="content-screen" id="contactUsScreen" style="display: none;">
+            <div class="content-header">
+                <button class="back-btn" id="contactUsBackBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back to Contents
+                </button>
+            </div>
+            <div class="content-display">
+                <h2>Contact Us</h2>
+                <p>
+                    We value your feedback and suggestions! If you have any questions, comments, or ideas to improve Hidayate Amaal, please fill out the form below. Your feedback helps us make this app better for everyone.
+                </p>
+                <form id="contactForm" style="max-width: 400px; margin: 0 auto;">
+                    <label for="contactSubject">Subject:</label>
+                    <input type="text" id="contactSubject" name="contactSubject" required style="width:100%;margin-bottom:1rem;padding:0.5rem;">
                     
-                    <div class="language-option" data-lang="ur">
-                        <div class="language-flag">🇵🇰</div>
-                        <div class="language-info">
-                            <div class="language-name">Urdu - اردو</div>
-                        </div>
-                        <div class="language-check" id="check-ur">
-                            <i class="fas fa-check"></i>
-                        </div>
-                    </div>
+                    <label for="contactMessage">Feedback:</label>
+                    <textarea id="contactMessage" name="contactMessage" rows="5" required style="width:100%;margin-bottom:1rem;padding:0.5rem;"></textarea>
                     
-                    <div class="language-option" data-lang="hi">
-                        <div class="language-flag">🇮🇳</div>
-                        <div class="language-info">
-                            <div class="language-name">Hindi - हिंदी</div>
-                        </div>
-                        <div class="language-check" id="check-hi">
-                            <i class="fas fa-check"></i>
-                        </div>
-                    </div>
-                </div>
+                    <button type="submit" style="background:var(--primary-color);color:white;padding:0.75rem 1.5rem;border:none;border-radius:8px;cursor:pointer;">Submit</button>
+                </form>
+                <div id="contactSuccess" style="display:none;color:var(--accent-color);margin-top:1rem;text-align:center;">Thank you for your feedback!</div>
             </div>
         </div>
     </main>
 
-    <script src="main.js"></script><script src="roman_urdu.js"></script><script src="daily_hadees.js"></script>
+    <script src="main.js"></script><script src="roman_urdu.js"></script>
 </body>
 </html>

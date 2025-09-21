@@ -1,10 +1,20 @@
 function showHomeScreen() {
-    homeScreen.style.display = 'block';
-    contentScreen.style.display = 'none';
-    bookmarksScreen.style.display = 'none';
-    aboutAppScreen.style.display = 'none';
-    aboutBookScreen.style.display = 'none';
+    hideAllScreens();
     currentContentId = null;
+
+    homeScreen.style.display = 'block';
+
+    if (isSearchActive) {
+        if (headerSearchInput.value.trim()) {
+            performLiveHeaderSearch(headerSearchInput.value.trim());
+        } else {
+            showSearchPlaceholder();
+        }
+    } else {
+        restoreNormalView();
+    }
+
+    setTabsVisible(true); // show tabs on home
     window.scrollTo(0, 0);
 }
 
@@ -35,6 +45,10 @@ const bookmarkIconBtn = document.getElementById('bookmarkIconBtn');
 const bookmarksModal = document.getElementById('bookmarksModal');
 const bookmarksList = document.getElementById('bookmarksList');
 const bookmarksInlineList = document.getElementById('bookmarksInlineList');
+const contactUsScreen = document.getElementById('contactUsScreen');
+const contactUsBackBtn = document.getElementById('contactUsBackBtn');
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
 
 // Header search elements
 const searchBtn = document.getElementById('searchBtn');
@@ -44,17 +58,63 @@ const searchInputContainer = document.getElementById('searchInputContainer');
 const headerSearchInput = document.getElementById('headerSearchInput');
 const contentsHeading = document.getElementById('contentsHeading');
 const header = document.querySelector('.header');
+const mainContent = document.getElementById('mainContent');     // added
+const tabNavigation = document.getElementById('tabNavigation'); // already present
+
+// Add safe refs for optional elements (modal + old search overlay)
+const languageModal = document.getElementById('languageModal');
+const languageCloseBtn = document.getElementById('languageCloseBtn');
+const languageOptions = document.querySelectorAll('.language-option');
+const searchOverlay = document.getElementById('searchOverlay');
 
 // Additional buttons
 const rateAppBtn = document.getElementById('rateAppBtn');
 const ourAppsBtn = document.getElementById('ourAppsBtn');
 const contactUsBtn = document.getElementById('contactUsBtn');
 
-// Language DOM Elements
+// Sidebar Language Expand/Collapse
 const languageBtn = document.getElementById('languageBtn');
-const languageModal = document.getElementById('languageModal');
-const languageCloseBtn = document.getElementById('languageCloseBtn');
-const languageOptions = document.querySelectorAll('.language-option');
+const languageOptionsSidebar = document.getElementById('languageOptionsSidebar');
+const chevronIcon = languageBtn.querySelector('.chevron-icon');
+const languageOptionSidebarEls = languageOptionsSidebar.querySelectorAll('.language-option-sidebar');
+
+// Toggle expand/collapse
+languageBtn.addEventListener('click', () => {
+    const expanded = languageOptionsSidebar.style.display === 'block';
+    languageOptionsSidebar.style.display = expanded ? 'none' : 'block';
+    chevronIcon.classList.toggle('expanded', !expanded);
+    languageBtn.setAttribute('aria-expanded', String(!expanded)); // update aria
+});
+
+// Language selection
+languageOptionSidebarEls.forEach(option => {
+    option.addEventListener('click', (e) => {
+        e.stopPropagation(); // Prevent parent click
+        const langCode = option.dataset.lang;
+        localStorage.setItem('selectedLanguage', langCode);
+
+        // Highlight selected
+        languageOptionSidebarEls.forEach(opt => opt.classList.remove('selected'));
+        option.classList.add('selected');
+
+        // Show message
+        showLanguageChangeMessage(langCode);
+
+        // Collapse after selection
+        languageOptionsSidebar.style.display = 'none';
+        chevronIcon.classList.remove('expanded');
+        closeSidebar();
+    });
+});
+
+// On load, highlight selected language
+function updateSidebarLanguageSelection() {
+    const selectedLang = localStorage.getItem('selectedLanguage') || 'en';
+    languageOptionSidebarEls.forEach(opt => {
+        opt.classList.toggle('selected', opt.dataset.lang === selectedLang);
+    });
+}
+document.addEventListener('DOMContentLoaded', updateSidebarLanguageSelection);
 
 // State
 let currentContentId = null;
@@ -73,37 +133,56 @@ backBtn.addEventListener('click', showHomeScreen);
 bookmarksBackBtn.addEventListener('click', showHomeScreen);
 aboutAppBackBtn.addEventListener('click', showHomeScreen); // Add this
 bookmarkIconBtn.addEventListener('click', toggleBookmark);
+contactUsBtn.addEventListener('click', () => {
+    showContactUs();
+    closeSidebar();
+});
+
+if (contactUsBackBtn) {
+    contactUsBackBtn.addEventListener('click', showHomeScreen);
+}
 
 // Language Event Listeners
-languageBtn.addEventListener('click', openLanguageModal);
-languageCloseBtn.addEventListener('click', closeLanguageModal);
-languageModal.addEventListener('click', (e) => {
-    if (e.target === languageModal) {
-        closeLanguageModal();
-    }
-});
-
-// Language option selection
-languageOptions.forEach(option => {
-    option.addEventListener('click', () => {
-        const selectedLang = option.dataset.lang;
-        selectLanguage(selectedLang);
-        closeLanguageModal();
-        closeSidebar();
+// Only wire modal handlers if modal exists (your UI uses sidebar list)
+if (languageModal) {
+    languageBtn.addEventListener('click', openLanguageModal);
+}
+if (languageCloseBtn) {
+    languageCloseBtn.addEventListener('click', closeLanguageModal);
+}
+if (languageModal) {
+    languageModal.addEventListener('click', (e) => {
+        if (e.target === languageModal) {
+            closeLanguageModal();
+        }
     });
-});
+}
+
+// Language option selection (modal version) - guard if options exist
+if (languageOptions && languageOptions.length) {
+    languageOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const selectedLang = option.dataset.lang;
+            selectLanguage(selectedLang);
+            if (languageModal) closeLanguageModal();
+            closeSidebar();
+        });
+    });
+}
 
 // Header search event listeners
 searchBtn.addEventListener('click', openHeaderSearch);
 searchCloseBtn.addEventListener('click', closeHeaderSearch);
 headerSearchInput.addEventListener('input', handleHeaderSearchInput);
 
-// Close search overlay when clicking outside
-searchOverlay.addEventListener('click', (e) => {
-    if (e.target === searchOverlay) {
-        closeSearch();
-    }
-});
+// Close search overlay when clicking outside (only if overlay exists)
+if (searchOverlay) {
+    searchOverlay.addEventListener('click', (e) => {
+        if (e.target === searchOverlay) {
+            closeSearch();
+        }
+    });
+}
 
 // Rate App button
 rateAppBtn.addEventListener('click', () => {
@@ -119,7 +198,7 @@ ourAppsBtn.addEventListener('click', () => {
 
 // Contact Us button
 contactUsBtn.addEventListener('click', () => {
-    window.open('mailto:your@email.com?subject=Hidayate%20Amaal%20App%20Feedback', '_blank');
+    showContactUs();
     closeSidebar();
 });
 
@@ -127,11 +206,19 @@ contactUsBtn.addEventListener('click', () => {
 function openSidebar() {
     sidebar.classList.add('open');
     overlay.classList.add('active');
+    lockScroll();
+    disableBackgroundInteractions();
+    collapseLanguageDropdown(); // ensure language starts closed every time
 }
 
 function closeSidebar() {
     sidebar.classList.remove('open');
     overlay.classList.remove('active');
+    unlockScroll();
+    enableBackgroundInteractions();
+
+    // Also collapse any open language section
+    collapseLanguageDropdown();
 }
 
 function toggleTheme() {
@@ -163,12 +250,9 @@ function shareApp() {
 
 function showAboutApp() {
     closeHeaderSearch();
-    
-    homeScreen.style.display = 'none';
-    contentScreen.style.display = 'none';
-    bookmarksScreen.style.display = 'none';
+    hideAllScreens();
     aboutAppScreen.style.display = 'block';
-    aboutBookScreen.style.display = 'none';
+    setTabsVisible(false); // hide tabs on non-home
     closeSidebar();
     window.scrollTo(0, 0);
 }
@@ -192,7 +276,6 @@ function showContent(id) {
     const content = contentData[id];
     if (!content) return;
 
-    // Close search when opening content
     closeHeaderSearch();
 
     // Find serial number from indexData
@@ -205,26 +288,20 @@ function showContent(id) {
         ${content.content}
     `;
 
-    homeScreen.style.display = 'none';
-    bookmarksScreen.style.display = 'none';
-    aboutAppScreen.style.display = 'none'; // Add this
-    aboutBookScreen.style.display = 'none'; // Add this
+    hideAllScreens();
     contentScreen.style.display = 'block';
     bookmarkIconBtn.style.display = 'block';
-    
     updateBookmarkIcon();
+    setTabsVisible(false); // hide tabs on non-home
     window.scrollTo(0, 0);
 }
 
 function showHomeScreen() {
-    homeScreen.style.display = 'block';
-    contentScreen.style.display = 'none';
-    bookmarksScreen.style.display = 'none';
-    aboutAppScreen.style.display = 'none'; // Add this
-    aboutBookScreen.style.display = 'none'; // Add this
+    hideAllScreens();
     currentContentId = null;
-    
-    // If search is active, show search placeholder, otherwise show normal view
+
+    homeScreen.style.display = 'block';
+
     if (isSearchActive) {
         if (headerSearchInput.value.trim()) {
             performLiveHeaderSearch(headerSearchInput.value.trim());
@@ -234,13 +311,14 @@ function showHomeScreen() {
     } else {
         restoreNormalView();
     }
-    
+
+    setTabsVisible(true); // show tabs on home
     window.scrollTo(0, 0);
 }
 
 function showBookmarks() {
     closeHeaderSearch();
-    
+
     if (bookmarks.length === 0) {
         bookmarksInlineList.innerHTML = '<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">No bookmarks added yet.</p>';
     } else {
@@ -263,11 +341,9 @@ function showBookmarks() {
         });
     }
 
-    homeScreen.style.display = 'none';
-    contentScreen.style.display = 'none';
+    hideAllScreens();
     bookmarksScreen.style.display = 'block';
-    aboutAppScreen.style.display = 'none'; // Add this
-    aboutBookScreen.style.display = 'none'; // Add this
+    setTabsVisible(false); // hide tabs on non-home
     closeSidebar();
 }
 
@@ -417,7 +493,7 @@ function initializeApp() {
     }
 
     // Initialize language selection
-    updateLanguageSelection();
+    updateSidebarLanguageSelection();
 
     // Populate index
     populateIndex();
@@ -476,15 +552,14 @@ function searchIndex(query) {
 
 // Header Search Functions
 function openHeaderSearch() {
+    if (sidebar.classList.contains('open')) return; // block when sidebar open
     isSearchActive = true;
     header.classList.add('search-mode');
-    document.body.classList.add('search-mode'); // Add this line
+    document.body.classList.add('search-mode');
     searchInputContainer.classList.add('active');
     searchBtn.style.display = 'none';
     searchCloseBtn.style.display = 'flex';
     headerSearchInput.focus();
-    
-    // Only show search if we're on home screen
     if (homeScreen.style.display !== 'none') {
         showSearchPlaceholder();
     }
@@ -506,18 +581,15 @@ function closeSearch() {
 }
 
 function handleHeaderSearchInput(e) {
+    if (sidebar.classList.contains('open')) return; // block when sidebar open
     const query = e.target.value.trim();
-    
-    // Only search if we're on home screen
     if (homeScreen.style.display === 'none') {
         return;
     }
-    
     if (!query) {
         restoreNormalView();
         return;
     }
-    
     performLiveHeaderSearch(query);
 }
 
@@ -588,14 +660,11 @@ function highlightSearchTerm(text, query) {
 
 // Update showHomeScreen to handle search
 function showHomeScreen() {
-    homeScreen.style.display = 'block';
-    contentScreen.style.display = 'none';
-    bookmarksScreen.style.display = 'none';
-    aboutAppScreen.style.display = 'none'; // Add this
-    aboutBookScreen.style.display = 'none'; // Add this
+    hideAllScreens();
     currentContentId = null;
-    
-    // If search is active, show search placeholder, otherwise show normal view
+
+    homeScreen.style.display = 'block';
+
     if (isSearchActive) {
         if (headerSearchInput.value.trim()) {
             performLiveHeaderSearch(headerSearchInput.value.trim());
@@ -605,7 +674,8 @@ function showHomeScreen() {
     } else {
         restoreNormalView();
     }
-    
+
+    setTabsVisible(true); // show tabs on home
     window.scrollTo(0, 0);
 }
 
@@ -613,6 +683,65 @@ function showHomeScreen() {
 function showBookmarksFromSidebar() {
     showBookmarks();
     closeSidebar();
+}
+
+// Contact Us functions
+function showContactUs() {
+    closeHeaderSearch();
+    hideAllScreens();
+    contactUsScreen.style.display = 'block';
+    setTabsVisible(false); // hide tabs on non-home
+    window.scrollTo(0, 0);
+    if (contactSuccess) contactSuccess.style.display = 'none';
+    if (contactForm) contactForm.reset();
+}
+
+// Handle contact form submit
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // You can send data to your backend here, or just show success
+        contactSuccess.style.display = 'block';
+        contactForm.reset();
+    });
+}
+
+// Auto-resize feedback textarea vertically (no horizontal growth)
+const feedbackTextarea = document.getElementById('contactMessage');
+
+function autosizeTextarea(el) {
+    if (!el) return;
+    const maxPx = Math.floor(window.innerHeight * 0.5); // cap at 50% of viewport height
+    el.style.height = 'auto';
+    el.style.overflowY = 'hidden';
+    const h = el.scrollHeight;
+    if (h > maxPx) {
+        el.style.height = `${maxPx}px`;
+        el.style.overflowY = 'auto'; // scroll vertically after cap
+    } else {
+        el.style.height = `${h}px`;
+    }
+}
+
+// Wire up when present
+if (feedbackTextarea) {
+    const onChange = () => autosizeTextarea(feedbackTextarea);
+    feedbackTextarea.addEventListener('input', onChange);
+    feedbackTextarea.addEventListener('change', onChange);
+    window.addEventListener('resize', onChange);
+    // Initialize
+    requestAnimationFrame(onChange);
+}
+
+// If the form resets, also reset the textarea height
+if (contactForm) {
+    contactForm.addEventListener('reset', () => {
+        if (feedbackTextarea) {
+            feedbackTextarea.style.height = '';
+            feedbackTextarea.style.overflowY = 'hidden';
+            requestAnimationFrame(() => autosizeTextarea(feedbackTextarea));
+        }
+    });
 }
 
 // Keyboard navigation
@@ -627,10 +756,11 @@ document.addEventListener('keydown', function(event) {
             showHomeScreen();
         }
     }
-    
-    // Ctrl/Cmd + K to open search
+
+    // Ctrl/Cmd + K to open search (disabled when sidebar open)
     if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
         event.preventDefault();
+        if (sidebar.classList.contains('open')) return; // block when sidebar open
         if (homeScreen.style.display !== 'none') {
             openHeaderSearch();
         }
@@ -795,3 +925,77 @@ function renderLanguageOptions() {
     });
     updateLanguageSelection();
 }
+
+// Interactivity lock helpers (background)
+function disableBackgroundInteractions() {
+    document.body.classList.add('sidebar-open');
+    if (header) header.setAttribute('inert', '');
+    if (mainContent) mainContent.setAttribute('inert', '');
+    if (tabNavigation) tabNavigation.setAttribute('inert', '');
+}
+
+function enableBackgroundInteractions() {
+    document.body.classList.remove('sidebar-open');
+    if (header) header.removeAttribute('inert');
+    if (mainContent) mainContent.removeAttribute('inert');
+    if (tabNavigation) tabNavigation.removeAttribute('inert');
+}
+
+// Collapse language dropdown
+function collapseLanguageDropdown() {
+    // Hide language options list and reset chevron + aria
+    if (typeof languageOptionsSidebar !== 'undefined' && languageOptionsSidebar) {
+        languageOptionsSidebar.style.display = 'none';
+    }
+    if (typeof chevronIcon !== 'undefined' && chevronIcon) {
+        chevronIcon.classList.remove('expanded');
+    }
+    if (typeof languageBtn !== 'undefined' && languageBtn) {
+        languageBtn.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Scroll lock helpers
+let __scrollY = 0;
+function lockScroll() {
+    __scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    document.documentElement.classList.add('no-scroll');
+    document.body.classList.add('no-scroll');
+
+    // prevent body from scrolling while preserving position
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${__scrollY}px`;
+    document.body.style.width = '100%';
+}
+
+function unlockScroll() {
+    document.documentElement.classList.remove('no-scroll');
+    document.body.classList.remove('no-scroll');
+
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+
+    window.scrollTo(0, __scrollY);
+}
+
+// Centralized screen visibility helper
+function hideAllScreens() {
+    if (homeScreen) homeScreen.style.display = 'none';
+    if (contentScreen) contentScreen.style.display = 'none';
+    if (bookmarksScreen) bookmarksScreen.style.display = 'none';
+    if (aboutAppScreen) aboutAppScreen.style.display = 'none';
+    if (aboutBookScreen) aboutBookScreen.style.display = 'none';
+    if (contactUsScreen) contactUsScreen.style.display = 'none';
+}
+
+// Helper: control tab visibility
+function setTabsVisible(isVisible) {
+    if (!tabNavigation) return;
+    tabNavigation.style.display = isVisible ? 'flex' : 'none';
+}
+
+// After initializeApp on first load, ensure tabs visible on home
+document.addEventListener('DOMContentLoaded', () => {
+    setTabsVisible(true);
+});

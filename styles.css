@@ -38,6 +38,19 @@ body {
     transition: all 0.3s ease;
 }
 
+/* Disable zoom (pinch, double-tap) on mobile */
+html, body {
+    touch-action: manipulation;
+}
+
+/* Disable text selection globally */
+body, html, * {
+    user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    -moz-user-select: none;
+}
+
 /* Header */
 .header {
     position: fixed;
@@ -172,15 +185,51 @@ body {
     top: 0;
     left: -60vw; /* Changed from -300px to use viewport width */
     width: 60vw; /* Changed from 300px to 60% of viewport width */
-    height: 100vh;
+    height: 100vh; /* fallback */
     background-color: var(--surface-color);
     z-index: 1001;
     transition: transform 0.3s ease;
     box-shadow: var(--shadow);
+    display: flex;
+    flex-direction: column;
+}
+
+@supports (height: 100dvh) {
+    .sidebar { height: 100dvh; }
 }
 
 .sidebar.open {
     transform: translateX(60vw); /* Changed from translateX(300px) to match width */
+}
+
+/* Sidebar: fixed header + scrollable content */
+.sidebar-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: inherit; /* same bg as sidebar */
+  border-bottom: 1px solid var(--divider, rgba(0,0,0,0.08));
+}
+
+.sidebar-content {
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    padding: 1rem 0;
+    /* Extra bottom room for safe area and to reveal last items */
+    padding-bottom: calc(1rem + env(safe-area-inset-bottom, 0px) + 16px);
+}
+
+/* Make header lighter on very small phones so more space remains */
+@media (max-width: 480px) {
+    .sidebar-logo {
+        width: 110px;
+        height: 110px;
+    }
+    .sidebar-header {
+        padding-bottom: 0.5rem;
+    }
 }
 
 .sidebar-header {
@@ -996,63 +1045,16 @@ html {
 }
 
 .language-flag {
-    font-size: 1.8rem;
-    margin-right: 1rem;
-    min-width: 32px;
-    text-align: center;
+    font-size: 1.3rem;
 }
 
-.language-info {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 0.2rem;
+.chevron-icon.expanded {
+    transform: rotate(180deg);
 }
 
-.language-name {
-    font-weight: 600;
-    color: var(--text-primary);
-    font-size: 1rem;
-}
-
-.language-native {
-    font-size: 0.9rem;
-    color: var(--text-secondary);
-    font-style: italic;
-}
-
-.language-check {
-    color: var(--primary-color);
-    font-size: 1.1rem;
-    opacity: 0;
-    transform: scale(0.5);
-    transition: all 0.3s ease;
-}
-
-.language-option.selected .language-check {
-    opacity: 1;
-    transform: scale(1);
-}
-
-/* Language option animation */
-.language-option {
-    animation: slideInLeft 0.3s ease forwards;
-}
-
-.language-option:nth-child(1) { animation-delay: 0.1s; }
-.language-option:nth-child(2) { animation-delay: 0.2s; }
-.language-option:nth-child(3) { animation-delay: 0.3s; }
-.language-option:nth-child(4) { animation-delay: 0.4s; }
-
-@keyframes slideInLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0);
-    }
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
 }
 
 /* Responsive design for language modal */
@@ -1146,4 +1148,137 @@ html {
 /* Hide tab navigation during search */
 .search-mode .tab-navigation {
     display: none;
+}
+
+.language-options-sidebar {
+    background: var(--surface-color);
+    padding-left: 48px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--border-color);
+    animation: fadeIn 0.3s;
+}
+
+.language-option-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 8px 0;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.language-option-sidebar:hover {
+    background: var(--accent-color);
+    color: #fff;
+    border-radius: 6px;
+}
+
+.language-option-sidebar.selected {
+    font-weight: bold;
+    color: var(--primary-color);
+}
+
+.language-flag {
+    font-size: 1.3rem;
+}
+
+.chevron-icon.expanded {
+    transform: rotate(180deg);
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px);}
+    to { opacity: 1; transform: translateY(0);}
+}
+
+/* Lock background scroll when sidebar is open */
+html.no-scroll,
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100%;
+}
+
+/* Disable interaction with background when sidebar is open */
+body.sidebar-open .header,
+body.sidebar-open .main-content,
+body.sidebar-open .tab-navigation {
+    pointer-events: none;
+}
+
+/* Contact Us Form Styles */
+#contactForm {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    background: var(--card-bg, #fff);
+    border-radius: 12px;
+    padding: 1.5rem 1rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+}
+
+#contactForm label {
+    font-weight: 500;
+    margin-bottom: 0.25rem;
+    color: var(--text-secondary);
+}
+
+#contactForm input,
+#contactForm textarea {
+    border: 1px solid var(--divider, #e0e0e0);
+    border-radius: 6px;
+    font-size: 1rem;
+    background: var(--input-bg, #fafafa);
+    color: var(--text-primary);
+    margin-bottom: 0.5rem;
+    padding: 0.5rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+#contactForm input:focus,
+#contactForm textarea:focus {
+    border-color: var(--primary-color, #007bff);
+}
+
+#contactForm button[type="submit"] {
+    display: block;
+    margin: 1rem auto 0 auto;
+    background: var(--primary-color, #007bff);
+    color: #fff;
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    transition: background 0.2s;
+}
+
+#contactForm button[type="submit"]:hover {
+    background: var(--primary-dark, #0056b3);
+}
+
+/* Success message */
+#contactSuccess {
+    color: var(--accent-color, #28a745);
+    margin-top: 1rem;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.1rem;
+}
+
+/* Contact form textarea: no manual resize, auto-wrap, no horizontal growth */
+#contactMessage {
+  width: 100%;
+  max-width: 100%;
+  min-height: 120px;
+  box-sizing: border-box;
+
+  resize: none;                /* user cannot resize */
+  overflow-x: hidden;          /* prevent horizontal scroll */
+  overflow-y: hidden;          /* JS will toggle to auto when needed */
+
+  white-space: pre-wrap;       /* keep line breaks, wrap long lines */
+  word-break: break-word;      /* break long words if needed */
 }
