@@ -1282,3 +1282,21 @@ body.sidebar-open .tab-navigation {
   white-space: pre-wrap;       /* keep line breaks, wrap long lines */
   word-break: break-word;      /* break long words if needed */
 }
+
+
+.language-logo {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--accent-color);
+    color: #fff;
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-right: 10px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    letter-spacing: 1px;
+    user-select: none;
+}

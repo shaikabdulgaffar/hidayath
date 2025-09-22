@@ -1,9 +1,7 @@
 function showHomeScreen() {
     hideAllScreens();
     currentContentId = null;
-
     homeScreen.style.display = 'block';
-
     if (isSearchActive) {
         if (headerSearchInput.value.trim()) {
             performLiveHeaderSearch(headerSearchInput.value.trim());
@@ -13,8 +11,7 @@ function showHomeScreen() {
     } else {
         restoreNormalView();
     }
-
-    setTabsVisible(true); // show tabs on home
+    setTabsVisible(true);
     setSearchVisible(true); // show search on Home
     window.scrollTo(0, 0);
 }
