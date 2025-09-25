@@ -47,6 +47,8 @@ const contactUsScreen = document.getElementById('contactUsScreen');
 const contactUsBackBtn = document.getElementById('contactUsBackBtn');
 const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
+const prevContentBtn = document.getElementById('prevContentBtn');
+const nextContentBtn = document.getElementById('nextContentBtn');
 
 // Header search elements
 const searchBtn = document.getElementById('searchBtn');
@@ -69,6 +71,13 @@ const searchOverlay = document.getElementById('searchOverlay');
 const rateAppBtn = document.getElementById('rateAppBtn');
 const ourAppsBtn = document.getElementById('ourAppsBtn');
 const contactUsBtn = document.getElementById('contactUsBtn');
+const homeBtn = document.getElementById('homeBtn');
+
+// Default language (first run) -> Roman Urdu
+const SELECTED_LANGUAGE_KEY = 'selectedLanguage';
+if (!localStorage.getItem(SELECTED_LANGUAGE_KEY)) {
+    localStorage.setItem(SELECTED_LANGUAGE_KEY, 'roman_ur');
+}
 
 // Sidebar Language Expand/Collapse
 const languageBtn = document.getElementById('languageBtn');
@@ -84,32 +93,38 @@ languageBtn.addEventListener('click', () => {
     languageBtn.setAttribute('aria-expanded', String(!expanded)); // update aria
 });
 
-// Language selection
+// Language selection (sidebar)
 languageOptionSidebarEls.forEach(option => {
-    option.addEventListener('click', (e) => {
-        e.stopPropagation(); // Prevent parent click
-        const langCode = option.dataset.lang;
-        localStorage.setItem('selectedLanguage', langCode);
+    option.addEventListener('click', () => {
+        const lang = option.dataset.lang;
+        if (!lang) return;
 
-        // Highlight selected
-        languageOptionSidebarEls.forEach(opt => opt.classList.remove('selected'));
-        option.classList.add('selected');
+        // Persist selection
+        localStorage.setItem(SELECTED_LANGUAGE_KEY, lang);
 
-        // Show message
-        showLanguageChangeMessage(langCode);
+        // Update tick marks
+        updateSidebarLanguageSelection();
 
-        // Collapse after selection
-        languageOptionsSidebar.style.display = 'none';
-        chevronIcon.classList.remove('expanded');
-        closeSidebar();
+        // Optional: refresh visible screen if your app depends on language
+        // If you already re-render elsewhere, you can remove these lines:
+        try {
+            if (contentScreen && contentScreen.style.display !== 'none' && typeof currentContentId === 'number') {
+                showContent(currentContentId);
+            } else {
+                showHomeScreen();
+            }
+        } catch (_) {}
     });
 });
 
-// On load, highlight selected language
+// On load, highlight selected language in sidebar
 function updateSidebarLanguageSelection() {
-    const selectedLang = localStorage.getItem('selectedLanguage') || 'en';
-    languageOptionSidebarEls.forEach(opt => {
-        opt.classList.toggle('selected', opt.dataset.lang === selectedLang);
+    const selected = localStorage.getItem(SELECTED_LANGUAGE_KEY) || 'roman_ur';
+    document.querySelectorAll('.language-option-sidebar').forEach(el => {
+        const isSelected = el.dataset.lang === selected;
+        const tick = el.querySelector('.language-tick');
+        if (tick) tick.style.display = isSelected ? 'inline-flex' : 'none';
+        el.classList.toggle('selected', isSelected);
     });
 }
 document.addEventListener('DOMContentLoaded', updateSidebarLanguageSelection);
@@ -120,21 +135,57 @@ let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
 let isSearchActive = false;
 
 // Event Listeners
-hamburgerBtn.addEventListener('click', openSidebar);
-closeBtn.addEventListener('click', closeSidebar);
-overlay.addEventListener('click', closeSidebar);
-themeToggle.addEventListener('change', toggleTheme);
-shareBtn.addEventListener('click', shareApp);
-aboutAppBtn.addEventListener('click', showAboutApp); // Update this
-bookmarkBtn.addEventListener('click', showBookmarksFromSidebar);
-backBtn.addEventListener('click', showHomeScreen);
-bookmarksBackBtn.addEventListener('click', showHomeScreen);
-aboutAppBackBtn.addEventListener('click', showHomeScreen); // Add this
-bookmarkIconBtn.addEventListener('click', toggleBookmark);
-contactUsBtn.addEventListener('click', () => {
-    showContactUs();
-    closeSidebar();
-});
+if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', openSidebar);
+}
+if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
+}
+if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+}
+if (themeToggle) {
+    themeToggle.addEventListener('change', toggleTheme);
+}
+if (shareBtn) {
+    shareBtn.addEventListener('click', shareApp);
+}
+if (aboutAppBtn) {
+    aboutAppBtn.addEventListener('click', showAboutApp); // Update this
+}
+if (bookmarkBtn) {
+    bookmarkBtn.addEventListener('click', showBookmarksFromSidebar);
+}
+if (backBtn) {
+    backBtn.addEventListener('click', showHomeScreen);
+}
+if (bookmarksBackBtn) {
+    bookmarksBackBtn.addEventListener('click', showHomeScreen);
+}
+if (aboutAppBackBtn) {
+    aboutAppBackBtn.addEventListener('click', showHomeScreen); // Add this
+}
+if (bookmarkIconBtn) {
+    bookmarkIconBtn.addEventListener('click', toggleBookmark);
+}
+if (prevContentBtn) {
+    prevContentBtn.addEventListener('click', goToPrevContent);
+}
+if (nextContentBtn) {
+    nextContentBtn.addEventListener('click', goToNextContent);
+}
+if (contactUsBtn) {
+    contactUsBtn.addEventListener('click', () => {
+        showContactUs();
+        closeSidebar();
+    });
+}
+if (homeBtn) {
+    homeBtn.addEventListener('click', () => {
+        showHomeScreen();
+        closeSidebar();
+    });
+}
 
 if (contactUsBackBtn) {
     contactUsBackBtn.addEventListener('click', showHomeScreen);
@@ -206,7 +257,7 @@ function openSidebar() {
     overlay.classList.add('active');
     lockScroll();
     disableBackgroundInteractions();
-    collapseLanguageDropdown(); // ensure language starts closed every time
+    collapseLanguageDropdown();
 }
 
 function closeSidebar() {
@@ -214,8 +265,6 @@ function closeSidebar() {
     overlay.classList.remove('active');
     unlockScroll();
     enableBackgroundInteractions();
-
-    // Also collapse any open language section
     collapseLanguageDropdown();
 }
 
@@ -224,7 +273,7 @@ function toggleTheme() {
         document.body.setAttribute('data-theme', 'dark');
         localStorage.setItem('theme', 'dark');
     } else {
-        document.body.removeAttribute('data-theme');
+        document.body.removeAttribute('data-theme');  
         localStorage.setItem('theme', 'light');
     }
 }
@@ -266,6 +315,8 @@ function closeHeaderSearch() {
     headerSearchInput.value = '';
     if (homeScreen.style.display !== 'none') {
         restoreNormalView();
+        // Show tab bar again on Home
+        setTabsVisible(true);
     }
 }
 
@@ -288,6 +339,7 @@ function showContent(id) {
     contentScreen.style.display = 'block';
     bookmarkIconBtn.style.display = 'block';
     updateBookmarkIcon();
+    updatePrevNextButtons();
     setTabsVisible(false);
     setSearchVisible(false); // hide search off-Home
     window.scrollTo(0, 0);
@@ -296,7 +348,9 @@ function showContent(id) {
 function showHomeScreen() {
     hideAllScreens();
     currentContentId = null;
+
     homeScreen.style.display = 'block';
+
     if (isSearchActive) {
         if (headerSearchInput.value.trim()) {
             performLiveHeaderSearch(headerSearchInput.value.trim());
@@ -306,7 +360,8 @@ function showHomeScreen() {
     } else {
         restoreNormalView();
     }
-    setTabsVisible(true);
+
+    setTabsVisible(true); // show tabs on home
     setSearchVisible(true); // show search on Home
     window.scrollTo(0, 0);
 }
@@ -557,6 +612,10 @@ function openHeaderSearch() {
     searchBtn.style.display = 'none';
     searchCloseBtn.style.display = 'flex';
     headerSearchInput.focus();
+
+    // Hide tab bar while searching (override any previous inline display)
+    setTabsVisible(false);
+
     if (homeScreen.style.display !== 'none') {
         showSearchPlaceholder();
     }
@@ -572,6 +631,8 @@ function closeSearch() {
     headerSearchInput.value = '';
     if (homeScreen.style.display !== 'none') {
         restoreNormalView();
+        // Show tab bar again on Home
+        setTabsVisible(true);
     }
 }
 
@@ -990,6 +1051,7 @@ function hideAllScreens() {
 function setTabsVisible(isVisible) {
     if (!tabNavigation) return;
     tabNavigation.style.display = isVisible ? 'flex' : 'none';
+    document.body.classList.toggle('tabs-hidden', !isVisible); // remove tab space when hidden
 }
 
 // NEW: control search icon visibility (only on Home)
@@ -1001,6 +1063,34 @@ function setSearchVisible(isVisible) {
     } else {
         // only show when search is not active
         if (!isSearchActive) searchBtn.style.display = 'flex';
+    }
+}
+
+// New: enable/disable and navigate prev/next
+function updatePrevNextButtons() {
+    if (!prevContentBtn || !nextContentBtn) return;
+
+    const idx = indexData.findIndex(item => item.id === currentContentId);
+    const isFirst = idx <= 0;
+    const isLast = idx === indexData.length - 1 || idx === -1;
+
+    prevContentBtn.disabled = isFirst;
+    nextContentBtn.disabled = isLast;
+}
+
+function goToPrevContent() {
+    const idx = indexData.findIndex(item => item.id === currentContentId);
+    if (idx > 0) {
+        const prevId = indexData[idx - 1].id;
+        showContent(prevId);
+    }
+}
+
+function goToNextContent() {
+    const idx = indexData.findIndex(item => item.id === currentContentId);
+    if (idx !== -1 && idx < indexData.length - 1) {
+        const nextId = indexData[idx + 1].id;
+        showContent(nextId);
     }
 }
 

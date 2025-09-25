@@ -211,6 +211,21 @@ body, html, * {
   border-bottom: 1px solid var(--divider, rgba(0,0,0,0.08));
 }
 
+.sidebar-header {
+    display: flex;
+    flex-direction: column;
+    gap: 0px;
+}
+
+/* Hide sidebar menu title and close (X) button */
+.sidebar-top-section {
+    display: none !important;
+}
+
+.close-btn {
+    display: none !important;
+}
+
 .sidebar-content {
     flex: 1 1 auto;
     min-height: 0;
@@ -507,6 +522,12 @@ input:checked + .slider:before {
     gap: 1rem;
 }
 
+.content-actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
 .back-btn {
     background-color: var(--primary-color);
     color: white;
@@ -563,6 +584,16 @@ input:checked + .slider:before {
 .bookmark-icon-btn.bookmarked:hover {
     background: var(--secondary-color);
     border-color: var(--secondary-color);
+}
+
+.bookmark-icon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+    pointer-events: none;
+    transform: none;
+    background: var(--surface-color);
+    color: var(--text-secondary);
+    border-color: var(--border-color);
 }
 
 .content-display {
@@ -1178,17 +1209,32 @@ html {
     color: var(--primary-color);
 }
 
-.language-flag {
-    font-size: 1.3rem;
+/* Sidebar language options and active tick */
+.language-options-sidebar .language-option-sidebar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 16px;
+    cursor: pointer;
+    border-radius: 8px;
+}
+.language-options-sidebar .language-option-sidebar:hover {
+    background: rgba(0,0,0,0.04);
+}
+[data-theme="dark"] .language-options-sidebar .language-option-sidebar:hover {
+    background: rgba(255,255,255,0.06);
+}
+.language-options-sidebar .language-option-sidebar .language-tick {
+    margin-left: auto;
+    color: var(--accent-color);
 }
 
-.chevron-icon.expanded {
-    transform: rotate(180deg);
+/* Optional highlight for the selected language row */
+.language-options-sidebar .language-option-sidebar.selected {
+    background: rgba(0,128,0,0.08);
 }
-
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-10px);}
-    to { opacity: 1; transform: translateY(0);}
+[data-theme="dark"] .language-options-sidebar .language-option-sidebar.selected {
+    background: rgba(0,128,0,0.16);
 }
 
 /* Lock background scroll when sidebar is open */
@@ -1299,4 +1345,9 @@ body.sidebar-open .tab-navigation {
     box-shadow: 0 2px 6px rgba(0,0,0,0.08);
     letter-spacing: 1px;
     user-select: none;
+}
+
+body.tabs-hidden .main-content {
+    margin-top: var(--header-height);
+    min-height: calc(100vh - var(--header-height));
 }

@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Hidayate Amaal</title>
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="he">
+    <link rel="stylesheet" href="hello.css">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
@@ -42,17 +42,16 @@
     <!-- Sidebar -->
     <div class="sidebar" id="sidebar">
         <div class="sidebar-header">
-            <div class="sidebar-top-section">
-                <h2>Menu</h2>
-                <button class="close-btn" id="closeBtn">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
             <div class="sidebar-logo-section">
                 <img src="attachments/logo.png" alt="Hidayate Amaal Logo" class="sidebar-logo">
             </div>
         </div>
         <div class="sidebar-content">
+            <!-- Add Home Button at the top of menu items -->
+            <div class="menu-item" id="homeBtn">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
             <div class="menu-item" id="darkModeToggle">
                 <i class="fas fa-moon"></i>
                 <span>Dark Mode</span>
@@ -71,12 +70,12 @@
             <div class="language-options-sidebar" id="languageOptionsSidebar" style="display: none;">
                 <div class="language-option-sidebar" data-lang="en">
                     <span class="language-logo">Ab</span>
-                    <span class="language-name">English - English</span>
+                    <span class="language-name">English</span>
                     <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
                 </div>
                 <div class="language-option-sidebar" data-lang="ur">
                     <span class="language-logo">اُر</span>
-                    <span class="language-name">Urdu - اُردُو</span>
+                    <span class="language-name">اُردُو</span>
                     <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
                 </div>
                 <div class="language-option-sidebar" data-lang="roman_ur">
@@ -86,22 +85,22 @@
                 </div>
                 <div class="language-option-sidebar" data-lang="hi">
                     <span class="language-logo">हि</span>
-                    <span class="language-name">Hindi - हिन्दी</span>
+                    <span class="language-name">हिन्दी</span>
                     <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
                 </div>
                 <div class="language-option-sidebar" data-lang="te">
                     <span class="language-logo">తె</span>
-                    <span class="language-name">Telugu - తెలుగు</span>
+                    <span class="language-name">తెలుగు</span>
                     <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
                 </div>
                 <div class="language-option-sidebar" data-lang="ta">
                     <span class="language-logo">த</span>
-                    <span class="language-name">Tamil - தமிழ்</span>
+                    <span class="language-name">தமிழ்</span>
                     <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
                 </div>
                 <div class="language-option-sidebar" data-lang="kn">
                     <span class="language-logo">ಕ</span>
-                    <span class="language-name">Kannada - ಕನ್ನಡ</span>
+                    <span class="language-name">ಕನ್ನಡ</span>
                     <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
                 </div>
             </div>
@@ -160,9 +159,17 @@
                     <i class="fas fa-arrow-left"></i>
                     Back
                 </button>
-                <button class="bookmark-icon-btn" id="bookmarkIconBtn" title="Bookmark this content" style="display: none;">
-                    <i class="fas fa-bookmark"></i>
-                </button>
+                <div class="content-actions">
+                    <button class="bookmark-icon-btn" id="bookmarkIconBtn" title="Bookmark this content" style="display: none;">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                    <button class="bookmark-icon-btn" id="prevContentBtn" title="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="bookmark-icon-btn" id="nextContentBtn" title="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
             </div>
             <div class="content-display" id="contentDisplay">
                 <!-- Content will be displayed here -->
@@ -278,6 +285,6 @@
         </div>
     </main>
 
-    <script src="main.js"></script><script src="roman_urdu.js"></script><script src="quran_dua.js"></script>
+    <script src="main.js"></script><script src="roman_urdu.js"></script><script src="quran_dua.js"></script><script src="main2.js"></script>
 </body>
 </html>
