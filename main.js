@@ -60,6 +60,13 @@ const contentsHeading = document.getElementById('contentsHeading');
 const header = document.querySelector('.header');
 const mainContent = document.getElementById('mainContent');     // added
 const tabNavigation = document.getElementById('tabNavigation'); // already present
+const hidayahTab = document.getElementById('hidayahTab');
+const quranTab = document.getElementById('quranTab');
+
+// Active dataset pointers
+let activeSection = 'hidayah';
+let currentIndexData = [];
+let currentContentData = {};
 
 // Add safe refs for optional elements (modal + old search overlay)
 const languageModal = document.getElementById('languageModal');
@@ -320,18 +327,34 @@ function closeHeaderSearch() {
     }
 }
 
+function setActiveSection(section) {
+    activeSection = section;
+    localStorage.setItem('activeSection', section);
+
+    if (hidayahTab && quranTab) {
+        hidayahTab.classList.toggle('active', section === 'hidayah');
+        quranTab.classList.toggle('active', section === 'quran');
+    }
+
+    if (section === 'quran' && typeof quranIndexData !== 'undefined' && typeof quranContentData !== 'undefined') {
+        currentIndexData = quranIndexData;
+        currentContentData = quranContentData;
+    } else {
+        currentIndexData = typeof indexData !== 'undefined' ? indexData : [];
+        currentContentData = typeof contentData !== 'undefined' ? contentData : {};
+    }
+
+    showHomeScreen();
+}
+
 function showContent(id) {
-    const content = contentData[id];
+    const content = currentContentData[id];
     if (!content) return;
     closeHeaderSearch();
 
-    // Find serial number from indexData
-    const serialIndex = indexData.findIndex(item => item.id === id);
-    const serialNumber = serialIndex !== -1 ? (serialIndex + 1) : '';
-
     currentContentId = id;
     contentDisplay.innerHTML = `
-        <h2>${serialNumber}) ${content.title}</h2>
+        <h2>${content.title}</h2>
         ${content.content}
     `;
 
@@ -410,7 +433,7 @@ function toggleBookmark() {
 }
 
 function addBookmark(id) {
-    const content = contentData[id];
+    const content = currentContentData[id];
     if (!content) return;
 
     const bookmark = {
@@ -546,8 +569,9 @@ function initializeApp() {
     // Initialize language selection
     updateSidebarLanguageSelection();
 
-    // Populate index
-    populateIndex();
+    // Initialize active section and datasets
+    const savedSection = localStorage.getItem('activeSection') || 'hidayah';
+    setActiveSection(savedSection);
 }
 
 // Start the app when DOM is loaded
@@ -556,7 +580,7 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 // Populate index on load
 function populateIndex() {
     indexItems.innerHTML = '';
-    indexData.forEach((item, idx) => {
+    currentIndexData.forEach((item, idx) => {
         const serialNumber = idx + 1;
         const indexItem = document.createElement('div');
         indexItem.className = 'index-item';
@@ -576,7 +600,7 @@ function searchIndex(query) {
         return;
     }
 
-    const filteredItems = indexData.filter(item =>
+    const filteredItems = currentIndexData.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase())
     );
 
@@ -588,7 +612,7 @@ function searchIndex(query) {
     }
 
     filteredItems.forEach(item => {
-        const serialIndex = indexData.findIndex(i => i.id === item.id);
+        const serialIndex = currentIndexData.findIndex(i => i.id === item.id);
         const serialNumber = serialIndex !== -1 ? (serialIndex + 1) : '';
         const indexItem = document.createElement('div');
         indexItem.className = 'index-item';
@@ -665,7 +689,7 @@ function restoreNormalView() {
 }
 
 function performLiveHeaderSearch(query) {
-    const filteredItems = indexData.filter(item =>
+    const filteredItems = currentIndexData.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase())
     );
     
@@ -688,7 +712,7 @@ function displayHeaderSearchResults(results, query) {
     indexItems.innerHTML = '';
     
     results.forEach(item => {
-        const serialIndex = indexData.findIndex(i => i.id === item.id);
+        const serialIndex = currentIndexData.findIndex(i => i.id === item.id);
         const serialNumber = serialIndex !== -1 ? (serialIndex + 1) : '';
         
         const indexItem = document.createElement('div');
@@ -1070,26 +1094,26 @@ function setSearchVisible(isVisible) {
 function updatePrevNextButtons() {
     if (!prevContentBtn || !nextContentBtn) return;
 
-    const idx = indexData.findIndex(item => item.id === currentContentId);
+    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
     const isFirst = idx <= 0;
-    const isLast = idx === indexData.length - 1 || idx === -1;
+    const isLast = idx === currentIndexData.length - 1 || idx === -1;
 
     prevContentBtn.disabled = isFirst;
     nextContentBtn.disabled = isLast;
 }
 
 function goToPrevContent() {
-    const idx = indexData.findIndex(item => item.id === currentContentId);
+    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
     if (idx > 0) {
-        const prevId = indexData[idx - 1].id;
+        const prevId = currentIndexData[idx - 1].id;
         showContent(prevId);
     }
 }
 
 function goToNextContent() {
-    const idx = indexData.findIndex(item => item.id === currentContentId);
-    if (idx !== -1 && idx < indexData.length - 1) {
-        const nextId = indexData[idx + 1].id;
+    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
+    if (idx !== -1 && idx < currentIndexData.length - 1) {
+        const nextId = currentIndexData[idx + 1].id;
         showContent(nextId);
     }
 }
@@ -1099,3 +1123,11 @@ document.addEventListener('DOMContentLoaded', () => {
     setTabsVisible(true);
     setSearchVisible(true);
 });
+
+// Event Listeners
+if (hidayahTab) {
+    hidayahTab.addEventListener('click', () => setActiveSection('hidayah'));
+}
+if (quranTab) {
+    quranTab.addEventListener('click', () => setActiveSection('quran'));
+}

@@ -608,7 +608,7 @@ input:checked + .slider:before {
 .content-display h2 {
     color: var(--primary-color);
     margin-bottom: 1.5rem;
-    font-size: 1.8rem;
+    font-size: 1.3rem;
     border-bottom: 2px solid var(--accent-color);
     padding-bottom: 0.5rem;
 }
@@ -1350,4 +1350,69 @@ body.sidebar-open .tab-navigation {
 body.tabs-hidden .main-content {
     margin-top: var(--header-height);
     min-height: calc(100vh - var(--header-height));
+}
+
+/* Quran ayah layout */
+.ayah-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
+}
+
+.ayah {
+    margin: 0 0 1rem 0;
+}
+
+.ayah-line {
+    display: flex;
+    align-items: baseline;
+    gap: 10px;
+}
+
+.ayah-arabic {
+    flex: 1;
+    text-align: right;
+    direction: rtl;
+    font-size: 1.15rem;
+    line-height: 1.9;
+}
+
+.ayah-number {
+    min-width: 26px;
+    height: 26px;
+    line-height: 26px;
+    padding: 0 8px;
+    border-radius: 999px;
+    background: var(--accent-color);
+    color: #fff;
+    font-weight: 700;
+    text-align: center;
+    flex-shrink: 0;
+}
+
+.ayah-translit {
+    margin-top: 4px;
+    color: var(--text-secondary);
+    font-style: italic;
+    text-align: left;        /* Changed from right to left */
+    padding-left: 36px;      /* Changed from padding-right to padding-left */
+    padding-right: 0;        /* Remove right padding */
+}
+
+.bismillah {
+    text-align: center;
+    font-size: 1.4em;           /* Increased font size for better visibility */
+    letter-spacing: 1px;
+    margin: 1rem 0;             /* Added margin for spacing */
+    direction: rtl;             /* Ensure RTL direction for Arabic */
+    font-family: 'Amiri', 'Scheherazade New', serif; /* Better Arabic font if available */
+    color: var(--primary-color); /* Use primary color for emphasis */
+    font-weight: 600;           /* Make it slightly bold */
+}
+
+@media (max-width: 480px) {
+    .ayah-arabic { font-size: 1.05rem; }
+    .ayah-number { min-width: 24px; height: 24px; line-height: 24px; padding: 0 6px; }
+    .ayah-translit { padding-left: 0px; padding-right: 0; }
+    .bismillah { font-size: 1.2em; margin: 0.75rem 0; } /* Responsive bismillah */
 }
