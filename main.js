@@ -1,0 +1,1612 @@
+function showHomeScreen() {
+    // Close search if it's active (safety check)
+    if (isSearchActive) {
+        closeHeaderSearch();
+    }
+
+    // If we are navigating back from a detail screen, push a 'home' entry only when coming from non-home
+    if (!__suppressHistory) {
+        const wasOtherScreen =
+            (contentScreen && contentScreen.style.display === 'block') ||
+            (bookmarksScreen && bookmarksScreen.style.display === 'block') ||
+            (aboutAppScreen && aboutAppScreen.style.display === 'block') ||
+            (aboutBookScreen && aboutBookScreen.style.display === 'block') ||
+            (contactUsScreen && contactUsScreen.style.display === 'block');
+        if (wasOtherScreen) {
+            try { history.pushState({ screen: 'home' }, '', '#home'); } catch {}
+        }
+    }
+
+    hideAllScreens();
+    currentContentId = null;
+
+    homeScreen.style.display = 'block';
+
+    // Since we already closed search above, just restore normal view
+    restoreNormalView();
+
+    setTabsVisible(true); // show tabs on home
+    setSearchVisible(true); // show search on Home
+    window.scrollTo(0, 0);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    initializeApp();
+});
+
+// DOM Elements
+const hamburgerBtn = document.getElementById('hamburgerBtn');
+const sidebar = document.getElementById('sidebar');
+const closeBtn = document.getElementById('closeBtn');
+const overlay = document.getElementById('overlay');
+const themeToggle = document.getElementById('themeToggle');
+const shareBtn = document.getElementById('shareBtn');
+const aboutAppBtn = document.getElementById('aboutAppBtn');
+const bookmarkBtn = document.getElementById('bookmarkBtn');
+const homeScreen = document.getElementById('homeScreen');
+const contentScreen = document.getElementById('contentScreen');
+const bookmarksScreen = document.getElementById('bookmarksScreen');
+const aboutAppScreen = document.getElementById('aboutAppScreen'); // Add this
+const aboutBookScreen = document.getElementById('aboutBookScreen'); // Add this
+const backBtn = document.getElementById('backBtn');
+const bookmarksBackBtn = document.getElementById('bookmarksBackBtn');
+const aboutAppBackBtn = document.getElementById('aboutAppBackBtn'); // Add this
+const contentDisplay = document.getElementById('contentDisplay');
+const indexItems = document.getElementById('indexItems');
+const bookmarkIconBtn = document.getElementById('bookmarkIconBtn');
+const bookmarksModal = document.getElementById('bookmarksModal');
+const bookmarksList = document.getElementById('bookmarksList');
+const bookmarksInlineList = document.getElementById('bookmarksInlineList');
+const contactUsScreen = document.getElementById('contactUsScreen');
+const contactUsBackBtn = document.getElementById('contactUsBackBtn');
+const contactForm = document.getElementById('contactForm');
+const contactSuccess = document.getElementById('contactSuccess');
+const prevContentBtn = document.getElementById('prevContentBtn');
+const nextContentBtn = document.getElementById('nextContentBtn');
+
+// Header search elements
+const searchBtn = document.getElementById('searchBtn');
+const searchCloseBtn = document.getElementById('searchCloseBtn');
+const appTitle = document.getElementById('appTitle');
+const searchInputContainer = document.getElementById('searchInputContainer');
+const headerSearchInput = document.getElementById('headerSearchInput');
+const contentsHeading = document.getElementById('contentsHeading');
+const header = document.querySelector('.header');
+const mainContent = document.getElementById('mainContent');     // added
+const tabNavigation = document.getElementById('tabNavigation'); // already present
+const hidayahTab = document.getElementById('hidayahTab');
+const quranTab = document.getElementById('quranTab');
+
+// Active dataset pointers
+let activeSection = 'hidayah';
+let currentIndexData = [];
+let currentContentData = {};
+
+// Add safe refs for optional elements (modal + old search overlay)
+const languageModal = document.getElementById('languageModal');
+const languageCloseBtn = document.getElementById('languageCloseBtn');
+const languageOptions = document.querySelectorAll('.language-option');
+const searchOverlay = document.getElementById('searchOverlay');
+
+// Additional buttons
+const rateAppBtn = document.getElementById('rateAppBtn');
+const ourAppsBtn = document.getElementById('ourAppsBtn');
+const contactUsBtn = document.getElementById('contactUsBtn');
+const homeBtn = document.getElementById('homeBtn');
+
+// Default language (first run) -> Roman Urdu
+const SELECTED_LANGUAGE_KEY = 'selectedLanguage';
+if (!localStorage.getItem(SELECTED_LANGUAGE_KEY)) {
+    localStorage.setItem(SELECTED_LANGUAGE_KEY, 'roman_ur');
+}
+
+// Sidebar Language Expand/Collapse
+const languageBtn = document.getElementById('languageBtn');
+const languageOptionsSidebar = document.getElementById('languageOptionsSidebar');
+const chevronIcon = languageBtn.querySelector('.chevron-icon');
+const languageOptionSidebarEls = languageOptionsSidebar.querySelectorAll('.language-option-sidebar');
+
+// Toggle expand/collapse
+languageBtn.addEventListener('click', () => {
+    const expanded = languageOptionsSidebar.style.display === 'block';
+    languageOptionsSidebar.style.display = expanded ? 'none' : 'block';
+    chevronIcon.classList.toggle('expanded', !expanded);
+    languageBtn.setAttribute('aria-expanded', String(!expanded)); // update aria
+});
+
+// Language selection (sidebar)
+languageOptionSidebarEls.forEach(option => {
+    option.addEventListener('click', () => {
+        const lang = option.dataset.lang;
+        if (!lang) return;
+
+        // Persist selection and visually update
+        localStorage.setItem(SELECTED_LANGUAGE_KEY, lang);
+        updateSidebarLanguageSelection();
+
+        // Reload to mount the correct language datasets cleanly
+        // (avoids const re-declaration conflicts across language packs)
+        window.location.reload();
+    });
+});
+
+// On load, highlight selected language in sidebar
+function updateSidebarLanguageSelection() {
+    const selected = localStorage.getItem(SELECTED_LANGUAGE_KEY) || 'roman_ur';
+    document.querySelectorAll('.language-option-sidebar').forEach(el => {
+        const isSelected = el.dataset.lang === selected;
+        const tick = el.querySelector('.language-tick');
+        if (tick) tick.style.display = isSelected ? 'inline-flex' : 'none';
+        el.classList.toggle('selected', isSelected);
+    });
+}
+document.addEventListener('DOMContentLoaded', updateSidebarLanguageSelection);
+
+// State
+let currentContentId = null;
+let bookmarks = JSON.parse(localStorage.getItem('bookmarks')) || [];
+let isSearchActive = false;
+
+// SPA history helpers
+let __suppressHistory = false;   // prevent pushState during popstate-driven nav
+let __historySetupDone = false;  // ensure router only sets up once
+
+// Event Listeners
+if (hamburgerBtn) {
+    hamburgerBtn.addEventListener('click', openSidebar);
+}
+if (closeBtn) {
+    closeBtn.addEventListener('click', closeSidebar);
+}
+if (overlay) {
+    overlay.addEventListener('click', closeSidebar);
+}
+if (themeToggle) {
+    themeToggle.addEventListener('change', toggleTheme);
+}
+if (shareBtn) {
+    shareBtn.addEventListener('click', shareApp);
+}
+if (aboutAppBtn) {
+    aboutAppBtn.addEventListener('click', showAboutApp); // Update this
+}
+if (bookmarkBtn) {
+    bookmarkBtn.addEventListener('click', showBookmarksFromSidebar);
+}
+if (backBtn) {
+    // history-aware back
+    backBtn.addEventListener('click', () => history.back());
+}
+if (bookmarksBackBtn) {
+    // history-aware back
+    bookmarksBackBtn.addEventListener('click', () => history.back());
+}
+if (aboutAppBackBtn) {
+    // history-aware back
+    aboutAppBackBtn.addEventListener('click', () => history.back());
+}
+if (bookmarkIconBtn) {
+    bookmarkIconBtn.addEventListener('click', toggleBookmark);
+}
+if (prevContentBtn) {
+    prevContentBtn.addEventListener('click', goToPrevContent);
+}
+if (nextContentBtn) {
+    nextContentBtn.addEventListener('click', goToNextContent);
+}
+if (contactUsBtn) {
+    contactUsBtn.addEventListener('click', () => {
+        showContactUs();
+        closeSidebar();
+    });
+}
+if (homeBtn) {
+    homeBtn.addEventListener('click', () => {
+        // Close search first if active
+        if (isSearchActive) {
+            closeHeaderSearch();
+        }
+        showHomeScreen();
+        closeSidebar();
+    });
+}
+
+if (contactUsBackBtn) {
+    // history-aware back
+    contactUsBackBtn.addEventListener('click', () => history.back());
+}
+
+// Language Event Listeners
+// Only wire modal handlers if modal exists (your UI uses sidebar list)
+if (languageModal) {
+    languageBtn.addEventListener('click', openLanguageModal);
+}
+if (languageCloseBtn) {
+    languageCloseBtn.addEventListener('click', closeLanguageModal);
+}
+if (languageModal) {
+    languageModal.addEventListener('click', (e) => {
+        if (e.target === languageModal) {
+            closeLanguageModal();
+        }
+    });
+}
+
+// Language option selection (modal version) - guard if options exist
+if (languageOptions && languageOptions.length) {
+    languageOptions.forEach(option => {
+        option.addEventListener('click', () => {
+            const selectedLang = option.dataset.lang;
+            selectLanguage(selectedLang);
+            if (languageModal) closeLanguageModal();
+            closeSidebar();
+        });
+    });
+}
+
+// Header search event listeners
+searchBtn.addEventListener('click', openHeaderSearch);
+searchCloseBtn.addEventListener('click', closeHeaderSearch);
+headerSearchInput.addEventListener('input', handleHeaderSearchInput);
+
+// Close search overlay when clicking outside (only if overlay exists)
+if (searchOverlay) {
+    searchOverlay.addEventListener('click', (e) => {
+        if (e.target === searchOverlay) {
+            closeSearch();
+        }
+    });
+}
+
+// Rate App button
+rateAppBtn.addEventListener('click', () => {
+    window.open('https://play.google.com/store/apps/details?id=com.yourapp.hidayateamaal', '_blank');
+    closeSidebar();
+});
+
+// Our Apps button
+ourAppsBtn.addEventListener('click', () => {
+    window.open('https://yourwebsite.com/apps', '_blank');
+    closeSidebar();
+});
+
+// Contact Us button
+contactUsBtn.addEventListener('click', () => {
+    showContactUs();
+    closeSidebar();
+});
+
+// Functions
+function openSidebar() {
+    sidebar.classList.add('open');
+    overlay.classList.add('active');
+    lockScroll();
+    disableBackgroundInteractions();
+    collapseLanguageDropdown();
+}
+
+function closeSidebar() {
+    sidebar.classList.remove('open');
+    overlay.classList.remove('active');
+    unlockScroll();
+    enableBackgroundInteractions();
+    collapseLanguageDropdown();
+}
+
+function toggleTheme() {
+    if (themeToggle.checked) {
+        document.body.setAttribute('data-theme', 'dark');
+        localStorage.setItem('theme', 'dark');
+    } else {
+        document.body.removeAttribute('data-theme');  
+        localStorage.setItem('theme', 'light');
+    }
+}
+
+function shareApp() {
+    if (navigator.share) {
+        navigator.share({
+            title: 'Hidayate Amaal',
+            text: 'Islamic guidance and teachings',
+            url: window.location.href
+        });
+    } else {
+        const url = window.location.href;
+        navigator.clipboard.writeText(url).then(() => {
+            alert(t('share_copied'));
+        });
+    }
+    closeSidebar();
+}
+
+function showAboutApp() {
+    // push history for About App
+    if (!__suppressHistory) {
+        try { history.pushState({ screen: 'aboutApp' }, '', '#about'); } catch {}
+    }
+
+    closeHeaderSearch();
+    hideAllScreens();
+    aboutAppScreen.style.display = 'block';
+    setTabsVisible(false);
+    setSearchVisible(false); // hide search off-Home
+    closeSidebar();
+    window.scrollTo(0, 0);
+}
+
+function closeHeaderSearch() {
+    // Don't use history.back() when closing search - just close it directly
+    isSearchActive = false;
+    header.classList.remove('search-mode');
+    document.body.classList.remove('search-mode');
+    searchInputContainer.classList.remove('active');
+    searchBtn.style.display = 'flex';
+    searchCloseBtn.style.display = 'none';
+    headerSearchInput.value = '';
+    
+    if (homeScreen.style.display !== 'none') {
+        restoreNormalView();
+        setTabsVisible(true);
+    }
+}
+
+function setActiveSection(section) {
+    activeSection = section;
+    localStorage.setItem('activeSection', section);
+
+    if (hidayahTab && quranTab) {
+        hidayahTab.classList.toggle('active', section === 'hidayah');
+        quranTab.classList.toggle('active', section === 'quran');
+    }
+
+    if (section === 'quran' && typeof quranIndexData !== 'undefined' && typeof quranContentData !== 'undefined') {
+        currentIndexData = quranIndexData;
+        currentContentData = quranContentData;
+    } else {
+        currentIndexData = typeof indexData !== 'undefined' ? indexData : [];
+        currentContentData = typeof contentData !== 'undefined' ? contentData : {};
+    }
+
+    showHomeScreen();
+}
+
+function showContent(id) {
+    // push history for Content
+    if (!__suppressHistory) {
+        try { history.pushState({ screen: 'content', id }, '', `#content-${id}`); } catch {}
+    }
+
+    const content = currentContentData[id];
+    if (!content) return;
+    closeHeaderSearch();
+
+    currentContentId = id;
+    contentDisplay.innerHTML = `
+        <h2>${content.title}</h2>
+        ${content.content}
+    `;
+
+    hideAllScreens();
+    contentScreen.style.display = 'block';
+    bookmarkIconBtn.style.display = 'block';
+    updateBookmarkIcon();
+    updatePrevNextButtons();
+    setTabsVisible(false);
+    setSearchVisible(false); // hide search off-Home
+    window.scrollTo(0, 0);
+}
+
+function showHomeScreen() {
+    // Close search if it's active (safety check)
+    if (isSearchActive) {
+        closeHeaderSearch();
+    }
+
+    // If we are navigating back from a detail screen, push a 'home' entry only when coming from non-home
+    if (!__suppressHistory) {
+        const wasOtherScreen =
+            (contentScreen && contentScreen.style.display === 'block') ||
+            (bookmarksScreen && bookmarksScreen.style.display === 'block') ||
+            (aboutAppScreen && aboutAppScreen.style.display === 'block') ||
+            (aboutBookScreen && aboutBookScreen.style.display === 'block') ||
+            (contactUsScreen && contactUsScreen.style.display === 'block');
+        if (wasOtherScreen) {
+            try { history.pushState({ screen: 'home' }, '', '#home'); } catch {}
+        }
+    }
+
+    hideAllScreens();
+    currentContentId = null;
+
+    homeScreen.style.display = 'block';
+
+    // Since we already closed search above, just restore normal view
+    restoreNormalView();
+
+    setTabsVisible(true); // show tabs on home
+    setSearchVisible(true); // show search on Home
+    window.scrollTo(0, 0);
+}
+
+function showBookmarks() {
+    // push history for Bookmarks
+    if (!__suppressHistory) {
+        try { history.pushState({ screen: 'bookmarks' }, '', '#bookmarks'); } catch {}
+    }
+
+    closeHeaderSearch();
+
+    if (bookmarks.length === 0) {
+        bookmarksInlineList.innerHTML = `<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">${t('bookmarks_empty')}</p>`;
+    } else {
+        bookmarksInlineList.innerHTML = '';
+        bookmarks.forEach(bookmark => {
+            const bookmarkItem = document.createElement('div');
+            bookmarkItem.className = 'bookmark-item';
+            bookmarkItem.innerHTML = `
+                <div class="bookmark-content">
+                    <h4>${bookmark.title}</h4>
+                </div>
+                <button class="bookmark-delete" onclick="removeBookmark(${bookmark.id})" title="Remove bookmark">
+                    <i class="fas fa-trash"></i>
+                </button>
+            `;
+            bookmarkItem.querySelector('.bookmark-content').addEventListener('click', () => {
+                showContent(bookmark.id);
+            });
+            bookmarksInlineList.appendChild(bookmarkItem);
+        });
+    }
+
+    hideAllScreens();
+    bookmarksScreen.style.display = 'block';
+    setTabsVisible(false);
+    setSearchVisible(false);
+    closeSidebar();
+}
+
+function toggleBookmark() {
+    if (!currentContentId) return;
+
+    const isBookmarked = bookmarks.some(b => b.id === currentContentId);
+    if (isBookmarked) {
+        removeBookmark(currentContentId);
+    } else {
+        addBookmark(currentContentId);
+    }
+}
+
+function addBookmark(id) {
+    const content = currentContentData[id];
+    if (!content) return;
+
+    const bookmark = {
+        id: id,
+        title: content.title,
+        timestamp: new Date().toISOString()
+    };
+
+    bookmarks.push(bookmark);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    updateBookmarkIcon();
+}
+
+function removeBookmark(id) {
+    bookmarks = bookmarks.filter(b => b.id !== id);
+    localStorage.setItem('bookmarks', JSON.stringify(bookmarks));
+    updateBookmarkIcon();
+    
+    // If we're on the bookmarks screen, refresh it
+    if (bookmarksScreen.style.display === 'block') {
+        showBookmarks();
+    }
+}
+
+function updateBookmarkIcon() {
+    if (!currentContentId) return;
+
+    const isBookmarked = bookmarks.some(b => b.id === currentContentId);
+    if (isBookmarked) {
+        bookmarkIconBtn.classList.add('bookmarked');
+        bookmarkIconBtn.title = t('bookmark_removeTitle');
+    } else {
+        bookmarkIconBtn.classList.remove('bookmarked');
+        bookmarkIconBtn.title = t('bookmark_addTitle');
+    }
+}
+
+// i18n: UI translations
+const I18N_KEY = 'selectedLanguage';
+function getLang() {
+    return localStorage.getItem(I18N_KEY) || 'roman_ur';
+}
+function isRTL(lang) {
+    return lang === 'ur';
+}
+const i18n = {
+    en: {
+        appTitle: 'Hidayate Aamaal',
+        tab_hidayah: 'Basics of Islam',
+        tab_quran: 'Quran',
+        search_placeholder: 'Search content...',
+        contents_title: 'Contents',
+        search_results: 'Search Results',
+        search_startTyping: 'Start typing to search through the content...',
+        search_noResults: 'No results found',
+        search_noResultsFor: (q) => `No results found for "${q}"`,
+        sidebar_home: 'Home',
+        sidebar_darkMode: 'Dark Mode',
+        sidebar_language: 'Language',
+        sidebar_bookmarks: 'Bookmarks',
+        sidebar_share: 'Share App',
+        sidebar_about: 'About App',
+        sidebar_rateApp: 'Rate this App',
+        sidebar_ourApps: 'Our Apps',
+        sidebar_contact: 'Contact Us',
+        btn_back: 'Back',
+        btn_prev: 'Previous',
+        btn_next: 'Next',
+        bookmarks_title: 'Bookmarks',
+        bookmarks_empty: 'No bookmarks added yet.',
+        bookmark_addTitle: 'Bookmark this content',
+        bookmark_removeTitle: 'Remove bookmark',
+        contact_title: 'Contact Us',
+        contact_desc: 'We value your feedback and suggestions! If you have any questions, comments, or ideas to improve Hidayate Amaal, please fill out the form below. Your feedback helps us make this app better for everyone.',
+        contact_subject: 'Subject:',
+        contact_feedback: 'Feedback:',
+        contact_submit: 'Submit',
+        contact_success: 'Thank you for your feedback!',
+        share_copied: 'App link copied to clipboard!'
+    },
+    ur: {
+        appTitle: 'ہدایۃ اعمال',
+        tab_hidayah: 'اسلام کی بنیاد',
+        tab_quran: 'قرآن و دعا',
+        search_placeholder: 'مواد تلاش کریں...',
+        contents_title: 'فہرست',
+        search_results: 'تلاش کے نتائج',
+        search_startTyping: 'تلاش شروع کرنے کے لیے لکھنا شروع کریں...',
+        search_noResults: 'کوئی نتیجہ نہیں ملا',
+        search_noResultsFor: (q) => `’’${q}‘‘ کے لیے کوئی نتیجہ نہیں ملا`,
+        sidebar_home: 'ہوم',
+        sidebar_darkMode: 'ڈارک موڈ',
+        sidebar_language: 'زبان',
+        sidebar_bookmarks: 'بک مارکس',
+        sidebar_share: 'ایپ شیئر کریں',
+        sidebar_about: 'ایپ کے بارے میں',
+        sidebar_rateApp: 'ایپ کو درجہ دیں',
+        sidebar_ourApps: 'ہماری ایپس',
+        sidebar_contact: 'ہم سے رابطہ',
+        btn_back: 'واپس',
+        btn_prev: 'پچھلا',
+        btn_next: 'اگلا',
+        bookmarks_title: 'بک مارکس',
+        bookmarks_empty: 'ابھی تک کوئی بک مارک نہیں۔',
+        bookmark_addTitle: 'اس مواد کو بک مارک کریں',
+        bookmark_removeTitle: 'بک مارک ہٹائیں',
+        contact_title: 'ہم سے رابطہ',
+        contact_desc: 'ہم آپ کی رائے اور تجاویز کی قدر کرتے ہیں! اگر آپ کے پاس کوئی سوالات، تبصرے، یا ایپ کو بہتر بنانے کے لیے کوئی تجاویز ہیں تو براہ کرم فارم بھر دیں۔',
+        contact_subject: 'موضوع:',
+        contact_feedback: 'رائے:',
+        contact_submit: 'جمع کریں',
+        contact_success: 'آپ کی رائے کا شکریہ!',
+        share_copied: 'ایپ لنک کلپ بورڈ میں کاپی ہو گیا!'
+    },
+    roman_ur: {
+        appTitle: 'Hidayate Aamaal',
+        tab_hidayah: 'Islam ke Buniyaad',
+        tab_quran: 'Quran',
+        search_placeholder: 'Content talash karein...',
+        contents_title: 'Fehrist',
+        search_results: 'Search Results',
+        search_startTyping: 'Talash ke liye likhna shuru karein...',
+        search_noResults: 'Koi nateeja nahin mila',
+        search_noResultsFor: (q) => `"${q}" ke liye koi nateeja nahin mila`,
+        sidebar_home: 'Home',
+        sidebar_darkMode: 'Dark Mode',
+        sidebar_language: 'Language',
+        sidebar_bookmarks: 'Bookmarks',
+        sidebar_share: 'Share App',
+        sidebar_about: 'About App',
+        sidebar_rateApp: 'Rate this App',
+        sidebar_ourApps: 'Our Apps',
+        sidebar_contact: 'Contact Us',
+        btn_back: 'Back',
+        btn_prev: 'Previous',
+        btn_next: 'Next',
+        bookmarks_title: 'Bookmarks',
+        bookmarks_empty: 'Abhi tak koi bookmark nahin.',
+        bookmark_addTitle: 'Is content ko bookmark karein',
+        bookmark_removeTitle: 'Bookmark hataayein',
+        contact_title: 'Contact Us',
+        contact_desc: 'Aap ki raye hamare liye ahem hai. Barah-e-karam form bhar kar feedback dein.',
+        contact_subject: 'Subject:',
+        contact_feedback: 'Feedback:',
+        contact_submit: 'Submit',
+        contact_success: 'Shukriya, aap ka feedback mil gaya!',
+        share_copied: 'App link clipboard par copy ho gaya!'
+    },
+    hi: {
+        appTitle: 'हिदायते आमाल',
+        tab_hidayah: 'इस्लाम की बुनियाद',
+        tab_quran: 'क़ुरआन व दुआ',
+        search_placeholder: 'विषय खोजें...',
+        contents_title: 'विषय-सूची',
+        search_results: 'खोज परिणाम',
+        search_startTyping: 'खोजने के लिए टाइप करना शुरू करें...',
+        search_noResults: 'कोई परिणाम नहीं मिला',
+        search_noResultsFor: (q) => `"${q}" के लिए कोई परिणाम नहीं मिला`,
+        sidebar_home: 'होम',
+        sidebar_darkMode: 'डार्क मोड',
+        sidebar_language: 'भाषा',
+        sidebar_bookmarks: 'बुकमार्क',
+        sidebar_share: 'ऐप शेयर करें',
+        sidebar_about: 'ऐप के बारे में',
+        sidebar_rateApp: 'ऐप को रेट करें',
+        sidebar_ourApps: 'हमारे ऐप्स',
+        sidebar_contact: 'संपर्क करें',
+        btn_back: 'वापस',
+        btn_prev: 'पिछला',
+        btn_next: 'अगला',
+        bookmarks_title: 'बुकमार्क',
+        bookmarks_empty: 'अभी तक कोई बुकमार्क नहीं जोड़ा गया है।',
+        bookmark_addTitle: 'इसे बुकमार्क करें',
+        bookmark_removeTitle: 'बुकमार्क हटाएं',
+        contact_title: 'संपर्क करें',
+        contact_desc: 'हम आपकी प्रतिक्रिया का स्वागत करते हैं। कृपया नीचे दी गई जानकारी भरें।',
+        contact_subject: 'विषय:',
+        contact_feedback: 'प्रतिक्रिया:',
+        contact_submit: 'सबमिट',
+        contact_success: 'धन्यवाद! आपकी प्रतिक्रिया प्राप्त हुई।',
+        share_copied: 'ऐप लिंक क्लिपबोर्ड पर कॉपी हो गया!'
+    },
+    te: {
+        appTitle: 'హిదాయతే ఆమాల్',
+        tab_hidayah: 'ఇస్లాం యొక్క పునాదులు',
+        tab_quran: 'ఖుర్‌ఆన్',
+        search_placeholder: 'కంటెంట్ వెతకండి...',
+        contents_title: 'విషయ సూచిక',
+        search_results: 'శోధ ఫలితాలు',
+        search_startTyping: 'వెతకడానికి టైపింగ్ ప్రారంభించండి...',
+        search_noResults: 'ఫలితాలు లభించలేదు',
+        search_noResultsFor: (q) => `"${q}" కి ఫలితాలు లభించలేదు`,
+        sidebar_home: 'హోమ్',
+        sidebar_darkMode: 'డార్క్ మోడ్',
+        sidebar_language: 'భాష',
+        sidebar_bookmarks: 'బుక్‌మార్కులు',
+        sidebar_share: 'యాప్‌ను షేర్ చేయండి',
+        sidebar_about: 'యాప్ గురించి',
+        sidebar_rateApp: 'యాప్‌కు రేటింగ్ ఇవ్వండి',
+        sidebar_ourApps: 'మా యాప్స్',
+        sidebar_contact: 'మమ్మల్ని సంప్రదించండి',
+        btn_back: 'వెనుకకు',
+        btn_prev: 'మునుపటి',
+        btn_next: 'తర్వాతి',
+        bookmarks_title: 'బుక్‌మార్కులు',
+        bookmarks_empty: 'ఇంకా బుక్‌మార్కులు లేవు.',
+        bookmark_addTitle: 'దీన్ని బుక్‌మార్క్ చేయండి',
+        bookmark_removeTitle: 'బుక్‌మార్క్ తొలగించండి',
+        contact_title: 'మమ్మల్ని సంప్రదించండి',
+        contact_desc: 'మీ అభిప్రాయం మాకు విలువైనది. దయచేసి ఫారం నింపండి.',
+        contact_subject: 'విషయం:',
+        contact_feedback: 'అభిప్రాయం:',
+        contact_submit: 'సబ్మిట్',
+        contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
+        share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!'
+    },
+    te_ur: {
+        appTitle: 'హిదాయతే ఆమాల్',
+        tab_hidayah: 'ఇస్లాం యొక్క పునాదులు',
+        tab_quran: 'ఖుర్‌ఆన్ & దుఆ',
+        search_placeholder: 'కంటెంట్ వెతకండి...',
+        contents_title: 'విషయ సూచిక',
+        search_results: 'శోధ ఫలితాలు',
+        search_startTyping: 'వెతకడానికి టైపింగ్ ప్రారంభించండి...',
+        search_noResults: 'ఫలితాలు లభించలేదు',
+        search_noResultsFor: (q) => `"${q}" కి ఫలితాలు లభించలేదు`,
+        sidebar_home: 'హోమ్',
+        sidebar_darkMode: 'డార్క్ మోడ్',
+        sidebar_language: 'భాష',
+        sidebar_bookmarks: 'బుక్‌మార్కులు',
+        sidebar_share: 'యాప్‌ను షేర్ చేయండి',
+        sidebar_about: 'యాప్ గురించి',
+        sidebar_rateApp: 'యాప్‌కు రేటింగ్ ఇవ్వండి',
+        sidebar_ourApps: 'మా యాప్స్',
+        sidebar_contact: 'మమ్మల్ని సంప్రదించండి',
+        btn_back: 'వెనుకకు',
+        btn_prev: 'మునుపటి',
+        btn_next: 'తర్వాతి',
+        bookmarks_title: 'బుక్‌మార్కులు',
+        bookmarks_empty: 'ఇంకా బుక్‌మార్కులు లేవు.',
+        bookmark_addTitle: 'దీన్ని బుక్‌మార్క్ చేయండి',
+        bookmark_removeTitle: 'బుక్‌మార్క్ తొలగించండి',
+        contact_title: 'మమ్మల్ని సంప్రదించండి',
+        contact_desc: 'మీ అభిప్రాయం మాకు విలువైనది. దయచేసి ఫారం నింపండి.',
+        contact_subject: 'విషయం:',
+        contact_feedback: 'అభిప్రాయం:',
+        contact_submit: 'సబ్మిట్',
+        contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
+        share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!'
+    }
+};
+function t(key, ...args) {
+    const lang = getLang();
+    const pack = i18n[lang] || i18n.en;
+    const val = pack[key] ?? i18n.en[key] ?? key;
+    return typeof val === 'function' ? val(...args) : val;
+}
+
+// Apply translations to static UI
+function applyI18n() {
+    const lang = getLang();
+    document.documentElement.setAttribute('dir', isRTL(lang) ? 'rtl' : 'ltr');
+
+    // Header + title + search
+    const appTitleEl = document.getElementById('appTitle');
+    if (appTitleEl) appTitleEl.textContent = t('appTitle');
+
+    if (headerSearchInput) headerSearchInput.placeholder = t('search_placeholder');
+
+    // Tabs
+    const hidayahTabSpan = document.querySelector('#hidayahTab span');
+    const quranTabSpan = document.querySelector('#quranTab span');
+    if (hidayahTabSpan) hidayahTabSpan.textContent = t('tab_hidayah');
+    if (quranTabSpan) quranTabSpan.textContent = t('tab_quran');
+
+    // Remove the contents heading update - it's commented out now
+    // if (contentsHeading && !isSearchActive) contentsHeading.textContent = t('contents_title');
+
+    // Sidebar labels
+    const map = [
+        ['homeBtn', 'sidebar_home'],
+        ['darkModeToggle', 'sidebar_darkMode'],
+        ['languageBtn', 'sidebar_language'],
+        ['bookmarkBtn', 'sidebar_bookmarks'],
+        ['shareBtn', 'sidebar_share'],
+        ['aboutAppBtn', 'sidebar_about'],
+        ['rateAppBtn', 'sidebar_rateApp'],
+        ['ourAppsBtn', 'sidebar_ourApps'],
+        ['contactUsBtn', 'sidebar_contact']
+    ];
+    map.forEach(([id, key]) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const label = el.querySelector('span');
+        if (label) label.textContent = t(key);
+    });
+
+    // Back + prev/next + bookmark button titles
+    const backBtnEl = document.getElementById('backBtn');
+    if (backBtnEl) backBtnEl.innerHTML = `<i class="fas fa-arrow-left"></i> ${t('btn_back')}`;
+    if (prevContentBtn) prevContentBtn.title = t('btn_prev');
+    if (nextContentBtn) nextContentBtn.title = t('btn_next');
+
+    // Bookmarks screen title
+    const bmTitle = document.querySelector('#bookmarksScreen h2');
+    if (bmTitle) bmTitle.textContent = t('bookmarks_title');
+
+    // Contact Us screen
+    const contactTitle = document.querySelector('#contactUsScreen h2');
+    if (contactTitle) contactTitle.textContent = t('contact_title');
+    const contactDesc = document.querySelector('#contactUsScreen .content-display p');
+    if (contactDesc) contactDesc.textContent = t('contact_desc');
+    const lblSubject = document.querySelector('label[for="contactSubject"]');
+    if (lblSubject) lblSubject.textContent = t('contact_subject');
+    const lblMessage = document.querySelector('label[for="contactMessage"]');
+    if (lblMessage) lblMessage.textContent = t('contact_feedback');
+    const submitBtn = document.querySelector('#contactForm button[type="submit"]');
+    if (submitBtn) submitBtn.textContent = t('contact_submit');
+    const contactSuccessMsg = document.getElementById('contactSuccess');
+    if (contactSuccessMsg) contactSuccessMsg.textContent = t('contact_success');
+
+    // About App title (keep body text as-is for now)
+    const aboutTitle = document.querySelector('#aboutAppScreen h2');
+    if (aboutTitle) aboutTitle.textContent = t('sidebar_about');
+
+    // Set initial bookmark icon title according to state
+    updateBookmarkIcon();
+}
+
+// Initialize the app
+function initializeApp() {
+    // Load saved theme
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.setAttribute('data-theme', 'dark');
+        if (themeToggle) themeToggle.checked = true;
+    }
+
+    // Initialize language selection ticks
+    updateSidebarLanguageSelection();
+
+    // If datasets are not yet loaded, wait for the bootloader event
+    if (!window.__datasetsLoaded) {
+        const onReady = () => {
+            document.removeEventListener('datasetsReady', onReady);
+            const savedSection = localStorage.getItem('activeSection') || 'hidayah';
+            setActiveSection(savedSection);
+            applyI18n(); // apply UI language after section set
+            setupSPAHistory();
+        };
+        document.addEventListener('datasetsReady', onReady);
+        return;
+    }
+
+    // Datasets ready: proceed
+    const savedSection = localStorage.getItem('activeSection') || 'hidayah';
+    setActiveSection(savedSection);
+    applyI18n(); // apply UI language
+    setupSPAHistory();
+}
+
+// Start the app when DOM is loaded
+document.addEventListener('DOMContentLoaded', initializeApp);
+
+// Populate index on load
+function populateIndex() {
+    indexItems.innerHTML = '';
+    
+    // Check if we're on the Hidayah section and data has sections
+    if (activeSection === 'hidayah' && currentIndexData.sections) {
+        // Render sections
+        currentIndexData.sections.forEach(section => {
+            // Section title
+            const sectionTitle = document.createElement('h3');
+            sectionTitle.className = 'index-section-title';
+            sectionTitle.textContent = section.title;
+            indexItems.appendChild(sectionTitle);
+            
+            // Section items
+            section.items.forEach((item, idx) => {
+                const serialNumber = idx + 1;
+                const indexItem = document.createElement('div');
+                indexItem.className = 'index-item';
+                indexItem.innerHTML = `
+                    <div class="index-serial">${serialNumber})</div>
+                    <h4 class="index-title">${item.title}</h4>
+                `;
+                indexItem.addEventListener('click', () => showContent(item.id));
+                indexItems.appendChild(indexItem);
+            });
+        });
+    } else {
+        // Regular rendering (for Quran tab or old format)
+        currentIndexData.forEach((item, idx) => {
+            const serialNumber = idx + 1;
+            const indexItem = document.createElement('div');
+            indexItem.className = 'index-item';
+            indexItem.innerHTML = `
+                <div class="index-serial">${serialNumber})</div>
+                <h4 class="index-title">${item.title}</h4>
+            `;
+            indexItem.addEventListener('click', () => showContent(item.id));
+            indexItems.appendChild(indexItem);
+        });
+    }
+}
+
+// Search functionality
+function searchIndex(query) {
+    if (!query.trim()) {
+        populateIndex();
+        return;
+    }
+
+    let allItems = [];
+    
+    // Flatten sections if using section-based data
+    if (activeSection === 'hidayah' && currentIndexData.sections) {
+        currentIndexData.sections.forEach(section => {
+            allItems = allItems.concat(section.items);
+        });
+    } else {
+        allItems = currentIndexData;
+    }
+
+    const filteredItems = allItems.filter(item =>
+        item.title.toLowerCase().includes(query.toLowerCase())
+    );
+
+    indexItems.innerHTML = '';
+
+    if (filteredItems.length === 0) {
+        indexItems.innerHTML = `<p style="text-align: center; color: var(--text-secondary); padding: 2rem;">${t('search_noResults')}</p>`;
+        return;
+    }
+
+    filteredItems.forEach((item, idx) => {
+        const serialNumber = idx + 1;
+        const indexItem = document.createElement('div');
+        indexItem.className = 'index-item';
+        indexItem.innerHTML = `
+            <div class="index-serial">${serialNumber})</div>
+            <h4 class="index-title">${item.title}</h4>
+        `;
+        indexItem.addEventListener('click', () => showContent(item.id));
+        indexItems.appendChild(indexItem);
+    });
+}
+
+// Header Search Functions
+function openHeaderSearch() {
+    // If already active, just focus
+    if (isSearchActive) {
+        if (headerSearchInput) headerSearchInput.focus();
+        return;
+    }
+
+    // Block when sidebar is open or not on Home
+    if (sidebar.classList.contains('open') || homeScreen.style.display === 'none') return;
+
+    // Push a 'search' state so hardware back closes search (not the app)
+    if (!__suppressHistory) {
+        try { history.pushState({ screen: 'search' }, '', '#search'); } catch {}
+    }
+
+    isSearchActive = true;
+    header.classList.add('search-mode');
+    document.body.classList.add('search-mode');
+    searchInputContainer.classList.add('active');
+    searchBtn.style.display = 'none';
+    searchCloseBtn.style.display = 'flex';
+    headerSearchInput.focus();
+
+    // Hide tab bar while searching (override any previous inline display)
+    setTabsVisible(false);
+
+    if (homeScreen.style.display !== 'none') {
+        showSearchPlaceholder();
+    }
+}
+
+function closeSearch() {
+    isSearchActive = false;
+    header.classList.remove('search-mode');
+    document.body.classList.remove('search-mode');
+    searchInputContainer.classList.remove('active');
+    searchBtn.style.display = 'flex';
+    searchCloseBtn.style.display = 'none';
+    headerSearchInput.value = '';
+    if (homeScreen.style.display !== 'none') {
+        restoreNormalView();
+        // Show tab bar again on Home
+        setTabsVisible(true);
+    }
+}
+
+function handleHeaderSearchInput(e) {
+    if (sidebar.classList.contains('open')) return; // block when sidebar open
+    const query = e.target.value.trim();
+    if (homeScreen.style.display === 'none') {
+        return;
+    }
+    if (!query) {
+        restoreNormalView();
+        return;
+    }
+    performLiveHeaderSearch(query);
+}
+
+function showSearchPlaceholder() {
+    indexItems.innerHTML = '';
+    
+    // Add search results heading from the start
+    const resultsHeading = document.createElement('h3');
+    resultsHeading.className = 'index-section-title';
+    resultsHeading.textContent = t('search_results');
+    resultsHeading.style.marginTop = '0';
+    indexItems.appendChild(resultsHeading);
+    
+    // Add placeholder message
+    const placeholderDiv = document.createElement('div');
+    placeholderDiv.className = 'search-results-info';
+    placeholderDiv.innerHTML = `
+        <i class="fas fa-search"></i>
+        <p>${t('search_startTyping')}</p>
+    `;
+    indexItems.appendChild(placeholderDiv);
+}
+
+function restoreNormalView() {
+    // Don't set contents heading anymore
+    populateIndex();
+}
+
+function performLiveHeaderSearch(query) {
+    let allItems = [];
+    
+    // Flatten sections if using section-based data
+    if (activeSection === 'hidayah' && currentIndexData.sections) {
+        currentIndexData.sections.forEach(section => {
+            allItems = allItems.concat(section.items);
+        });
+    } else {
+        // For Quran tab, currentIndexData is already a flat array
+        allItems = [...currentIndexData];
+    }
+    
+    const filteredItems = allItems.filter(item =>
+        item.title.toLowerCase().includes(query.toLowerCase())
+    );
+    
+    displayHeaderSearchResults(filteredItems, query);
+}
+
+function displayHeaderSearchResults(results, query) {
+    indexItems.innerHTML = '';
+    
+    // Add search results heading
+    const resultsHeading = document.createElement('h3');
+    resultsHeading.className = 'index-section-title';
+    resultsHeading.textContent = t('search_results');
+    resultsHeading.style.marginTop = '0';
+    indexItems.appendChild(resultsHeading);
+    
+    if (results.length === 0) {
+        const noResultsDiv = document.createElement('div');
+        noResultsDiv.className = 'search-results-info';
+        noResultsDiv.innerHTML = `
+            <i class="fas fa-search"></i>
+            <p>${t('search_noResultsFor', query)}</p>
+        `;
+        indexItems.appendChild(noResultsDiv);
+        return;
+    }
+    
+    // Build a map of all items with their global serial numbers
+    let allItemsWithSerial = [];
+    let globalSerial = 1;
+    
+    if (activeSection === 'hidayah' && currentIndexData.sections) {
+        currentIndexData.sections.forEach(section => {
+            section.items.forEach(item => {
+                allItemsWithSerial.push({ ...item, serial: globalSerial++ });
+            });
+        });
+    } else {
+        currentIndexData.forEach(item => {
+            allItemsWithSerial.push({ ...item, serial: globalSerial++ });
+        });
+    }
+    
+    results.forEach(item => {
+        // Find the serial number for this item
+        const itemWithSerial = allItemsWithSerial.find(i => i.id === item.id);
+        const serialNumber = itemWithSerial ? itemWithSerial.serial : '';
+        
+        const indexItem = document.createElement('div');
+        indexItem.className = 'index-item';
+        indexItem.innerHTML = `
+            <div class="index-serial">${serialNumber})</div>
+            <h4 class="index-title">${highlightSearchTerm(item.title, query)}</h4>
+        `;
+        
+        indexItem.addEventListener('click', () => {
+            showContent(item.id);
+            closeHeaderSearch();
+        });
+        
+        indexItems.appendChild(indexItem);
+    });
+}
+
+function highlightSearchTerm(text, query) {
+    if (!query) return text;
+    
+    const regex = new RegExp(`(${query})`, 'gi');
+    return text.replace(regex, '<span class="search-highlight">$1</span>');
+}
+
+// Update showHomeScreen to handle search and history
+function showHomeScreen() {
+    // Close search if it's active (safety check)
+    if (isSearchActive) {
+        closeHeaderSearch();
+    }
+
+    // If we are navigating back from a detail screen, push a 'home' entry only when coming from non-home
+    if (!__suppressHistory) {
+        const wasOtherScreen =
+            (contentScreen && contentScreen.style.display === 'block') ||
+            (bookmarksScreen && bookmarksScreen.style.display === 'block') ||
+            (aboutAppScreen && aboutAppScreen.style.display === 'block') ||
+            (aboutBookScreen && aboutBookScreen.style.display === 'block') ||
+            (contactUsScreen && contactUsScreen.style.display === 'block');
+        if (wasOtherScreen) {
+            try { history.pushState({ screen: 'home' }, '', '#home'); } catch {}
+        }
+    }
+
+    hideAllScreens();
+    currentContentId = null;
+
+    homeScreen.style.display = 'block';
+
+    // Since we already closed search above, just restore normal view
+    restoreNormalView();
+
+    setTabsVisible(true); // show tabs on home
+    setSearchVisible(true); // show search on Home
+    window.scrollTo(0, 0);
+}
+
+// Update the bookmarkBtn click handler to differentiate from search
+function showBookmarksFromSidebar() {
+    showBookmarks();
+    closeSidebar();
+}
+
+// Contact Us functions
+function showContactUs() {
+    // push history for Contact Us
+    if (!__suppressHistory) {
+        try { history.pushState({ screen: 'contactUs' }, '', '#contact'); } catch {}
+    }
+
+    closeHeaderSearch();
+    hideAllScreens();
+    contactUsScreen.style.display = 'block';
+    setTabsVisible(false);
+    setSearchVisible(false);
+    window.scrollTo(0, 0);
+    if (contactSuccess) contactSuccess.style.display = 'none';
+    if (contactForm) contactForm.reset();
+
+    // Ensure localized labels visible when entering screen
+    applyI18n();
+}
+
+// Handle contact form submit
+if (contactForm) {
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        // You can send data to your backend here, or just show success
+        contactSuccess.style.display = 'block';
+        contactForm.reset();
+    });
+}
+
+// Auto-resize feedback textarea vertically (no horizontal growth)
+const feedbackTextarea = document.getElementById('contactMessage');
+
+function autosizeTextarea(el) {
+    if (!el) return;
+    const maxPx = Math.floor(window.innerHeight * 0.5); // cap at 50% of viewport height
+    el.style.height = 'auto';
+    el.style.overflowY = 'hidden';
+    const h = el.scrollHeight;
+    if (h > maxPx) {
+        el.style.height = `${maxPx}px`;
+        el.style.overflowY = 'auto'; // scroll vertically after cap
+    } else {
+        el.style.height = `${h}px`;
+    }
+}
+
+// Wire up when present
+if (feedbackTextarea) {
+    const onChange = () => autosizeTextarea(feedbackTextarea);
+    feedbackTextarea.addEventListener('input', onChange);
+    feedbackTextarea.addEventListener('change', onChange);
+    window.addEventListener('resize', onChange);
+    // Initialize
+    requestAnimationFrame(onChange);
+}
+
+// If the form resets, also reset the textarea height
+if (contactForm) {
+    contactForm.addEventListener('reset', () => {
+        if (feedbackTextarea) {
+            feedbackTextarea.style.height = '';
+            feedbackTextarea.style.overflowY = 'hidden';
+            requestAnimationFrame(() => autosizeTextarea(feedbackTextarea));
+        }
+    });
+}
+
+// Keyboard navigation
+document.addEventListener('keydown', function(event) {
+    // Escape key to close search, sidebar or go back
+    if (event.key === 'Escape') {
+        if (isSearchActive) {
+            closeHeaderSearch();
+        } else if (sidebar.classList.contains('open')) {
+            closeSidebar();
+        } else if (contentScreen.style.display === 'block') {
+            showHomeScreen();
+        }
+    }
+
+    // Ctrl/Cmd + K to open search (disabled when sidebar open)
+    if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+        event.preventDefault();
+        if (sidebar.classList.contains('open')) return; // block when sidebar open
+        if (homeScreen.style.display !== 'none') {
+            openHeaderSearch();
+        }
+    }
+});
+
+// Service Worker registration for offline support (optional)
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+        navigator.serviceWorker.register('/sw.js')
+            .then(function(registration) {
+                console.log('ServiceWorker registration successful');
+            })
+            .catch(function(err) {
+                console.log('ServiceWorker registration failed');
+            });
+    });
+}
+
+// Add loading states for better UX
+function showLoading(element) {
+    const originalContent = element.innerHTML;
+    element.innerHTML = '<div class="loading"></div>';
+    return originalContent;
+}
+
+function hideLoading(element, originalContent) {
+    element.innerHTML = originalContent;
+}
+
+// Add smooth transitions
+function addSmoothTransition(element, property, duration = '0.3s') {
+    element.style.transition = `${property} ${duration} ease`;
+}
+
+// Initialize smooth scrolling for better mobile experience
+function initSmoothScrolling() {
+    document.documentElement.style.scrollBehavior = 'smooth';
+}
+
+// Call initialization functions
+initSmoothScrolling();
+
+// Add touch support for better mobile experience
+let touchStartY = 0;
+let touchEndY = 0;
+
+document.addEventListener('touchstart', function(event) {
+    touchStartY = event.changedTouches[0].screenY;
+});
+
+document.addEventListener('touchend', function(event) {
+    touchEndY = event.changedTouches[0].screenY;
+    
+    // Detect swipe gestures
+    const swipeThreshold = 50;
+    const swipeDistance = touchStartY - touchEndY;
+    
+    if (Math.abs(swipeDistance) > swipeThreshold) {
+        if (swipeDistance > 0) {
+            // Swipe up - could implement scroll to top
+        } else {
+            // Swipe down - could implement refresh
+        }
+    }
+});
+
+// Add viewport meta tag detection and warning
+function checkViewport() {
+    const viewport = document.querySelector('meta[name="viewport"]');
+    if (!viewport) {
+        console.warn('Viewport meta tag not found. App may not display correctly on mobile devices.');
+    }
+}
+
+// Call viewport check
+checkViewport();
+
+// Performance optimization: Lazy loading for better performance
+function isElementInViewport(element) {
+    const rect = element.getBoundingClientRect();
+    return (
+        rect.top >= 0 &&
+        rect.left >= 0 &&
+        rect.bottom <= (window.innerHeight || document.documentElement.clientHeight) &&
+        rect.right <= (window.innerWidth || document.documentElement.clientWidth)
+    );
+}
+
+// Optimize scroll performance
+let ticking = false;
+
+function updateScrollElements() {
+    // Update elements based on scroll position
+    ticking = false;
+}
+
+function requestScrollUpdate() {
+    if (!ticking) {
+        requestAnimationFrame(updateScrollElements);
+        ticking = true;
+    }
+}
+
+window.addEventListener('scroll', requestScrollUpdate);
+
+// Add CSS animations for the message
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideDown {
+        from {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-20px);
+        }
+        to {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+    }
+    
+    @keyframes slideUp {
+        from {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+        }
+        to {
+            opacity: 0;
+            transform: translateX(-50%) translateY(-20px);
+        }
+    }
+`;
+document.head.appendChild(style);
+
+// Add these language options to your language modal rendering function
+
+const languageOptionsData = [
+    { code: 'en', name: 'English', native: 'English', flag: '🇬🇧' },
+    { code: 'ur', name: 'Urdu', native: 'اردو', flag: '🇵🇰' },
+    { code: 'roman_ur', name: 'Roman Urdu', native: 'Roman Urdu', flag: '🇵🇰' },
+    { code: 'hi', name: 'Hindi', native: 'हिन्दी', flag: '🇮🇳' },
+    { code: 'te', name: 'Telugu', native: 'తెలుగు', flag: '🇮🇳' },
+    { code: 'roman_te', name: 'Roman Telugu', native: 'Roman Telugu', flag: '🇮🇳' },
+    { code: 'te_ur', name: 'Telugu-Urdu', native: 'తెలుగు-ఉర్దూ', flag: '🇮🇳' } // NEW
+];
+
+// Example: Render language options in modal
+function renderLanguageOptions() {
+    const languageOptionsContainer = document.querySelector('.language-options');
+    languageOptionsContainer.innerHTML = '';
+    languageOptionsData.forEach(option => {
+        const div = document.createElement('div');
+        div.className = 'language-option';
+        div.dataset.langCode = option.code;
+        div.innerHTML = `
+            <span class="language-flag">${option.flag}</span>
+            <span class="language-name">${option.name}</span>
+            <span class="language-native">${option.native}</span>
+            <span class="language-check" style="display:none;">✔</span>
+        `;
+        languageOptionsContainer.appendChild(div);
+    });
+    updateLanguageSelection();
+}
+
+// Interactivity lock helpers (background)
+function disableBackgroundInteractions() {
+    document.body.classList.add('sidebar-open');
+    if (header) header.setAttribute('inert', '');
+    if (mainContent) mainContent.setAttribute('inert', '');
+    if (tabNavigation) tabNavigation.setAttribute('inert', '');
+}
+
+function enableBackgroundInteractions() {
+    document.body.classList.remove('sidebar-open');
+    if (header) header.removeAttribute('inert');
+    if (mainContent) mainContent.removeAttribute('inert');
+    if (tabNavigation) tabNavigation.removeAttribute('inert');
+}
+
+// Collapse language dropdown
+function collapseLanguageDropdown() {
+    // Hide language options list and reset chevron + aria
+    if (typeof languageOptionsSidebar !== 'undefined' && languageOptionsSidebar) {
+        languageOptionsSidebar.style.display = 'none';
+    }
+    if (typeof chevronIcon !== 'undefined' && chevronIcon) {
+        chevronIcon.classList.remove('expanded');
+    }
+    if (typeof languageBtn !== 'undefined' && languageBtn) {
+        languageBtn.setAttribute('aria-expanded', 'false');
+    }
+}
+
+// Scroll lock helpers
+let __scrollY = 0;
+function lockScroll() {
+    __scrollY = window.scrollY || document.documentElement.scrollTop || 0;
+    document.documentElement.classList.add('no-scroll');
+    document.body.classList.add('no-scroll');
+
+    // prevent body from scrolling while preserving position
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${__scrollY}px`;
+    document.body.style.width = '100%';
+}
+
+function unlockScroll() {
+    document.documentElement.classList.remove('no-scroll');
+    document.body.classList.remove('no-scroll');
+
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.width = '';
+
+    window.scrollTo(0, __scrollY);
+}
+
+// Centralized screen visibility helper
+function hideAllScreens() {
+    if (homeScreen) homeScreen.style.display = 'none';
+    if (contentScreen) contentScreen.style.display = 'none';
+    if (bookmarksScreen) bookmarksScreen.style.display = 'none';
+    if (aboutAppScreen) aboutAppScreen.style.display = 'none';
+    if (aboutBookScreen) aboutBookScreen.style.display = 'none';
+    if (contactUsScreen) contactUsScreen.style.display = 'none';
+}
+
+// Helper: control tab visibility
+function setTabsVisible(isVisible) {
+    if (!tabNavigation) return;
+    tabNavigation.style.display = isVisible ? 'flex' : 'none';
+    document.body.classList.toggle('tabs-hidden', !isVisible); // remove tab space when hidden
+}
+
+// NEW: control search icon visibility (only on Home)
+function setSearchVisible(isVisible) {
+    if (!searchBtn) return;
+    if (!isVisible) {
+        if (isSearchActive) closeHeaderSearch();
+        searchBtn.style.display = 'none';
+    } else {
+        // only show when search is not active
+        if (!isSearchActive) searchBtn.style.display = 'flex';
+    }
+}
+
+// New: enable/disable and navigate prev/next
+function updatePrevNextButtons() {
+    if (!prevContentBtn || !nextContentBtn) return;
+
+    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
+    const isFirst = idx <= 0;
+    const isLast = idx === currentIndexData.length - 1 || idx === -1;
+
+    prevContentBtn.disabled = isFirst;
+    nextContentBtn.disabled = isLast;
+}
+
+function goToPrevContent() {
+    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
+    if (idx > 0) {
+        const prevId = currentIndexData[idx - 1].id;
+        showContent(prevId);
+    }
+}
+
+function goToNextContent() {
+    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
+    if (idx !== -1 && idx < currentIndexData.length - 1) {
+        const nextId = currentIndexData[idx + 1].id;
+        showContent(nextId);
+    }
+}
+
+// After initializeApp on first load, ensure tabs and search visible on home
+document.addEventListener('DOMContentLoaded', () => {
+    setTabsVisible(true);
+    setSearchVisible(true);
+    applyI18n(); // ensure UI is localized as soon as DOM ready
+});
+
+// Event Listeners
+if (hidayahTab) {
+    hidayahTab.addEventListener('click', () => setActiveSection('hidayah'));
+}
+if (quranTab) {
+    quranTab.addEventListener('click', () => setActiveSection('quran'));
+}
+
+// SPA History router: map hardware back to in-app navigation
+function setupSPAHistory() {
+    if (__historySetupDone) return;
+    __historySetupDone = true;
+
+    try {
+        // Base state: Home
+        history.replaceState({ screen: 'home' }, '', '#home');
+    } catch {}
+
+    window.addEventListener('popstate', (e) => {
+        const state = e.state || { screen: 'home' };
+
+        // Close sidebar first if open
+        if (sidebar && sidebar.classList.contains('open')) {
+            closeSidebar();
+        }
+
+        __suppressHistory = true;
+        
+        // If search is active and we're going back, just close search without navigating
+        if (isSearchActive && state.screen === 'home') {
+            closeHeaderSearch();
+            __suppressHistory = false;
+            return;
+        }
+        
+        switch (state.screen) {
+            case 'search':
+                // Re-open search UI without pushing another history entry
+                openHeaderSearch();
+                break;
+            case 'content':
+                if (typeof state.id !== 'undefined') {
+                    showContent(state.id);
+                } else {
+                    showHomeScreen();
+                }
+                break;
+            case 'bookmarks':
+                showBookmarks();
+                break;
+            case 'aboutApp':
+                showAboutApp();
+                break;
+            case 'contactUs':
+                showContactUs();
+                break;
+            case 'home':
+            default:
+                if (isSearchActive) closeHeaderSearch();
+                showHomeScreen();
+                break;
+        }
+        __suppressHistory = false;
+    });
+}
+
+// Populate index with sections (only for Hidayah tab)
+function populateIndex() {
+    indexItems.innerHTML = '';
+    
+    // Check if we're on the Hidayah section and data has sections
+    if (activeSection === 'hidayah' && currentIndexData.sections) {
+        // Render sections
+        currentIndexData.sections.forEach(section => {
+            // Section title
+            const sectionTitle = document.createElement('h3');
+            sectionTitle.className = 'index-section-title';
+            sectionTitle.textContent = section.title;
+            indexItems.appendChild(sectionTitle);
+            
+            // Section items
+            section.items.forEach((item, idx) => {
+                const serialNumber = idx + 1;
+                const indexItem = document.createElement('div');
+                indexItem.className = 'index-item';
+                indexItem.innerHTML = `
+                    <div class="index-serial">${serialNumber})</div>
+                    <h4 class="index-title">${item.title}</h4>
+                `;
+                indexItem.addEventListener('click', () => showContent(item.id));
+                indexItems.appendChild(indexItem);
+            });
+        });
+    } else {
+        // Regular rendering (for Quran tab or old format)
+        currentIndexData.forEach((item, idx) => {
+            const serialNumber = idx + 1;
+            const indexItem = document.createElement('div');
+            indexItem.className = 'index-item';
+            indexItem.innerHTML = `
+                <div class="index-serial">${serialNumber})</div>
+                <h4 class="index-title">${item.title}</h4>
+            `;
+            indexItem.addEventListener('click', () => showContent(item.id));
+            indexItems.appendChild(indexItem);
+        });
+    }
+}

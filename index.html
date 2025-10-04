@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hidayate Amaal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&family=Noto+Naskh+Arabic:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <button class="hamburger-btn" id="hamburgerBtn">
+            <i class="fas fa-bars"></i>
+        </button>
+        <h1 class="app-title" id="appTitle">Hidayate Amaal</h1>
+        
+        <!-- Search input (hidden by default) -->
+        <div class="search-input-container" id="searchInputContainer">
+            <input type="text" class="header-search-input" id="headerSearchInput" placeholder="Search content...">
+        </div>
+        
+        <button class="search-btn" id="searchBtn">
+            <i class="fas fa-search"></i>
+        </button>
+        <button class="search-close-btn" id="searchCloseBtn" style="display: none;">
+            <i class="fas fa-times"></i>
+        </button>
+    </header>
+
+    <!-- Tab Navigation -->
+    <div class="tab-navigation" id="tabNavigation">
+        <div class="tab-item active" id="hidayahTab">
+            <span>Islam Ke Buniyaad</span>
+        </div>
+        <div class="tab-item" id="quranTab">
+            <span>Quran & Dua</span>
+        </div>
+    </div>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <div class="sidebar-header">
+            <div class="sidebar-logo-section">
+                <img src="attachments/logo.png" alt="Hidayate Amaal Logo" class="sidebar-logo">
+            </div>
+        </div>
+        <div class="sidebar-content">
+            <!-- Add Home Button at the top of menu items -->
+            <div class="menu-item" id="homeBtn">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="menu-item" id="darkModeToggle">
+                <i class="fas fa-moon"></i>
+                <span>Dark Mode</span>
+                <label class="toggle-switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider"></span>
+                </label>
+            </div>
+
+            <!-- New Language Selection Menu Item -->
+            <div class="menu-item" id="languageBtn">
+                <i class="fas fa-globe"></i>
+                <span>Language</span>
+                <i class="fas fa-chevron-down chevron-icon" style="margin-left: auto; color: var(--text-secondary); transition: transform 0.3s;"></i>
+            </div>
+            <div class="language-options-sidebar" id="languageOptionsSidebar" style="display: none;">
+                <div class="language-option-sidebar" data-lang="en">
+                    <span class="language-logo">Ab</span>
+                    <span class="language-name">English</span>
+                    <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="language-option-sidebar" data-lang="ur">
+                    <span class="language-logo">اُر</span>
+                    <span class="language-name">اُردُو</span>
+                    <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="language-option-sidebar" data-lang="roman_ur">
+                    <span class="language-logo">Rاُر</span>
+                    <span class="language-name">Roman-Urdu</span>
+                    <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="language-option-sidebar" data-lang="hi">
+                    <span class="language-logo">हि</span>
+                    <span class="language-name">हिन्दी</span>
+                    <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
+                </div>
+                <div class="language-option-sidebar" data-lang="te">
+                    <span class="language-logo">తె</span>
+                    <span class="language-name">తెలుగు</span>
+                    <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
+                </div>
+                <!-- NEW: Telugu-Urdu -->
+                <div class="language-option-sidebar" data-lang="te_ur">
+                    <span class="language-logo">తెاُر</span>
+                    <span class="language-name">తెలుగు-ఉర్దూ</span>
+                    <span class="language-tick" style="display:none;"><i class="fas fa-check"></i></span>
+                </div>
+            </div>
+
+            <div class="menu-item" id="bookmarkBtn">
+                <i class="fas fa-bookmark"></i>
+                <span>Bookmarks</span>
+            </div>
+            
+            <div class="menu-item" id="shareBtn">
+                <i class="fas fa-share-alt"></i>
+                <span>Share App</span>
+            </div>
+            
+            <div class="menu-item" id="aboutAppBtn">
+                <i class="fas fa-info-circle"></i>
+                <span>About App</span>
+            </div>
+
+            <!-- New sections start here -->
+            <div class="menu-item" id="rateAppBtn">
+                <i class="fas fa-star"></i>
+                <span>Rate this App</span>
+            </div>
+            <div class="menu-item" id="ourAppsBtn">
+                <i class="fas fa-th-large"></i>
+                <span>Our Apps</span>
+            </div>
+            <div class="menu-item" id="contactUsBtn">
+                <i class="fas fa-envelope"></i>
+                <span>Contact Us</span>
+            </div>
+            <!-- New sections end here -->
+        </div>
+    </div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Main Content -->
+    <main class="main-content" id="mainContent">
+        <!-- Home Screen -->
+        <div class="home-screen" id="homeScreen">
+            <div class="index-list">
+                <h3 id="contentsHeading">Contents</h3>
+                <div class="index-items" id="indexItems">
+                    <!-- Index items will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Content Screen -->
+        <div class="content-screen" id="contentScreen" style="display: none;">
+            <div class="content-header">
+                <button class="back-btn" id="backBtn">
+                    <i class="fas fa-arrow-left"></i>
+                    Back
+                </button>
+                <div class="content-actions">
+                    <button class="bookmark-icon-btn" id="bookmarkIconBtn" title="Bookmark this content" style="display: none;">
+                        <i class="fas fa-bookmark"></i>
+                    </button>
+                    <button class="bookmark-icon-btn" id="prevContentBtn" title="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <button class="bookmark-icon-btn" id="nextContentBtn" title="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="content-display" id="contentDisplay">
+                <!-- Content will be displayed here -->
+            </div>
+        </div>
+
+        <!-- Bookmarks Screen -->
+        <div class="content-screen" id="bookmarksScreen" style="display: none;">
+            <div class="content-display">
+                <h2>Bookmarks</h2>
+                <div id="bookmarksInlineList"></div>
+            </div>
+        </div>
+
+        <!-- About App Screen -->
+        <div class="content-screen" id="aboutAppScreen" style="display: none;">
+            <div class="content-display">
+                <h2>About App</h2>
+                <p>Hidayate Amaal is a mobile-friendly web application designed to provide easy access to Islamic teachings and guidance. This app contains essential Islamic knowledge including beliefs, practices, and fundamental concepts of Islam.</p>
+                
+                <h3>Features:</h3>
+                <ul>
+                    <li>Mobile-first responsive design</li>
+                    <li>Dark/Light mode support</li>
+                    <li>Easy navigation and search</li>
+                    <li>Offline reading capability</li>
+                    <li>Bookmark important content</li>
+                    <li>Clean and intuitive interface</li>
+                    <li>Fast and lightweight</li>
+                </ul>
+
+                <h3>How to Use:</h3>
+                <ul>
+                    <li>Browse content from the main contents list</li>
+                    <li>Use the search feature to find specific topics</li>
+                    <li>Bookmark important content for quick access</li>
+                    <li>Switch between light and dark modes</li>
+                    <li>Share the app with friends and family</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Contact Us Screen -->
+        <div class="content-screen" id="contactUsScreen" style="display: none;">
+            <div class="content-display">
+                <h2>Contact Us</h2>
+                <p>
+                    We value your feedback and suggestions! If you have any questions, comments, or ideas to improve Hidayate Amaal, please fill out the form below. Your feedback helps us make this app better for everyone.
+                </p>
+                <form id="contactForm" style="max-width: 400px; margin: 0 auto;">
+                    <label for="contactSubject">Subject:</label>
+                    <input type="text" id="contactSubject" name="contactSubject" required style="width:100%;margin-bottom:1rem;padding:0.5rem;">
+                    
+                    <label for="contactMessage">Feedback:</label>
+                    <textarea id="contactMessage" name="contactMessage" rows="5" required style="width:100%;margin-bottom:1rem;padding:0.5rem;"></textarea>
+                    
+                    <button type="submit" style="background:var(--primary-color);color:white;padding:0.75rem 1.5rem;border:none;border-radius:8px;cursor:pointer;">Submit</button>
+                </form>
+                <div id="contactSuccess" style="display:none;color:var(--accent-color);margin-top:1rem;text-align:center;">Thank you for your feedback!</div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Bootloader: load selected-language datasets, then signal ready -->
+    <script>
+        (function() {
+            const KEY = 'selectedLanguage';
+            const lang = localStorage.getItem(KEY) || 'roman_ur';
+
+            const hidayahMap = {
+                en: '/islami_buniyaad/english.js',
+                ur: '/islami_buniyaad/urdu.js',
+                roman_ur: '/islami_buniyaad/roman_urdu.js',
+                hi: '/islami_buniyaad/hindi.js',
+                te: '/islami_buniyaad/telugu.js',
+                te_ur: '/islami_buniyaad/telugu_urdu.js'    // NEW
+            };
+            const quranMap = {
+                en: '/quran_dua/quran_dua_english.js',
+                ur: '/quran_dua/quran_dua_urdu.js',
+                roman_ur: '/quran_dua/quran_dua_roman.js',
+                hi: '/quran_dua/quran_dua_hindi.js',
+                te: '/quran_dua/quran_dua_telugu.js',
+                te_ur: '/quran_dua/quran_dua_telugu.js'      // NEW (reuse Telugu Quran)
+            };
+
+            function loadScript(src) {
+                return new Promise((resolve, reject) => {
+                    const s = document.createElement('script');
+                    s.src = src;
+                    s.onload = resolve;
+                    s.onerror = reject;
+                    document.body.appendChild(s);
+                });
+            }
+
+            Promise.all([
+                loadScript(hidayahMap[lang]),
+                loadScript(quranMap[lang])
+            ]).then(() => {
+                window.__datasetsLoaded = true;
+                document.dispatchEvent(new Event('datasetsReady'));
+            }).catch(() => {
+                // Even on error, continue so app can show something/fail gracefully
+                window.__datasetsLoaded = true;
+                document.dispatchEvent(new Event('datasetsReady'));
+            });
+        })();
+    </script>
+
+    <script src="main.js"></script>
+    <script src="main2.js"></script>
+</body>
+</html>
