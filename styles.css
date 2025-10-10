@@ -156,6 +156,11 @@ body, html, * {
     display: none;
 }
 
+/* NEW: hide Continue card during search */
+.search-mode .continue-container {
+    display: none !important;
+}
+
 /* Remove the old search overlay styles */
 .search-overlay {
     display: none !important;
@@ -483,7 +488,7 @@ input:checked + .slider:before {
     display: flex;
     align-items: center;
     justify-content: flex-end;
-    min-width: 32px;   /* align 1..99 neatly */
+    min-width: 32px;  
     padding: 0;
     height: auto;
     background: transparent;
@@ -645,7 +650,6 @@ input:checked + .slider:before {
     margin: 2rem 0;
 }
 
-/* Remove or comment out the modal styles since we won't use them for about sections */
 /* Modal */
 .modal {
     display: none;
@@ -1430,4 +1434,118 @@ body.tabs-hidden .main-content {
     .ayah-number { min-width: 24px; height: 24px; line-height: 24px; padding: 0 6px; }
     .ayah-translit { padding-left: 0px; padding-right: 0; }
     .bismillah { font-size: 1.2em; margin: 0.75rem 0; } /* Responsive bismillah */
+}
+
+/* Continue Where You Left */
+.continue-container {
+    margin: 0 0 1rem 0;
+}
+.continue-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+    cursor: pointer;
+    transition: transform 0.05s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+.continue-card:hover {
+    border-color: var(--accent-color);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    transform: translateY(-1px);
+}
+.continue-left { display:flex; align-items:center; gap:12px; }
+.continue-badge {
+    width: 36px; height: 36px; border-radius: 10px;
+    display:flex; align-items:center; justify-content:center;
+    background: var(--accent-color); color:#fff; flex-shrink:0;
+}
+.continue-title {
+    font-weight: 700; color: var(--text-primary); font-size: 0.95rem;
+}
+.continue-sub {
+    color: var(--text-secondary); font-size: 0.88rem; margin-top: 2px;
+    overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 62vw;
+}
+.continue-progress {
+    margin-top: 8px; height: 6px; background: rgba(0,0,0,0.06);
+    border-radius: 999px; overflow: hidden;
+}
+[data-theme="dark"] .continue-progress { background: rgba(255,255,255,0.08); }
+.continue-progress-bar {
+    height: 100%; background: var(--accent-color); width: 0%;
+    transition: width 0.3s ease;
+}
+.continue-arrow {
+    color: var(--text-secondary);
+    animation: nudge 1.8s ease-in-out infinite;
+}
+@keyframes nudge { 0%,100% { transform: translateX(0);} 50% { transform: translateX(4px);} }
+
+/* Right arrow indicator on each index item */
+.index-item { position: relative; } /* keep current layout, only positioning */
+.index-item::after {
+    content: "\f105";
+    font-family: "Font Awesome 6 Free";
+    font-weight: 900;
+    color: var(--text-secondary);
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    opacity: 0.7;
+}
+.index-item:hover::after { color: #fff; opacity: 1; }
+
+/* Scroll to Top Button */
+.scroll-to-top-btn {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    z-index: 998;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(20px);
+    transition: all 0.3s ease;
+}
+
+.scroll-to-top-btn.visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.scroll-to-top-btn:hover {
+    background: var(--secondary-color);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+}
+
+.scroll-to-top-btn:active {
+    transform: translateY(-1px);
+}
+
+/* Responsive adjustments */
+@media (max-width: 480px) {
+    .scroll-to-top-btn {
+        width: 45px;
+        height: 45px;
+        font-size: 1.1rem;
+        bottom: 16px;
+        right: 16px;
+    }
 }

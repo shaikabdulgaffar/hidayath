@@ -136,10 +136,38 @@
     <!-- Overlay -->
     <div class="overlay" id="overlay"></div>
 
+    <!-- Scroll to Top Button (NEW) -->
+    <button class="scroll-to-top-btn" id="scrollToTopBtn" title="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
+
     <!-- Main Content -->
     <main class="main-content" id="mainContent">
         <!-- Home Screen -->
         <div class="home-screen" id="homeScreen">
+
+            <!-- Continue Where You Left (new) -->
+            <div id="continueContainer" class="continue-container" style="display:none;">
+                <div class="continue-card" id="continueCard" role="button" tabindex="0" aria-label="Continue">
+                    <div class="continue-left">
+                        <div class="continue-badge">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="continue-texts">
+                            <div class="continue-title" id="continueTitle">Continue where you left</div>
+                            <div class="continue-sub" id="continueSub"></div>
+                            <div class="continue-progress">
+                                <div class="continue-progress-bar" id="continueProgressBar" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="continue-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- End Continue -->
+
             <div class="index-list">
                 <h3 id="contentsHeading">Contents</h3>
                 <div class="index-items" id="indexItems">
@@ -150,6 +178,28 @@
 
         <!-- Content Screen -->
         <div class="content-screen" id="contentScreen" style="display: none;">
+            <!-- Continue Where You Left (content screen) -->
+            <div id="continueContainerContent" class="continue-container" style="display:none;">
+                <div class="continue-card" id="continueCardContent" role="button" tabindex="0" aria-label="Continue">
+                    <div class="continue-left">
+                        <div class="continue-badge">
+                            <i class="fas fa-play"></i>
+                        </div>
+                        <div class="continue-texts">
+                            <div class="continue-title" id="continueTitleContent">Continue where you left</div>
+                            <div class="continue-sub" id="continueSubContent"></div>
+                            <div class="continue-progress">
+                                <div class="continue-progress-bar" id="continueProgressBarContent" style="width:0%"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="continue-arrow">
+                        <i class="fas fa-chevron-right"></i>
+                    </div>
+                </div>
+            </div>
+            <!-- End Continue (content screen) -->
+
             <div class="content-header">
                 <button class="back-btn" id="backBtn">
                     <i class="fas fa-arrow-left"></i>
@@ -241,7 +291,7 @@
                 roman_ur: '/1-roman_urdu.js',
                 hi: '/1-hindi.js',
                 te: '/1-telugu.js',
-                te_ur: '/1-telugu_urdu.js'    // NEW
+                te_ur: '/1-telugu_urdu.js'  
             };
             const quranMap = {
                 en: '/2-english.js',
@@ -249,7 +299,7 @@
                 roman_ur: '/2-roman.js',
                 hi: '/2-hindi.js',
                 te: '/2-telugu.js',
-                te_ur: '/2-telugu.js'      // NEW (reuse Telugu Quran)
+                te_ur: '/2-telugu.js'     
             };
 
             function loadScript(src) {
@@ -277,6 +327,5 @@
     </script>
 
     <script src="main.js"></script>
-    <script src="main2.js"></script>
 </body>
 </html>

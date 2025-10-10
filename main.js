@@ -63,6 +63,7 @@ const contactForm = document.getElementById('contactForm');
 const contactSuccess = document.getElementById('contactSuccess');
 const prevContentBtn = document.getElementById('prevContentBtn');
 const nextContentBtn = document.getElementById('nextContentBtn');
+const scrollToTopBtn = document.getElementById('scrollToTopBtn');
 
 // Header search elements
 const searchBtn = document.getElementById('searchBtn');
@@ -556,7 +557,8 @@ const i18n = {
         contact_feedback: 'Feedback:',
         contact_submit: 'Submit',
         contact_success: 'Thank you for your feedback!',
-        share_copied: 'App link copied to clipboard!'
+        share_copied: 'App link copied to clipboard!',
+        continue_title: 'Continue Where You Left'
     },
     ur: {
         appTitle: 'ہدایۃ اعمال',
@@ -590,7 +592,8 @@ const i18n = {
         contact_feedback: 'رائے:',
         contact_submit: 'جمع کریں',
         contact_success: 'آپ کی رائے کا شکریہ!',
-        share_copied: 'ایپ لنک کلپ بورڈ میں کاپی ہو گیا!'
+        share_copied: 'ایپ لنک کلپ بورڈ میں کاپی ہو گیا!',
+        continue_title: 'جہاں چھوڑا تھا وہاں سے جاری رکھیں'
     },
     roman_ur: {
         appTitle: 'Hidayate Aamaal',
@@ -624,7 +627,8 @@ const i18n = {
         contact_feedback: 'Feedback:',
         contact_submit: 'Submit',
         contact_success: 'Shukriya, aap ka feedback mil gaya!',
-        share_copied: 'App link clipboard par copy ho gaya!'
+        share_copied: 'App link clipboard par copy ho gaya!',
+        continue_title: 'Jahan Chhora Tha Wahan Se Jari Rakhein'
     },
     hi: {
         appTitle: 'हिदायते आमाल',
@@ -658,7 +662,8 @@ const i18n = {
         contact_feedback: 'प्रतिक्रिया:',
         contact_submit: 'सबमिट',
         contact_success: 'धन्यवाद! आपकी प्रतिक्रिया प्राप्त हुई।',
-        share_copied: 'ऐप लिंक क्लिपबोर्ड पर कॉपी हो गया!'
+        share_copied: 'ऐप लिंक क्लिपबोर्ड पर कॉपी हो गया!',
+        continue_title: 'जहां छोड़ा था वहीं से जारी रखें'
     },
     te: {
         appTitle: 'హిదాయతే ఆమాల్',
@@ -692,7 +697,8 @@ const i18n = {
         contact_feedback: 'అభిప్రాయం:',
         contact_submit: 'సబ్మిట్',
         contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
-        share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!'
+        share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!',
+        continue_title: 'మీరు ఆగిన చోట కొనసాగించండి'
     },
     te_ur: {
         appTitle: 'హిదాయతే ఆమాల్',
@@ -726,7 +732,8 @@ const i18n = {
         contact_feedback: 'అభిప్రాయం:',
         contact_submit: 'సబ్మిట్',
         contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
-        share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!'
+        share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!',
+        continue_title: 'మీరు ఆగిన చోట కొనసాగించండి'
     }
 };
 function t(key, ...args) {
@@ -1467,6 +1474,26 @@ function setSearchVisible(isVisible) {
     }
 }
 
+// Scroll to Top Button Logic
+if (scrollToTopBtn) {
+    // Show/hide button based on scroll position
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            scrollToTopBtn.classList.add('visible');
+        } else {
+            scrollToTopBtn.classList.remove('visible');
+        }
+    });
+
+    // Scroll to top when clicked
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+}
+
 // New: enable/disable and navigate prev/next
 function updatePrevNextButtons() {
     if (!prevContentBtn || !nextContentBtn) return;
@@ -1610,3 +1637,134 @@ function populateIndex() {
         });
     }
 }
+
+
+// Continue Where You Left Feature
+const LAST_READ_KEY = 'lastReadContent';
+const continueContainer = document.getElementById('continueContainer');
+const continueCard = document.getElementById('continueCard');
+const continueTitle = document.getElementById('continueTitle');
+const continueSub = document.getElementById('continueSub');
+const continueProgressBar = document.getElementById('continueProgressBar');
+
+// NEW: content-screen continue card refs
+const continueContainerContent = document.getElementById('continueContainerContent');
+const continueCardContent = document.getElementById('continueCardContent');
+const continueTitleContent = document.getElementById('continueTitleContent');
+const continueSubContent = document.getElementById('continueSubContent');
+const continueProgressBarContent = document.getElementById('continueProgressBarContent');
+
+// Helper: get datasets for a specific section without switching UI
+function getDatasetsForSection(section) {
+    if (section === 'quran') {
+        return {
+            indexData: (typeof window.quranIndexData !== 'undefined') ? window.quranIndexData : [],
+            contentData: (typeof window.quranContentData !== 'undefined') ? window.quranContentData : {}
+        };
+    }
+    return {
+        indexData: (typeof window.indexData !== 'undefined') ? window.indexData : [],
+        contentData: (typeof window.contentData !== 'undefined') ? window.contentData : {}
+    };
+}
+
+// Save last read content
+function saveLastRead(contentId) {
+    const content = currentContentData[contentId];
+    if (!content) return;
+
+    const lastRead = {
+        id: contentId,
+        title: content.title,
+        timestamp: Date.now(),
+        section: activeSection
+    };
+    localStorage.setItem(LAST_READ_KEY, JSON.stringify(lastRead));
+}
+
+// Load and display continue card (both Home and Content screens)
+function loadContinueCard() {
+    const targets = [
+        { container: continueContainer, card: continueCard, titleEl: continueTitle, subEl: continueSub, barEl: continueProgressBar },
+        { container: continueContainerContent, card: continueCardContent, titleEl: continueTitleContent, subEl: continueSubContent, barEl: continueProgressBarContent }
+    ].filter(t => t.container && t.card && t.titleEl && t.subEl && t.barEl);
+
+    const lastReadStr = localStorage.getItem(LAST_READ_KEY);
+
+    if (!lastReadStr) {
+        targets.forEach(t => t.container.style.display = 'none');
+        return;
+    }
+
+    try {
+        const lastRead = JSON.parse(lastReadStr);
+        const sectionOfItem = lastRead.section || 'hidayah';
+
+        const ds = getDatasetsForSection(sectionOfItem);
+        const dsIndex = ds.indexData;
+        const dsContent = ds.contentData;
+
+        const content = dsContent ? dsContent[lastRead.id] : null;
+        if (!content) {
+            targets.forEach(t => t.container.style.display = 'none');
+            return;
+        }
+
+        // Build list to compute progress
+        let allItems = [];
+        if (sectionOfItem === 'hidayah' && dsIndex && dsIndex.sections) {
+            dsIndex.sections.forEach(section => allItems = allItems.concat(section.items));
+        } else {
+            allItems = Array.isArray(dsIndex) ? [...dsIndex] : [];
+        }
+
+        const currentIndex = allItems.findIndex(item => item.id === lastRead.id);
+        const progress = (currentIndex >= 0 && allItems.length > 0)
+            ? ((currentIndex + 1) / allItems.length) * 100
+            : 0;
+
+        // Update UI on all targets
+        targets.forEach(t => {
+            t.titleEl.textContent = t('continue_title') || 'Continue Where You Left';
+            t.subEl.textContent = lastRead.title;
+            t.barEl.style.width = `${progress}%`;
+            t.container.style.display = 'block';
+
+            t.card.onclick = () => {
+                if (activeSection !== sectionOfItem) {
+                    setActiveSection(sectionOfItem);
+                    setTimeout(() => showContent(lastRead.id), 0);
+                } else {
+                    showContent(lastRead.id);
+                }
+            };
+            t.card.onkeydown = (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    t.card.click();
+                }
+            };
+        });
+    } catch (e) {
+        console.error('Error loading continue card:', e);
+        targets.forEach(t => t.container.style.display = 'none');
+    }
+}
+
+// Patch showContent: keep tabs visible, save last read, refresh continue card
+const originalShowContent = showContent;
+showContent = function(id) {
+    originalShowContent.call(this, id);
+    // Keep tab bar visible on content screen (so the continue card is “below tabnav”)
+    setTabsVisible(true);
+    saveLastRead(id);
+    loadContinueCard();
+};
+
+// Patch showHomeScreen: refresh continue card on Home
+// FIX: Rename the original function to avoid recursion
+const originalShowHomeScreen_ForPatch = showHomeScreen;
+showHomeScreen = function() {
+    originalShowHomeScreen_ForPatch.call(this);
+    loadContinueCard();
+};
