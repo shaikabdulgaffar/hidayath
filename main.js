@@ -71,7 +71,6 @@ const searchCloseBtn = document.getElementById('searchCloseBtn');
 const appTitle = document.getElementById('appTitle');
 const searchInputContainer = document.getElementById('searchInputContainer');
 const headerSearchInput = document.getElementById('headerSearchInput');
-const contentsHeading = document.getElementById('contentsHeading');
 const header = document.querySelector('.header');
 const mainContent = document.getElementById('mainContent');     // added
 const tabNavigation = document.getElementById('tabNavigation'); // already present
@@ -82,6 +81,9 @@ const quranTab = document.getElementById('quranTab');
 let activeSection = 'hidayah';
 let currentIndexData = [];
 let currentContentData = {};
+
+// NEW: last-read storage key (per-section map)
+const LAST_READ_KEY = 'lastReadMap';
 
 // Add safe refs for optional elements (modal + old search overlay)
 const languageModal = document.getElementById('languageModal');
@@ -372,9 +374,20 @@ function setActiveSection(section) {
 }
 
 function showContent(id) {
-    // push history for Content
+    // push/replace history for Content
     if (!__suppressHistory) {
-        try { history.pushState({ screen: 'content', id }, '', `#content-${id}`); } catch {}
+        const isAlreadyOnContent = contentScreen && contentScreen.style.display === 'block';
+        try {
+            const state = { screen: 'content', id };
+            const url = `#content-${id}`;
+            if (isAlreadyOnContent) {
+                // When moving via Next/Prev, replace instead of pushing a new entry
+                history.replaceState(state, '', url);
+            } else {
+                // First time opening content from Home/Search
+                history.pushState(state, '', url);
+            }
+        } catch {}
     }
 
     const content = currentContentData[id];
@@ -382,6 +395,10 @@ function showContent(id) {
     closeHeaderSearch();
 
     currentContentId = id;
+
+    // save last-read
+    saveLastRead({ section: activeSection, id, title: content.title });
+
     contentDisplay.innerHTML = `
         <h2>${content.title}</h2>
         ${content.content}
@@ -393,7 +410,7 @@ function showContent(id) {
     updateBookmarkIcon();
     updatePrevNextButtons();
     setTabsVisible(false);
-    setSearchVisible(false); // hide search off-Home
+    setSearchVisible(false);
     window.scrollTo(0, 0);
 }
 
@@ -558,7 +575,8 @@ const i18n = {
         contact_submit: 'Submit',
         contact_success: 'Thank you for your feedback!',
         share_copied: 'App link copied to clipboard!',
-        continue_title: 'Continue Where You Left'
+        // NEW
+        continue_reading: 'Continue reading',
     },
     ur: {
         appTitle: 'ہدایۃ اعمال',
@@ -593,7 +611,8 @@ const i18n = {
         contact_submit: 'جمع کریں',
         contact_success: 'آپ کی رائے کا شکریہ!',
         share_copied: 'ایپ لنک کلپ بورڈ میں کاپی ہو گیا!',
-        continue_title: 'جہاں چھوڑا تھا وہاں سے جاری رکھیں'
+        // NEW
+        continue_reading: 'پڑھنا جاری رکھیں',
     },
     roman_ur: {
         appTitle: 'Hidayate Aamaal',
@@ -628,7 +647,8 @@ const i18n = {
         contact_submit: 'Submit',
         contact_success: 'Shukriya, aap ka feedback mil gaya!',
         share_copied: 'App link clipboard par copy ho gaya!',
-        continue_title: 'Jahan Chhora Tha Wahan Se Jari Rakhein'
+        // NEW
+        continue_reading: 'Continue reading',
     },
     hi: {
         appTitle: 'हिदायते आमाल',
@@ -663,7 +683,8 @@ const i18n = {
         contact_submit: 'सबमिट',
         contact_success: 'धन्यवाद! आपकी प्रतिक्रिया प्राप्त हुई।',
         share_copied: 'ऐप लिंक क्लिपबोर्ड पर कॉपी हो गया!',
-        continue_title: 'जहां छोड़ा था वहीं से जारी रखें'
+        // NEW
+        continue_reading: 'पढ़ना जारी रखें',
     },
     te: {
         appTitle: 'హిదాయతే ఆమాల్',
@@ -698,7 +719,8 @@ const i18n = {
         contact_submit: 'సబ్మిట్',
         contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
         share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!',
-        continue_title: 'మీరు ఆగిన చోట కొనసాగించండి'
+        // NEW
+        continue_reading: 'చదవడం కొనసాగించు',
     },
     te_ur: {
         appTitle: 'హిదాయతే ఆమాల్',
@@ -733,7 +755,8 @@ const i18n = {
         contact_submit: 'సబ్మిట్',
         contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
         share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!',
-        continue_title: 'మీరు ఆగిన చోట కొనసాగించండి'
+        // NEW
+        continue_reading: 'చదవడం కొనసాగించు',
     }
 };
 function t(key, ...args) {
@@ -741,6 +764,53 @@ function t(key, ...args) {
     const pack = i18n[lang] || i18n.en;
     const val = pack[key] ?? i18n.en[key] ?? key;
     return typeof val === 'function' ? val(...args) : val;
+}
+
+// NEW: last-read helpers
+function saveLastRead({ section, id, title }) {
+    try {
+        const map = readLastReadMap();
+        map[section] = { id, title, ts: Date.now() };
+        localStorage.setItem(LAST_READ_KEY, JSON.stringify(map));
+    } catch {}
+}
+
+function getLastReadFor(section) {
+    const map = readLastReadMap();
+    return map[section] || null;
+}
+
+// UPDATED: render Continue card only for activeSection
+function renderContinueCard() {
+    const container = document.getElementById('continueContainer');
+    if (!container) return;
+
+    const last = getLastReadFor(activeSection);
+    if (!last || !last.id || !last.title) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        return;
+    }
+
+    container.innerHTML = `
+        <div class="continue-card" id="continueCardBtn" role="button" aria-label="${t('continue_reading')}">
+            <div class="continue-icon"><i class="fas fa-play"></i></div>
+            <div class="continue-text">
+                <div class="continue-label">${t('continue_reading')}</div>
+                <div class="continue-title">${last.title}</div>
+            </div>
+            <div class="continue-chevron"><i class="fas fa-chevron-right"></i></div>
+        </div>
+    `;
+    container.style.display = 'block';
+
+    const btn = document.getElementById('continueCardBtn');
+    if (btn) {
+        btn.onclick = () => {
+            // Already rendering for activeSection; just open content
+            showContent(last.id);
+        };
+    }
 }
 
 // Apply translations to static UI
@@ -761,7 +831,6 @@ function applyI18n() {
     if (quranTabSpan) quranTabSpan.textContent = t('tab_quran');
 
     // Remove the contents heading update - it's commented out now
-    // if (contentsHeading && !isSearchActive) contentsHeading.textContent = t('contents_title');
 
     // Sidebar labels
     const map = [
@@ -812,6 +881,9 @@ function applyI18n() {
 
     // Set initial bookmark icon title according to state
     updateBookmarkIcon();
+
+    // Re-render continue card with localized label for active tab
+    renderContinueCard();
 }
 
 // Initialize the app
@@ -1015,6 +1087,8 @@ function showSearchPlaceholder() {
 }
 
 function restoreNormalView() {
+    // NEW: show/update continue card
+    renderContinueCard();
     // Don't set contents heading anymore
     populateIndex();
 }
@@ -1494,30 +1568,48 @@ if (scrollToTopBtn) {
     });
 }
 
+// Helper: get a flat ordered list of index items across sections
+function getLinearIndexItems() {
+    if (activeSection === 'hidayah' && currentIndexData && currentIndexData.sections) {
+        const items = [];
+        currentIndexData.sections.forEach(section => {
+            if (section && Array.isArray(section.items)) {
+                items.push(...section.items);
+            }
+        });
+        return items;
+    }
+    return Array.isArray(currentIndexData) ? currentIndexData : [];
+}
+
 // New: enable/disable and navigate prev/next
 function updatePrevNextButtons() {
     if (!prevContentBtn || !nextContentBtn) return;
 
-    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
+    const items = getLinearIndexItems();
+    const idx = items.findIndex(item => item.id === currentContentId);
+
     const isFirst = idx <= 0;
-    const isLast = idx === currentIndexData.length - 1 || idx === -1;
+    const isLast = idx === -1 || idx >= items.length - 1;
 
     prevContentBtn.disabled = isFirst;
     nextContentBtn.disabled = isLast;
 }
 
 function goToPrevContent() {
-    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
+    const items = getLinearIndexItems();
+    const idx = items.findIndex(item => item.id === currentContentId);
     if (idx > 0) {
-        const prevId = currentIndexData[idx - 1].id;
+        const prevId = items[idx - 1].id;
         showContent(prevId);
     }
 }
 
 function goToNextContent() {
-    const idx = currentIndexData.findIndex(item => item.id === currentContentId);
-    if (idx !== -1 && idx < currentIndexData.length - 1) {
-        const nextId = currentIndexData[idx + 1].id;
+    const items = getLinearIndexItems();
+    const idx = items.findIndex(item => item.id === currentContentId);
+    if (idx !== -1 && idx < items.length - 1) {
+        const nextId = items[idx + 1].id;
         showContent(nextId);
     }
 }
@@ -1638,133 +1730,80 @@ function populateIndex() {
     }
 }
 
-
-// Continue Where You Left Feature
-const LAST_READ_KEY = 'lastReadContent';
-const continueContainer = document.getElementById('continueContainer');
-const continueCard = document.getElementById('continueCard');
-const continueTitle = document.getElementById('continueTitle');
-const continueSub = document.getElementById('continueSub');
-const continueProgressBar = document.getElementById('continueProgressBar');
-
-// NEW: content-screen continue card refs
-const continueContainerContent = document.getElementById('continueContainerContent');
-const continueCardContent = document.getElementById('continueCardContent');
-const continueTitleContent = document.getElementById('continueTitleContent');
-const continueSubContent = document.getElementById('continueSubContent');
-const continueProgressBarContent = document.getElementById('continueProgressBarContent');
-
-// Helper: get datasets for a specific section without switching UI
-function getDatasetsForSection(section) {
-    if (section === 'quran') {
-        return {
-            indexData: (typeof window.quranIndexData !== 'undefined') ? window.quranIndexData : [],
-            contentData: (typeof window.quranContentData !== 'undefined') ? window.quranContentData : {}
-        };
-    }
-    return {
-        indexData: (typeof window.indexData !== 'undefined') ? window.indexData : [],
-        contentData: (typeof window.contentData !== 'undefined') ? window.contentData : {}
-    };
-}
-
-// Save last read content
-function saveLastRead(contentId) {
-    const content = currentContentData[contentId];
-    if (!content) return;
-
-    const lastRead = {
-        id: contentId,
-        title: content.title,
-        timestamp: Date.now(),
-        section: activeSection
-    };
-    localStorage.setItem(LAST_READ_KEY, JSON.stringify(lastRead));
-}
-
-// Load and display continue card (both Home and Content screens)
-function loadContinueCard() {
-    const targets = [
-        { container: continueContainer, card: continueCard, titleEl: continueTitle, subEl: continueSub, barEl: continueProgressBar },
-        { container: continueContainerContent, card: continueCardContent, titleEl: continueTitleContent, subEl: continueSubContent, barEl: continueProgressBarContent }
-    ].filter(t => t.container && t.card && t.titleEl && t.subEl && t.barEl);
-
-    const lastReadStr = localStorage.getItem(LAST_READ_KEY);
-
-    if (!lastReadStr) {
-        targets.forEach(t => t.container.style.display = 'none');
-        return;
-    }
-
+// NEW: read/migrate last-read map
+function readLastReadMap() {
     try {
-        const lastRead = JSON.parse(lastReadStr);
-        const sectionOfItem = lastRead.section || 'hidayah';
-
-        const ds = getDatasetsForSection(sectionOfItem);
-        const dsIndex = ds.indexData;
-        const dsContent = ds.contentData;
-
-        const content = dsContent ? dsContent[lastRead.id] : null;
-        if (!content) {
-            targets.forEach(t => t.container.style.display = 'none');
-            return;
+        const raw = localStorage.getItem(LAST_READ_KEY);
+        if (raw) {
+            const obj = JSON.parse(raw);
+            // If already a map with section keys, return as-is
+            if (obj && (obj.hidayah || obj.quran)) return obj;
         }
 
-        // Build list to compute progress
-        let allItems = [];
-        if (sectionOfItem === 'hidayah' && dsIndex && dsIndex.sections) {
-            dsIndex.sections.forEach(section => allItems = allItems.concat(section.items));
-        } else {
-            allItems = Array.isArray(dsIndex) ? [...dsIndex] : [];
+        // Migrate old single-entry format if present
+        const oldRaw = localStorage.getItem('lastReadItem');
+        if (oldRaw) {
+            const old = JSON.parse(oldRaw);
+            const map = {};
+            if (old && old.section && old.id) {
+                map[old.section] = {
+                    id: old.id,
+                    title: old.title,
+                    ts: old.ts || Date.now()
+                };
+            }
+            try {
+                localStorage.setItem(LAST_READ_KEY, JSON.stringify(map));
+                localStorage.removeItem('lastReadItem');
+            } catch {}
+            return map;
         }
 
-        const currentIndex = allItems.findIndex(item => item.id === lastRead.id);
-        const progress = (currentIndex >= 0 && allItems.length > 0)
-            ? ((currentIndex + 1) / allItems.length) * 100
-            : 0;
-
-        // Update UI on all targets
-        targets.forEach(t => {
-            t.titleEl.textContent = t('continue_title') || 'Continue Where You Left';
-            t.subEl.textContent = lastRead.title;
-            t.barEl.style.width = `${progress}%`;
-            t.container.style.display = 'block';
-
-            t.card.onclick = () => {
-                if (activeSection !== sectionOfItem) {
-                    setActiveSection(sectionOfItem);
-                    setTimeout(() => showContent(lastRead.id), 0);
-                } else {
-                    showContent(lastRead.id);
-                }
-            };
-            t.card.onkeydown = (e) => {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    t.card.click();
-                }
-            };
-        });
-    } catch (e) {
-        console.error('Error loading continue card:', e);
-        targets.forEach(t => t.container.style.display = 'none');
+        return {};
+    } catch {
+        return {};
     }
 }
 
-// Patch showContent: keep tabs visible, save last read, refresh continue card
-const originalShowContent = showContent;
-showContent = function(id) {
-    originalShowContent.call(this, id);
-    // Keep tab bar visible on content screen (so the continue card is “below tabnav”)
-    setTabsVisible(true);
-    saveLastRead(id);
-    loadContinueCard();
-};
-
-// Patch showHomeScreen: refresh continue card on Home
-// FIX: Rename the original function to avoid recursion
-const originalShowHomeScreen_ForPatch = showHomeScreen;
-showHomeScreen = function() {
-    originalShowHomeScreen_ForPatch.call(this);
-    loadContinueCard();
-};
+// Populate index on load
+function populateIndex() {
+    indexItems.innerHTML = '';
+    
+    // Check if we're on the Hidayah section and data has sections
+    if (activeSection === 'hidayah' && currentIndexData.sections) {
+        // Render sections
+        currentIndexData.sections.forEach(section => {
+            // Section title
+            const sectionTitle = document.createElement('h3');
+            sectionTitle.className = 'index-section-title';
+            sectionTitle.textContent = section.title;
+            indexItems.appendChild(sectionTitle);
+            
+            // Section items
+            section.items.forEach((item, idx) => {
+                const serialNumber = idx + 1;
+                const indexItem = document.createElement('div');
+                indexItem.className = 'index-item';
+                indexItem.innerHTML = `
+                    <div class="index-serial">${serialNumber})</div>
+                    <h4 class="index-title">${item.title}</h4>
+                `;
+                indexItem.addEventListener('click', () => showContent(item.id));
+                indexItems.appendChild(indexItem);
+            });
+        });
+    } else {
+        // Regular rendering (for Quran tab or old format)
+        currentIndexData.forEach((item, idx) => {
+            const serialNumber = idx + 1;
+            const indexItem = document.createElement('div');
+            indexItem.className = 'index-item';
+            indexItem.innerHTML = `
+                <div class="index-serial">${serialNumber})</div>
+                <h4 class="index-title">${item.title}</h4>
+            `;
+            indexItem.addEventListener('click', () => showContent(item.id));
+            indexItems.appendChild(indexItem);
+        });
+    }
+}

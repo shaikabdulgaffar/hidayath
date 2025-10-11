@@ -2106,7 +2106,7 @@ const indexData = {
                 { id: 9, title: "The 5 Kalimahs of Islam" },
                 { id: 104, title: "Levels of Imaan (Faith)" },
                 { id: 105, title: "Sweetness of Faith Comes from 3 Things" },
-                { id: 137, title: "Means Are Only a Medium—Everything Happens by Allah's Command" },
+                { id: 137, title: "Means Are Only a Medium - Everything Happens by Allah's Command" },
             ]
         },
         {

@@ -145,31 +145,10 @@
     <main class="main-content" id="mainContent">
         <!-- Home Screen -->
         <div class="home-screen" id="homeScreen">
-
-            <!-- Continue Where You Left (new) -->
-            <div id="continueContainer" class="continue-container" style="display:none;">
-                <div class="continue-card" id="continueCard" role="button" tabindex="0" aria-label="Continue">
-                    <div class="continue-left">
-                        <div class="continue-badge">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="continue-texts">
-                            <div class="continue-title" id="continueTitle">Continue where you left</div>
-                            <div class="continue-sub" id="continueSub"></div>
-                            <div class="continue-progress">
-                                <div class="continue-progress-bar" id="continueProgressBar" style="width:0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="continue-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- End Continue -->
+            <!-- NEW: Continue Reading card container -->
+            <div id="continueContainer" class="continue-container" style="display:none;"></div>
 
             <div class="index-list">
-                <h3 id="contentsHeading">Contents</h3>
                 <div class="index-items" id="indexItems">
                     <!-- Index items will be populated by JavaScript -->
                 </div>
@@ -178,28 +157,6 @@
 
         <!-- Content Screen -->
         <div class="content-screen" id="contentScreen" style="display: none;">
-            <!-- Continue Where You Left (content screen) -->
-            <div id="continueContainerContent" class="continue-container" style="display:none;">
-                <div class="continue-card" id="continueCardContent" role="button" tabindex="0" aria-label="Continue">
-                    <div class="continue-left">
-                        <div class="continue-badge">
-                            <i class="fas fa-play"></i>
-                        </div>
-                        <div class="continue-texts">
-                            <div class="continue-title" id="continueTitleContent">Continue where you left</div>
-                            <div class="continue-sub" id="continueSubContent"></div>
-                            <div class="continue-progress">
-                                <div class="continue-progress-bar" id="continueProgressBarContent" style="width:0%"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="continue-arrow">
-                        <i class="fas fa-chevron-right"></i>
-                    </div>
-                </div>
-            </div>
-            <!-- End Continue (content screen) -->
-
             <div class="content-header">
                 <button class="back-btn" id="backBtn">
                     <i class="fas fa-arrow-left"></i>
@@ -325,8 +282,6 @@
             });
         })();
     </script>
-
     <script src="main.js"></script>
-    <script src="1-english.js"></script>
 </body>
 </html>
