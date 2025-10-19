@@ -794,7 +794,7 @@ function renderContinueCard() {
 
     container.innerHTML = `
         <div class="continue-card" id="continueCardBtn" role="button" aria-label="${t('continue_reading')}">
-            <div class="continue-icon"><i class="fas fa-play"></i></div>
+            <div class="continue-icon"><i class="fas fa-book-open"></i></div>
             <div class="continue-text">
                 <div class="continue-label">${t('continue_reading')}</div>
                 <div class="continue-title">${last.title}</div>
