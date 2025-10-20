@@ -576,7 +576,8 @@ function getLang() {
     return localStorage.getItem(I18N_KEY) || 'roman_ur';
 }
 function isRTL(lang) {
-    return lang === 'ur';
+    // Keep layout LTR for all languages (Urdu text will still render correctly)
+    return false;
 }
 const i18n = {
     en: {
@@ -659,7 +660,6 @@ const i18n = {
         contact_submit: 'جمع کریں',
         contact_success: 'آپ کی رائے کا شکریہ!',
         share_copied: 'ایپ لنک کلپ بورڈ میں کاپی ہو گیا!',
-        // NEW
         continue_reading: 'پڑھنا جاری رکھیں',
     },
     roman_ur: {
@@ -695,7 +695,6 @@ const i18n = {
         contact_submit: 'Submit',
         contact_success: 'Shukriya, aap ka feedback mil gaya!',
         share_copied: 'App link clipboard par copy ho gaya!',
-        // NEW
         continue_reading: 'Continue reading',
     },
     hi: {
@@ -731,7 +730,6 @@ const i18n = {
         contact_submit: 'सबमिट',
         contact_success: 'धन्यवाद! आपकी प्रतिक्रिया प्राप्त हुई।',
         share_copied: 'ऐप लिंक क्लिपबोर्ड पर कॉपी हो गया!',
-        // NEW
         continue_reading: 'पढ़ना जारी रखें',
     },
     te: {
@@ -767,7 +765,6 @@ const i18n = {
         contact_submit: 'సబ్మిట్',
         contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
         share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!',
-        // NEW
         continue_reading: 'చదవడం కొనసాగించు',
     },
     te_ur: {
@@ -803,7 +800,6 @@ const i18n = {
         contact_submit: 'సబ్మిట్',
         contact_success: 'ధన్యవాదాలు! మీ అభిప్రాయం అందింది.',
         share_copied: 'యాప్ లింక్ క్లిప్‌బోర్డ్‌లో కాపీ అయింది!',
-        // NEW
         continue_reading: 'చదవడం కొనసాగించు',
     }
 };
@@ -864,7 +860,8 @@ function renderContinueCard() {
 // Apply translations to static UI
 function applyI18n() {
     const lang = getLang();
-    document.documentElement.setAttribute('dir', isRTL(lang) ? 'rtl' : 'ltr');
+    // Force LTR layout always
+    document.documentElement.setAttribute('dir', 'ltr');
 
     // Header + title + search
     const appTitleEl = document.getElementById('appTitle');
@@ -1921,20 +1918,34 @@ document.addEventListener('DOMContentLoaded', wireSidebarMenuOverrides);
 let __tourActive = false;
 
 // i18n: add tour strings (fallback to English for other languages)
-i18n.en = {
-    // ...existing code...
-    // Tour UI
-    tour_next: 'Next',
-    tour_skip: 'Skip',
-    tour_done: 'Done',
-    tour_welcome: 'Welcome to Hidayate Amaal! Let’s take a quick tour.',
-    tour_menu: 'Tap here or swipe right to open the menu with bookmarks, language, and more.',
-    tour_tabs: 'Switch between Home and Quran using these tabs.',
-    tour_search: 'Use search to quickly find any topic.',
-    tour_list: 'Browse the list and tap an item to start reading.',
-    tour_bookmarks: 'Your saved items (bookmarks) are available here.',
-    tour_swipe: 'Tip: On Home, swipe left/right to switch tabs. Right-swipe to open the menu on Tab 1.',
-};
+if (i18n && i18n.en) {
+    Object.assign(i18n.en, {
+        tour_next: 'Next',
+        tour_skip: 'Skip',
+        tour_done: 'Done',
+        tour_welcome: 'Welcome to Hidayate Amaal! Let’s take a quick tour.',
+        tour_menu: 'Tap here or swipe right to open the menu with bookmarks, language, and more.',
+        tour_tabs: 'Switch between Home and Quran using these tabs.',
+        tour_search: 'Use search to quickly find any topic.',
+        tour_list: 'Browse the list and tap an item to start reading.',
+        tour_bookmarks: 'Your saved items (bookmarks) are available here.',
+        tour_swipe: 'Tip: On Home, swipe left/right to switch tabs. Right-swipe to open the menu on Tab 1.',
+    });
+} else {
+    // Fallback (shouldn’t happen, but safe)
+    i18n.en = {
+        tour_next: 'Next',
+        tour_skip: 'Skip',
+        tour_done: 'Done',
+        tour_welcome: 'Welcome to Hidayate Amaal! Let’s take a quick tour.',
+        tour_menu: 'Tap here or swipe right to open the menu with bookmarks, language, and more.',
+        tour_tabs: 'Switch between Home and Quran using these tabs.',
+        tour_search: 'Use search to quickly find any topic.',
+        tour_list: 'Browse the list and tap an item to start reading.',
+        tour_bookmarks: 'Your saved items (bookmarks) are available here.',
+        tour_swipe: 'Tip: On Home, swipe left/right to switch tabs. Right-swipe to open the menu on Tab 1.',
+    };
+}
 
 // --- First-time Tour logic ---
 (function setupFirstTimeTour() {
