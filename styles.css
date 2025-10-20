@@ -38,9 +38,21 @@ body {
     transition: all 0.3s ease;
 }
 
-/* Disable zoom (pinch, double-tap) on mobile */
+/* Disable pinch/double-tap zoom hints on touch devices */
 html, body {
-    touch-action: manipulation;
+    touch-action: manipulation; /* disables double-tap zoom while keeping tap/scroll */
+}
+
+/* Prefer explicit pan-x/pan-y where supported (keeps scrolling, blocks pinch) */
+@supports (touch-action: pan-x) {
+    html, body {
+        touch-action: pan-x pan-y;
+    }
+}
+
+/* Prevent iOS auto-zoom on input focus */
+input, select, textarea {
+    font-size: 16px;
 }
 
 /* Disable text selection globally */

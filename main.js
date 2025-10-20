@@ -2009,3 +2009,26 @@ function setupTabSwipeNavigation() {
 
 // Ensure swipe is wired after DOM is ready
 document.addEventListener('DOMContentLoaded', setupTabSwipeNavigation);
+
+// Disable browser zoom (pinch, key combos, Ctrl+wheel)
+function disableBrowserZoom() {
+    // Desktop: block Ctrl/⌘ + (+/-/=) and Ctrl/⌘ + 0
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && ['+', '-', '=', '_', '0'].includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+
+    // Desktop: block pinch (Ctrl+wheel) zoom
+    document.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+
+    // iOS Safari: block gesture-based pinch events
+    window.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
+    window.addEventListener('gesturechange', (e) => e.preventDefault(), { passive: false });
+    window.addEventListener('gestureend', (e) => e.preventDefault(), { passive: false });
+}
+
+// Initialize zoom disabling after DOM is ready
+document.addEventListener('DOMContentLoaded', disableBrowserZoom);
