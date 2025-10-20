@@ -153,6 +153,8 @@ let isSearchActive = false;
 // SPA history helpers
 let __suppressHistory = false;   // prevent pushState during popstate-driven nav
 let __historySetupDone = false;  // ensure router only sets up once
+// NEW: sidebar history flag
+let __sidebarStateActive = false;
 
 // Event Listeners
 if (hamburgerBtn) {
@@ -263,24 +265,39 @@ if (searchOverlay) {
 
 // Rate App button
 rateAppBtn.addEventListener('click', () => {
+    closeSidebar(true);
     window.open('https://play.google.com/store/apps/details?id=com.yourapp.hidayateamaal', '_blank');
-    closeSidebar();
 });
-
 // Our Apps button
 ourAppsBtn.addEventListener('click', () => {
+    closeSidebar(true);
     window.open('https://yourwebsite.com/apps', '_blank');
-    closeSidebar();
 });
-
 // Contact Us button
 contactUsBtn.addEventListener('click', () => {
+    closeSidebar(true);
     showContactUs();
-    closeSidebar();
 });
+// Home button
+if (homeBtn) {
+    homeBtn.addEventListener('click', () => {
+        if (isSearchActive) closeHeaderSearch();
+        closeSidebar(true);
+        showHomeScreen();
+    });
+}
 
 // Functions
 function openSidebar() {
+    // Prevent duplicate pushes
+    if (sidebar.classList.contains('open')) return;
+
+    // NEW: push a transient history state so back closes sidebar first
+    if (!__suppressHistory && !__sidebarStateActive) {
+        try { history.pushState({ screen: 'sidebar' }, '', '#sidebar'); } catch {}
+        __sidebarStateActive = true;
+    }
+
     sidebar.classList.add('open');
     overlay.classList.add('active');
     lockScroll();
@@ -288,12 +305,29 @@ function openSidebar() {
     collapseLanguageDropdown();
 }
 
-function closeSidebar() {
+function closeSidebarUI() {
     sidebar.classList.remove('open');
     overlay.classList.remove('active');
     unlockScroll();
     enableBackgroundInteractions();
     collapseLanguageDropdown();
+}
+
+// Update closeSidebar to cooperate with history/back button
+function closeSidebar(fromPopstate = false) {
+    if (fromPopstate) {
+        // We arrived here due to a pop; just close UI and clear flag
+        closeSidebarUI();
+        __sidebarStateActive = false;
+        return;
+    }
+    if (__sidebarStateActive) {
+        // Pop the transient sidebar state; UI will close in popstate handler
+        try { history.back(); } catch {}
+        return;
+    }
+    // Fallback: no history state to pop, just close UI
+    closeSidebarUI();
 }
 
 function toggleTheme() {
@@ -319,7 +353,8 @@ function shareApp() {
             alert(t('share_copied'));
         });
     }
-    closeSidebar();
+    // Replace history-based close with UI-only close so we don't pop newly pushed states
+    closeSidebar(true);
 }
 
 function showAboutApp() {
@@ -333,7 +368,8 @@ function showAboutApp() {
     aboutAppScreen.style.display = 'block';
     setTabsVisible(false);
     setSearchVisible(false); // hide search off-Home
-    closeSidebar();
+    // Only close sidebar UI, don't touch history here
+    closeSidebar(true);
     window.scrollTo(0, 0);
 }
 
@@ -480,7 +516,8 @@ function showBookmarks() {
     bookmarksScreen.style.display = 'block';
     setTabsVisible(false);
     setSearchVisible(false);
-    closeSidebar();
+    // Only close sidebar UI, don't pop history
+    closeSidebar(true);
 }
 
 function toggleBookmark() {
@@ -1213,8 +1250,9 @@ function showHomeScreen() {
 
 // Update the bookmarkBtn click handler to differentiate from search
 function showBookmarksFromSidebar() {
+    // Close sidebar UI first, then navigate (prevents popping the new state)
+    closeSidebar(true);
     showBookmarks();
-    closeSidebar();
 }
 
 // Contact Us functions
@@ -1623,10 +1661,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Event Listeners
 if (hidayahTab) {
-    hidayahTab.addEventListener('click', () => setActiveSection('hidayah'));
+    hidayahTab.addEventListener('click', () => {
+        if (activeSection !== 'hidayah') {
+            if (!__suppressHistory) {
+                try { history.pushState({ screen: 'home', tab: 'hidayah' }, '', '#home'); } catch {}
+            }
+            setActiveSection('hidayah');
+        }
+    });
 }
 if (quranTab) {
-    quranTab.addEventListener('click', () => setActiveSection('quran'));
+    quranTab.addEventListener('click', () => {
+        if (activeSection !== 'quran') {
+            if (!__suppressHistory) {
+                try { history.pushState({ screen: 'home', tab: 'quran' }, '', '#home-quran'); } catch {}
+            }
+            setActiveSection('quran');
+        }
+    });
 }
 
 // SPA History router: map hardware back to in-app navigation
@@ -1635,30 +1687,41 @@ function setupSPAHistory() {
     __historySetupDone = true;
 
     try {
-        // Base state: Home
-        history.replaceState({ screen: 'home' }, '', '#home');
+        // Seed history so back from Quran tab returns to Hidayah
+        // Base state: Home on Hidayah
+        history.replaceState({ screen: 'home', tab: 'hidayah' }, '', '#home');
+        // If current section is Quran, push an additional state on top
+        if (activeSection === 'quran') {
+            history.pushState({ screen: 'home', tab: 'quran' }, '', '#home-quran');
+        }
     } catch {}
 
     window.addEventListener('popstate', (e) => {
-        const state = e.state || { screen: 'home' };
+        let state = e.state || { screen: 'home' };
 
-        // Close sidebar first if open
-        if (sidebar && sidebar.classList.contains('open')) {
-            closeSidebar();
+        // If we land on the transient 'sidebar' state, just auto-pop it and return
+        if (state.screen === 'sidebar') {
+            closeSidebar(true);
+            try { history.back(); } catch {}
+            return;
+        }
+
+        // If sidebar is currently open (or we had pushed sidebar), close it due to back
+        if (__sidebarStateActive || (sidebar && sidebar.classList.contains('open'))) {
+            closeSidebar(true);
         }
 
         __suppressHistory = true;
-        
-        // If search is active and we're going back, just close search without navigating
+
+        // Close search first if needed
         if (isSearchActive && state.screen === 'home') {
             closeHeaderSearch();
             __suppressHistory = false;
             return;
         }
-        
+
         switch (state.screen) {
             case 'search':
-                // Re-open search UI without pushing another history entry
                 openHeaderSearch();
                 break;
             case 'content':
@@ -1679,10 +1742,17 @@ function setupSPAHistory() {
                 break;
             case 'home':
             default:
-                if (isSearchActive) closeHeaderSearch();
+                // Honor tab if provided; default to Hidayah
+                if (state.tab === 'quran') {
+                    setActiveSection('quran');
+                } else {
+                    setActiveSection('hidayah');
+                }
+                // Ensure we are on the home UI
                 showHomeScreen();
                 break;
         }
+
         __suppressHistory = false;
     });
 }
@@ -1807,3 +1877,31 @@ function populateIndex() {
         });
     }
 }
+
+// Override sidebar menu clicks with capture to prevent older handlers from popping history
+function wireSidebarMenuOverrides() {
+    const safeBind = (el, fn) => {
+        if (!el) return;
+        el.addEventListener('click', (e) => {
+            e.preventDefault();
+            e.stopImmediatePropagation(); // stop other listeners on same target
+            // Close sidebar UI only; do not use history.back() here
+            closeSidebar(true);
+            fn();
+        }, true); // capture so this runs before bubble listeners
+    };
+
+    safeBind(bookmarkBtn, () => showBookmarks());
+    safeBind(aboutAppBtn, () => showAboutApp());
+    safeBind(contactUsBtn, () => showContactUs());
+    safeBind(homeBtn, () => {
+        if (isSearchActive) closeHeaderSearch();
+        showHomeScreen();
+    });
+    safeBind(shareBtn, () => shareApp());
+    safeBind(rateAppBtn, () => window.open('https://play.google.com/store/apps/details?id=com.yourapp.hidayateamaal', '_blank'));
+    safeBind(ourAppsBtn, () => window.open('https://yourwebsite.com/apps', '_blank'));
+}
+
+// Ensure overrides are wired once DOM is ready
+document.addEventListener('DOMContentLoaded', wireSidebarMenuOverrides);
