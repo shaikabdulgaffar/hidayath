@@ -1908,27 +1908,18 @@ document.addEventListener('DOMContentLoaded', wireSidebarMenuOverrides);
 
 // Home tab swipe navigation (left/right)
 function setupTabSwipeNavigation() {
-    const area = mainContent || document.body;
+    const targets = [mainContent, tabNavigation].filter(Boolean);
+    if (!targets.length || !hidayahTab || !quranTab) return;
 
-    // Guard: if no area or tabs, skip
-    if (!area || !hidayahTab || !quranTab) return;
-
-    let startX = 0;
-    let startY = 0;
-    let lastX = 0;
-    let lastY = 0;
-    let tracking = false;
-    let lockedDir = null; // 'h' for horizontal, 'v' for vertical
-
-    const H_THRESHOLD = 60;   // min horizontal movement to trigger
-    const V_TOLERANCE = 30;   // max vertical drift to allow for a horizontal swipe
+    const H_THRESHOLD = 60;    // min horizontal movement to trigger
+    const V_TOLERANCE = 30;    // max vertical drift to allow for a horizontal swipe
     const ACTIVATE_DELTA = 12; // movement to lock direction
 
     const canSwipe = () => (
         homeScreen &&
         homeScreen.style.display === 'block' &&     // only on Home
         !sidebar.classList.contains('open') &&      // not when sidebar open
-        !isSearchActive                              // not during header search
+        !isSearchActive                              // not during search
     );
 
     function gotoTab(tab) {
@@ -1945,65 +1936,77 @@ function setupTabSwipeNavigation() {
         }
     }
 
-    area.addEventListener('touchstart', (e) => {
-        if (!canSwipe() || !e.touches || e.touches.length !== 1) {
-            tracking = false;
-            return;
-        }
-        const t = e.touches[0];
-        startX = lastX = t.clientX;
-        startY = lastY = t.clientY;
-        tracking = true;
-        lockedDir = null;
-    }, { passive: true });
+    targets.forEach((area) => {
+        let startX = 0;
+        let startY = 0;
+        let lastX = 0;
+        let lastY = 0;
+        let tracking = false;
+        let lockedDir = null; // 'h' for horizontal, 'v' for vertical
 
-    area.addEventListener('touchmove', (e) => {
-        if (!tracking || !canSwipe() || !e.touches || e.touches.length !== 1) return;
-
-        const t = e.touches[0];
-        lastX = t.clientX;
-        lastY = t.clientY;
-
-        const dx = lastX - startX;
-        const dy = lastY - startY;
-
-        // Lock direction once a small delta is detected
-        if (!lockedDir) {
-            if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) {
-                lockedDir = 'h';
-            } else if (Math.abs(dy) > ACTIVATE_DELTA) {
-                lockedDir = 'v';
+        area.addEventListener('touchstart', (e) => {
+            if (!canSwipe() || !e.touches || e.touches.length !== 1) {
+                tracking = false;
+                return;
             }
-        }
+            const t = e.touches[0];
+            startX = lastX = t.clientX;
+            startY = lastY = t.clientY;
+            tracking = true;
+            lockedDir = null;
+        }, { passive: true });
 
-        // If we recognized a horizontal swipe, prevent vertical scroll jitter
-        if (lockedDir === 'h') {
-            e.preventDefault(); // requires passive: false listener (we attach default)
-        }
-    }, { passive: false });
+        area.addEventListener('touchmove', (e) => {
+            if (!tracking || !canSwipe() || !e.touches || e.touches.length !== 1) return;
 
-    area.addEventListener('touchend', (e) => {
-        if (!tracking) return;
-        tracking = false;
+            const t = e.touches[0];
+            lastX = t.clientX;
+            lastY = t.clientY;
 
-        if (!canSwipe()) return;
+            const dx = lastX - startX;
+            const dy = lastY - startY;
 
-        const dx = lastX - startX;
-        const dy = lastY - startY;
+            if (!lockedDir) {
+                if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) {
+                    lockedDir = 'h';
+                } else if (Math.abs(dy) > ACTIVATE_DELTA) {
+                    lockedDir = 'v';
+                }
+            }
 
-        // Only act on predominantly horizontal gestures
-        if (Math.abs(dy) > V_TOLERANCE) return;
+            if (lockedDir === 'h') {
+                e.preventDefault(); // requires passive: false listener
+            }
+        }, { passive: false });
 
-        // Right-to-left swipe => go to Quran tab (from Hidayah)
-        if (dx <= -H_THRESHOLD && activeSection === 'hidayah') {
-            gotoTab('quran');
-            return;
-        }
-        // Left-to-right swipe => go to Hidayah tab (from Quran)
-        if (dx >= H_THRESHOLD && activeSection === 'quran') {
-            gotoTab('hidayah');
-            return;
-        }
+        area.addEventListener('touchend', () => {
+            if (!tracking) return;
+            tracking = false;
+
+            if (!canSwipe()) return;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+
+            if (Math.abs(dy) > V_TOLERANCE) return;
+
+            // Any right-swipe on Hidayah -> open sidebar
+            if (dx >= H_THRESHOLD && activeSection === 'hidayah' && !sidebar.classList.contains('open')) {
+                openSidebar();
+                return;
+            }
+
+            // Right-to-left swipe => go to Quran tab (from Hidayah)
+            if (dx <= -H_THRESHOLD && activeSection === 'hidayah') {
+                gotoTab('quran');
+                return;
+            }
+            // Left-to-right swipe => go to Hidayah tab (from Quran)
+            if (dx >= H_THRESHOLD && activeSection === 'quran') {
+                gotoTab('hidayah');
+                return;
+            }
+        });
     });
 }
 
