@@ -1579,3 +1579,79 @@ body.tabs-hidden .main-content {
         right: 16px;
     }
 }
+
+/* First-time Tour */
+.tour-overlay {
+    position: fixed;
+    inset: 0;
+    z-index: 3000;
+    background: rgba(0,0,0,0.5);
+    display: none; /* toggled to block by JS */
+}
+
+.tour-highlight {
+    position: fixed;
+    border: 2px solid var(--accent-color);
+    border-radius: 12px;
+    box-shadow: 0 0 0 4px rgba(127, 176, 105, 0.25), 0 0 18px rgba(127,176,105,0.5);
+    pointer-events: none;
+    transition: all .2s ease;
+}
+
+.tour-tooltip {
+    position: fixed;
+    max-width: min(360px, 88vw);
+    background: var(--surface-color);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 14px 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+}
+
+.tour-text {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    margin-bottom: 12px;
+}
+
+.tour-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 8px;
+}
+
+.tour-btn {
+    padding: 8px 14px;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
+    background: var(--background-color);
+    color: var(--text-primary);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.tour-btn.tour-next {
+    background: var(--primary-color);
+    color: #fff;
+    border-color: var(--primary-color);
+}
+
+.tour-btn:active {
+    transform: translateY(1px);
+}
+
+@media (max-width: 480px) {
+    .tour-tooltip { max-width: 90vw; }
+}
+
+/* When tour is active, block interactions behind */
+body.tour-active .header,
+body.tour-active .tab-navigation,
+body.tour-active .main-content {
+    pointer-events: none;
+}
+body.tour-active .tour-overlay,
+body.tour-active .tour-overlay * {
+    pointer-events: auto;
+}

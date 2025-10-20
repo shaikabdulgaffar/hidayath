@@ -236,6 +236,19 @@
         </div>
     </main>
 
+    <!-- First-time Tour Overlay -->
+    <div id="appTour" class="tour-overlay" style="display:none;">
+        <div class="tour-highlight" id="tourHighlight" aria-hidden="true"></div>
+        <div class="tour-tooltip" id="tourTooltip" role="dialog" aria-live="polite" aria-modal="true">
+            <div class="tour-text" id="tourText"></div>
+            <div class="tour-actions">
+                <button type="button" class="tour-btn tour-skip" id="tourSkipBtn">Skip</button>
+                <button type="button" class="tour-btn tour-next" id="tourNextBtn">Next</button>
+            </div>
+        </div>
+    </div>
+    <!-- End Tour Overlay -->
+
     <!-- Bootloader: load selected-language datasets, then signal ready -->
     <script>
         (function() {

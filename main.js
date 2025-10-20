@@ -614,6 +614,17 @@ const i18n = {
         share_copied: 'App link copied to clipboard!',
         // NEW
         continue_reading: 'Continue reading',
+        // Tour UI
+        tour_next: 'Next',
+        tour_skip: 'Skip',
+        tour_done: 'Done',
+        tour_welcome: 'Welcome to Hidayate Amaal! Let’s take a quick tour.',
+        tour_menu: 'Tap here or swipe right to open the menu with bookmarks, language, and more.',
+        tour_tabs: 'Switch between Home and Quran using these tabs.',
+        tour_search: 'Use search to quickly find any topic.',
+        tour_list: 'Browse the list and tap an item to start reading.',
+        tour_bookmarks: 'Your saved items (bookmarks) are available here.',
+        tour_swipe: 'Tip: On Home, swipe left/right to switch tabs. Right-swipe to open the menu on Tab 1.',
     },
     ur: {
         appTitle: 'ہدایۃ اعمال',
@@ -1906,6 +1917,290 @@ function wireSidebarMenuOverrides() {
 // Ensure overrides are wired once DOM is ready
 document.addEventListener('DOMContentLoaded', wireSidebarMenuOverrides);
 
+// Global tour flag to pause gestures during tour
+let __tourActive = false;
+
+// i18n: add tour strings (fallback to English for other languages)
+i18n.en = {
+    // ...existing code...
+    // Tour UI
+    tour_next: 'Next',
+    tour_skip: 'Skip',
+    tour_done: 'Done',
+    tour_welcome: 'Welcome to Hidayate Amaal! Let’s take a quick tour.',
+    tour_menu: 'Tap here or swipe right to open the menu with bookmarks, language, and more.',
+    tour_tabs: 'Switch between Home and Quran using these tabs.',
+    tour_search: 'Use search to quickly find any topic.',
+    tour_list: 'Browse the list and tap an item to start reading.',
+    tour_bookmarks: 'Your saved items (bookmarks) are available here.',
+    tour_swipe: 'Tip: On Home, swipe left/right to switch tabs. Right-swipe to open the menu on Tab 1.',
+};
+
+// --- First-time Tour logic ---
+(function setupFirstTimeTour() {
+    const TOUR_KEY = 'tourSeenVersion';
+    const TOUR_VERSION = 1;
+
+    // Elements
+    const tourEl = document.getElementById('appTour');
+    const hlEl = document.getElementById('tourHighlight');
+    const tipEl = document.getElementById('tourTooltip');
+    const textEl = document.getElementById('tourText');
+    const nextBtn = document.getElementById('tourNextBtn');
+    const skipBtn = document.getElementById('tourSkipBtn');
+
+    if (!tourEl || !hlEl || !tipEl || !textEl || !nextBtn || !skipBtn) return;
+
+    let stepIndex = 0;
+
+    const steps = [
+        { id: 'welcome', text: () => t('tour_welcome'), target: null, pos: 'center' },
+        { id: 'menu', text: () => t('tour_menu'), target: '#hamburgerBtn', pos: 'below' },
+        { id: 'tabs', text: () => t('tour_tabs'), target: '#tabNavigation', pos: 'below' },
+        { id: 'search', text: () => t('tour_search'), target: '#searchBtn', pos: 'below-right' },
+        { id: 'list', text: () => t('tour_list'), target: '#indexItems', pos: 'above' },
+        {
+            id: 'bookmarks',
+            text: () => t('tour_bookmarks'),
+            target: '#bookmarkBtn',
+            pos: 'right',
+            onEnter: () => { if (!sidebar.classList.contains('open')) openSidebar(); },
+            onExit: () => { if (sidebar.classList.contains('open')) closeSidebar(true); }
+        },
+        { id: 'swipe', text: () => t('tour_swipe'), target: null, pos: 'center' }
+    ];
+
+    function hasSeenTour() {
+        try {
+            const v = parseInt(localStorage.getItem(TOUR_KEY) || '0', 10);
+            return v >= TOUR_VERSION;
+        } catch { return false; }
+    }
+
+    function markSeen() {
+        try { localStorage.setItem(TOUR_KEY, String(TOUR_VERSION)); } catch {}
+    }
+
+    function isVisible(el) {
+        if (!el) return false;
+        const rect = el.getBoundingClientRect();
+        return rect.width > 0 && rect.height > 0 && rect.bottom > 0 && rect.right > 0 &&
+               rect.top < (window.innerHeight || document.documentElement.clientHeight) &&
+               rect.left < (window.innerWidth || document.documentElement.clientWidth);
+    }
+
+    function placeTooltip(rect, pos) {
+        const margin = 10;
+        const tipRect = tipEl.getBoundingClientRect();
+
+        let top, left;
+
+        if (!rect) {
+            // Center
+            tipEl.style.top = '50%';
+            tipEl.style.left = '50%';
+            tipEl.style.transform = 'translate(-50%, -50%)';
+            return;
+        }
+
+        // Reset any transform first
+        tipEl.style.transform = 'none';
+
+        switch (pos) {
+            case 'below':
+                top = rect.bottom + margin;
+                left = Math.min(Math.max(rect.left, 8), window.innerWidth - tipRect.width - 8);
+                break;
+            case 'below-right':
+                top = rect.bottom + margin;
+                left = Math.min(rect.left, window.innerWidth - tipRect.width - 8);
+                break;
+            case 'above':
+                top = Math.max(rect.top - tipRect.height - margin, 8);
+                left = Math.min(Math.max(rect.left, 8), window.innerWidth - tipRect.width - 8);
+                break;
+            case 'right':
+                top = Math.min(Math.max(rect.top, 8), window.innerHeight - tipRect.height - 8);
+                left = Math.min(rect.right + margin, window.innerWidth - tipRect.width - 8);
+                break;
+            default:
+                // Fallback: center
+                tipEl.style.top = '50%';
+                tipEl.style.left = '50%';
+                tipEl.style.transform = 'translate(-50%, -50%)';
+                return;
+        }
+
+        tipEl.style.top = `${top}px`;
+        tipEl.style.left = `${left}px`;
+    }
+
+    function highlightRect(rect) {
+        if (!rect) {
+            hlEl.style.display = 'none';
+            return;
+        }
+        hlEl.style.display = 'block';
+        hlEl.style.top = `${rect.top - 6}px`;
+        hlEl.style.left = `${rect.left - 6}px`;
+        hlEl.style.width = `${rect.width + 12}px`;
+        hlEl.style.height = `${rect.height + 12}px`;
+    }
+
+    function showStep(i) {
+        // Cleanup previous step hooks
+        const prev = steps[stepIndex];
+        if (prev && typeof prev.onExit === 'function') prev.onExit();
+
+        stepIndex = i;
+
+        // Done?
+        if (stepIndex >= steps.length) {
+            endTour(true);
+            return;
+        }
+
+        const step = steps[stepIndex];
+
+        textEl.textContent = step.text();
+        nextBtn.textContent = (stepIndex === steps.length - 1) ? t('tour_done') : t('tour_next');
+
+        // Ensure we are on Home + Hidayah for most steps
+        if (activeSection !== 'hidayah') setActiveSection('hidayah');
+        if (isSearchActive) closeHeaderSearch();
+
+        // Find target
+        let rect = null;
+        if (step.target) {
+            const el = document.querySelector(step.target);
+            if (el && isVisible(el)) {
+                rect = el.getBoundingClientRect();
+            }
+        }
+
+        // Possibly enter step hook (e.g., open sidebar)
+        if (typeof step.onEnter === 'function') step.onEnter();
+
+        // For steps that need sidebar open, re-query the rect after onEnter
+        if (!rect && step.target) {
+            const el = document.querySelector(step.target);
+            if (el && isVisible(el)) rect = el.getBoundingClientRect();
+        }
+
+        // Highlight and place tooltip
+        highlightRect(rect);
+        placeTooltip(rect, rect ? step.pos : 'center');
+
+        // If rect is near bottom/top off screen, try scroll into view
+        if (step.target) {
+            const el = document.querySelector(step.target);
+            if (el && el.scrollIntoView) {
+                el.scrollIntoView({ block: 'center', behavior: 'instant' });
+                // Recompute after scroll
+                const r2 = el.getBoundingClientRect();
+                highlightRect(r2);
+                placeTooltip(r2, step.pos);
+            }
+        }
+    }
+
+    function startTour() {
+        __tourActive = true;
+        document.body.classList.add('tour-active');
+        // Make overlay visible
+        tourEl.style.display = 'block';
+
+        // Localize buttons
+        skipBtn.textContent = t('tour_skip');
+        nextBtn.textContent = t('tour_next');
+
+        // Start from step 0
+        showStep(0);
+
+        // Reposition on resize/orientation
+        window.addEventListener('resize', onReposition);
+        window.addEventListener('scroll', onReposition, { passive: true });
+
+        // Close on ESC
+        document.addEventListener('keydown', onEsc);
+    }
+
+    function onReposition() {
+        // Re-apply current step
+        showStep(stepIndex);
+    }
+
+    function onEsc(e) {
+        if (e.key === 'Escape') endTour(true);
+    }
+
+    function endTour(save) {
+        if (save) markSeen();
+        // Cleanup
+        __tourActive = false;
+        document.body.classList.remove('tour-active');
+        tourEl.style.display = 'none';
+        window.removeEventListener('resize', onReposition);
+        window.removeEventListener('scroll', onReposition);
+        document.removeEventListener('keydown', onEsc);
+
+        // Ensure sidebar closed if left open by a step
+        if (sidebar.classList.contains('open')) closeSidebar(true);
+    }
+
+    // Buttons
+    nextBtn.addEventListener('click', () => showStep(stepIndex + 1));
+    skipBtn.addEventListener('click', () => endTour(true));
+
+    // Public starter (after app init)
+    window.__startAppTourIfFirstTime = function() {
+        if (hasSeenTour()) return;
+        // Delay slightly to ensure layout is ready
+        setTimeout(() => startTour(), 350);
+    };
+})();
+
+// Ensure swipe is wired after DOM is ready
+document.addEventListener('DOMContentLoaded', setupTabSwipeNavigation);
+
+// Disable browser zoom (pinch, key combos, Ctrl+wheel)
+function disableBrowserZoom() {
+    // Desktop: block Ctrl/⌘ + (+/-/=) and Ctrl/⌘ + 0
+    document.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && ['+', '-', '=', '_', '0'].includes(e.key)) {
+            e.preventDefault();
+        }
+    });
+
+    // Desktop: block pinch (Ctrl+wheel) zoom
+    document.addEventListener('wheel', (e) => {
+        if (e.ctrlKey) e.preventDefault();
+    }, { passive: false });
+
+    // iOS Safari: block gesture-based pinch events
+    window.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
+    window.addEventListener('gesturechange', (e) => e.preventDefault(), { passive: false });
+    window.addEventListener('gestureend', (e) => e.preventDefault(), { passive: false });
+}
+
+// Initialize zoom disabling after DOM is ready
+document.addEventListener('DOMContentLoaded', disableBrowserZoom);
+
+// After initializeApp completes, start tour if first time
+document.addEventListener('DOMContentLoaded', () => {
+    // Start only when datasets are ready and home is visible
+    const tryStart = () => {
+        if (typeof window.__startAppTourIfFirstTime === 'function') {
+            window.__startAppTourIfFirstTime();
+        }
+    };
+    if (!window.__datasetsLoaded) {
+        document.addEventListener('datasetsReady', tryStart, { once: true });
+    } else {
+        tryStart();
+    }
+});
+
 // Home tab swipe navigation (left/right)
 function setupTabSwipeNavigation() {
     const targets = [mainContent, tabNavigation].filter(Boolean);
@@ -1919,7 +2214,8 @@ function setupTabSwipeNavigation() {
         homeScreen &&
         homeScreen.style.display === 'block' &&     // only on Home
         !sidebar.classList.contains('open') &&      // not when sidebar open
-        !isSearchActive                              // not during search
+        !isSearchActive &&                          // not during search
+        !__tourActive                               // not during first-time tour
     );
 
     function gotoTab(tab) {
