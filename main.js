@@ -1905,3 +1905,107 @@ function wireSidebarMenuOverrides() {
 
 // Ensure overrides are wired once DOM is ready
 document.addEventListener('DOMContentLoaded', wireSidebarMenuOverrides);
+
+// Home tab swipe navigation (left/right)
+function setupTabSwipeNavigation() {
+    const area = mainContent || document.body;
+
+    // Guard: if no area or tabs, skip
+    if (!area || !hidayahTab || !quranTab) return;
+
+    let startX = 0;
+    let startY = 0;
+    let lastX = 0;
+    let lastY = 0;
+    let tracking = false;
+    let lockedDir = null; // 'h' for horizontal, 'v' for vertical
+
+    const H_THRESHOLD = 60;   // min horizontal movement to trigger
+    const V_TOLERANCE = 30;   // max vertical drift to allow for a horizontal swipe
+    const ACTIVATE_DELTA = 12; // movement to lock direction
+
+    const canSwipe = () => (
+        homeScreen &&
+        homeScreen.style.display === 'block' &&     // only on Home
+        !sidebar.classList.contains('open') &&      // not when sidebar open
+        !isSearchActive                              // not during header search
+    );
+
+    function gotoTab(tab) {
+        if (tab === 'quran' && activeSection !== 'quran') {
+            if (!__suppressHistory) {
+                try { history.pushState({ screen: 'home', tab: 'quran' }, '', '#home-quran'); } catch {}
+            }
+            setActiveSection('quran');
+        } else if (tab === 'hidayah' && activeSection !== 'hidayah') {
+            if (!__suppressHistory) {
+                try { history.pushState({ screen: 'home', tab: 'hidayah' }, '', '#home'); } catch {}
+            }
+            setActiveSection('hidayah');
+        }
+    }
+
+    area.addEventListener('touchstart', (e) => {
+        if (!canSwipe() || !e.touches || e.touches.length !== 1) {
+            tracking = false;
+            return;
+        }
+        const t = e.touches[0];
+        startX = lastX = t.clientX;
+        startY = lastY = t.clientY;
+        tracking = true;
+        lockedDir = null;
+    }, { passive: true });
+
+    area.addEventListener('touchmove', (e) => {
+        if (!tracking || !canSwipe() || !e.touches || e.touches.length !== 1) return;
+
+        const t = e.touches[0];
+        lastX = t.clientX;
+        lastY = t.clientY;
+
+        const dx = lastX - startX;
+        const dy = lastY - startY;
+
+        // Lock direction once a small delta is detected
+        if (!lockedDir) {
+            if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) {
+                lockedDir = 'h';
+            } else if (Math.abs(dy) > ACTIVATE_DELTA) {
+                lockedDir = 'v';
+            }
+        }
+
+        // If we recognized a horizontal swipe, prevent vertical scroll jitter
+        if (lockedDir === 'h') {
+            e.preventDefault(); // requires passive: false listener (we attach default)
+        }
+    }, { passive: false });
+
+    area.addEventListener('touchend', (e) => {
+        if (!tracking) return;
+        tracking = false;
+
+        if (!canSwipe()) return;
+
+        const dx = lastX - startX;
+        const dy = lastY - startY;
+
+        // Only act on predominantly horizontal gestures
+        if (Math.abs(dy) > V_TOLERANCE) return;
+
+        // Right-to-left swipe => go to Quran tab (from Hidayah)
+        if (dx <= -H_THRESHOLD && activeSection === 'hidayah') {
+            gotoTab('quran');
+            return;
+        }
+        // Left-to-right swipe => go to Hidayah tab (from Quran)
+        if (dx >= H_THRESHOLD && activeSection === 'quran') {
+            gotoTab('hidayah');
+            return;
+        }
+    });
+}
+
+// Ensure swipe is wired after DOM is ready
+document.addEventListener('DOMContentLoaded', setupTabSwipeNavigation);
