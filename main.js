@@ -969,18 +969,14 @@ document.addEventListener('DOMContentLoaded', initializeApp);
 // Populate index on load
 function populateIndex() {
     indexItems.innerHTML = '';
-    
-    // Check if we're on the Hidayah section and data has sections
-    if (activeSection === 'hidayah' && currentIndexData.sections) {
-        // Render sections
+
+    if (currentIndexData && currentIndexData.sections) {
         currentIndexData.sections.forEach(section => {
-            // Section title
             const sectionTitle = document.createElement('h3');
             sectionTitle.className = 'index-section-title';
             sectionTitle.textContent = section.title;
             indexItems.appendChild(sectionTitle);
-            
-            // Section items
+
             section.items.forEach((item, idx) => {
                 const serialNumber = idx + 1;
                 const indexItem = document.createElement('div');
@@ -994,8 +990,7 @@ function populateIndex() {
             });
         });
     } else {
-        // Regular rendering (for Quran tab or old format)
-        currentIndexData.forEach((item, idx) => {
+        (currentIndexData || []).forEach((item, idx) => {
             const serialNumber = idx + 1;
             const indexItem = document.createElement('div');
             indexItem.className = 'index-item';
@@ -1017,14 +1012,13 @@ function searchIndex(query) {
     }
 
     let allItems = [];
-    
-    // Flatten sections if using section-based data
-    if (activeSection === 'hidayah' && currentIndexData.sections) {
+
+    if (currentIndexData && currentIndexData.sections) {
         currentIndexData.sections.forEach(section => {
             allItems = allItems.concat(section.items);
         });
     } else {
-        allItems = currentIndexData;
+        allItems = currentIndexData || [];
     }
 
     const filteredItems = allItems.filter(item =>
@@ -1140,34 +1134,31 @@ function restoreNormalView() {
 
 function performLiveHeaderSearch(query) {
     let allItems = [];
-    
-    // Flatten sections if using section-based data
-    if (activeSection === 'hidayah' && currentIndexData.sections) {
+
+    if (currentIndexData && currentIndexData.sections) {
         currentIndexData.sections.forEach(section => {
             allItems = allItems.concat(section.items);
         });
     } else {
-        // For Quran tab, currentIndexData is already a flat array
-        allItems = [...currentIndexData];
+        allItems = [...(currentIndexData || [])];
     }
-    
+
     const filteredItems = allItems.filter(item =>
         item.title.toLowerCase().includes(query.toLowerCase())
     );
-    
+
     displayHeaderSearchResults(filteredItems, query);
 }
 
 function displayHeaderSearchResults(results, query) {
     indexItems.innerHTML = '';
-    
-    // Add search results heading
+
     const resultsHeading = document.createElement('h3');
     resultsHeading.className = 'index-section-title';
     resultsHeading.textContent = t('search_results');
     resultsHeading.style.marginTop = '0';
     indexItems.appendChild(resultsHeading);
-    
+
     if (results.length === 0) {
         const noResultsDiv = document.createElement('div');
         noResultsDiv.className = 'search-results-info';
@@ -1178,40 +1169,38 @@ function displayHeaderSearchResults(results, query) {
         indexItems.appendChild(noResultsDiv);
         return;
     }
-    
-    // Build a map of all items with their global serial numbers
+
     let allItemsWithSerial = [];
     let globalSerial = 1;
-    
-    if (activeSection === 'hidayah' && currentIndexData.sections) {
+
+    if (currentIndexData && currentIndexData.sections) {
         currentIndexData.sections.forEach(section => {
             section.items.forEach(item => {
                 allItemsWithSerial.push({ ...item, serial: globalSerial++ });
             });
         });
     } else {
-        currentIndexData.forEach(item => {
+        (currentIndexData || []).forEach(item => {
             allItemsWithSerial.push({ ...item, serial: globalSerial++ });
         });
     }
-    
+
     results.forEach(item => {
-        // Find the serial number for this item
         const itemWithSerial = allItemsWithSerial.find(i => i.id === item.id);
         const serialNumber = itemWithSerial ? itemWithSerial.serial : '';
-        
+
         const indexItem = document.createElement('div');
         indexItem.className = 'index-item';
         indexItem.innerHTML = `
             <div class="index-serial">${serialNumber})</div>
             <h4 class="index-title">${highlightSearchTerm(item.title, query)}</h4>
         `;
-        
+
         indexItem.addEventListener('click', () => {
             showContent(item.id);
             closeHeaderSearch();
         });
-        
+
         indexItems.appendChild(indexItem);
     });
 }
@@ -1616,7 +1605,7 @@ if (scrollToTopBtn) {
 
 // Helper: get a flat ordered list of index items across sections
 function getLinearIndexItems() {
-    if (activeSection === 'hidayah' && currentIndexData && currentIndexData.sections) {
+    if (currentIndexData && currentIndexData.sections) {
         const items = [];
         currentIndexData.sections.forEach(section => {
             if (section && Array.isArray(section.items)) {
@@ -1768,18 +1757,14 @@ function setupSPAHistory() {
 // Populate index with sections (only for Hidayah tab)
 function populateIndex() {
     indexItems.innerHTML = '';
-    
-    // Check if we're on the Hidayah section and data has sections
-    if (activeSection === 'hidayah' && currentIndexData.sections) {
-        // Render sections
+
+    if (currentIndexData && currentIndexData.sections) {
         currentIndexData.sections.forEach(section => {
-            // Section title
             const sectionTitle = document.createElement('h3');
             sectionTitle.className = 'index-section-title';
             sectionTitle.textContent = section.title;
             indexItems.appendChild(sectionTitle);
-            
-            // Section items
+
             section.items.forEach((item, idx) => {
                 const serialNumber = idx + 1;
                 const indexItem = document.createElement('div');
@@ -1793,8 +1778,7 @@ function populateIndex() {
             });
         });
     } else {
-        // Regular rendering (for Quran tab or old format)
-        currentIndexData.forEach((item, idx) => {
+        (currentIndexData || []).forEach((item, idx) => {
             const serialNumber = idx + 1;
             const indexItem = document.createElement('div');
             indexItem.className = 'index-item';
@@ -1846,18 +1830,14 @@ function readLastReadMap() {
 // Populate index on load
 function populateIndex() {
     indexItems.innerHTML = '';
-    
-    // Check if we're on the Hidayah section and data has sections
-    if (activeSection === 'hidayah' && currentIndexData.sections) {
-        // Render sections
+
+    if (currentIndexData && currentIndexData.sections) {
         currentIndexData.sections.forEach(section => {
-            // Section title
             const sectionTitle = document.createElement('h3');
             sectionTitle.className = 'index-section-title';
             sectionTitle.textContent = section.title;
             indexItems.appendChild(sectionTitle);
-            
-            // Section items
+
             section.items.forEach((item, idx) => {
                 const serialNumber = idx + 1;
                 const indexItem = document.createElement('div');
@@ -1871,8 +1851,7 @@ function populateIndex() {
             });
         });
     } else {
-        // Regular rendering (for Quran tab or old format)
-        currentIndexData.forEach((item, idx) => {
+        (currentIndexData || []).forEach((item, idx) => {
             const serialNumber = idx + 1;
             const indexItem = document.createElement('div');
             indexItem.className = 'index-item';
@@ -2008,7 +1987,6 @@ if (i18n && i18n.en) {
 
         if (!rect) {
             // Center
-            tipEl.style.top = '50%';
             tipEl.style.left = '50%';
             tipEl.style.transform = 'translate(-50%, -50%)';
             return;
@@ -2171,8 +2149,174 @@ if (i18n && i18n.en) {
     };
 })();
 
-// Ensure swipe is wired after DOM is ready
+// Home tab swipe navigation (now: global right-swipe opens sidebar)
+function setupTabSwipeNavigation() {
+    const targets = [mainContent, tabNavigation].filter(Boolean);
+    if (!targets.length || !hidayahTab || !quranTab) return;
+
+    const H_THRESHOLD = 60;
+    const V_TOLERANCE = 30;
+    const ACTIVATE_DELTA = 12;
+
+    const isHomeVisible = () => homeScreen && homeScreen.style.display === 'block';
+
+    const canSwipe = () => (
+        !sidebar.classList.contains('open') &&
+        !isSearchActive &&
+        !__tourActive
+    );
+
+    function gotoTab(tab) {
+        if (tab === 'quran' && activeSection !== 'quran') {
+            if (!__suppressHistory) {
+                try { history.pushState({ screen: 'home', tab: 'quran' }, '', '#home-quran'); } catch {}
+            }
+            setActiveSection('quran');
+        } else if (tab === 'hidayah' && activeSection !== 'hidayah') {
+            if (!__suppressHistory) {
+                try { history.pushState({ screen: 'home', tab: 'hidayah' }, '', '#home'); } catch {}
+            }
+            setActiveSection('hidayah');
+        }
+    }
+
+    targets.forEach((area) => {
+        let startX = 0, startY = 0, lastX = 0, lastY = 0;
+        let tracking = false;
+        let lockedDir = null;
+
+        area.addEventListener('touchstart', (e) => {
+            if (!canSwipe() || !e.touches || e.touches.length !== 1) { tracking = false; return; }
+            const t = e.touches[0];
+            startX = lastX = t.clientX;
+            startY = lastY = t.clientY;
+            tracking = true;
+            lockedDir = null;
+        }, { passive: true });
+
+        area.addEventListener('touchmove', (e) => {
+            if (!tracking || !canSwipe() || !e.touches || e.touches.length !== 1) return;
+            const t = e.touches[0];
+            lastX = t.clientX;
+            lastY = t.clientY;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+
+            if (!lockedDir) {
+                if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) lockedDir = 'h';
+                else if (Math.abs(dy) > ACTIVATE_DELTA) lockedDir = 'v';
+            }
+            if (lockedDir === 'h') e.preventDefault();
+        }, { passive: false });
+
+        area.addEventListener('touchend', () => {
+            if (!tracking) return;
+            tracking = false;
+            if (!canSwipe()) return;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+            if (Math.abs(dy) > V_TOLERANCE) return;
+
+            const onHome = isHomeVisible();
+
+            // NEW: On Home + Quran tab, right-swipe switches to Hidayah first
+            if (dx >= H_THRESHOLD && onHome && activeSection === 'quran') {
+                gotoTab('hidayah');
+                return;
+            }
+
+            // Left-swipe on Home + Hidayah switches to Quran (unchanged)
+            if (dx <= -H_THRESHOLD && onHome && activeSection === 'hidayah') {
+                gotoTab('quran');
+                return;
+            }
+
+            // Otherwise: right-swipe opens the sidebar (global)
+            if (dx >= H_THRESHOLD && !sidebar.classList.contains('open')) {
+                openSidebar();
+                return;
+            }
+        });
+    });
+}
+
+// Swipe to close sidebar when it's open (right-to-left)
+function setupSidebarSwipeToClose() {
+    const areas = [overlay, sidebar].filter(Boolean);
+    if (!areas.length) return;
+
+    const H_THRESHOLD = 60;    // min horizontal movement
+    const V_TOLERANCE = 30;    // max vertical drift
+    const ACTIVATE_DELTA = 12; // to lock direction
+
+    areas.forEach((area) => {
+        let startX = 0, startY = 0;
+        let lastX = 0, lastY = 0;
+        let tracking = false;
+        let lockedDir = null; // 'h' or 'v'
+
+        area.addEventListener('touchstart', (e) => {
+            if (!sidebar.classList.contains('open') || !e.touches || e.touches.length !== 1) {
+                tracking = false;
+                return;
+            }
+            const t = e.touches[0];
+            startX = lastX = t.clientX;
+            startY = lastY = t.clientY;
+            tracking = true;
+            lockedDir = null;
+        }, { passive: true });
+
+        area.addEventListener('touchmove', (e) => {
+            if (!tracking || !sidebar.classList.contains('open') || !e.touches || e.touches.length !== 1) return;
+
+            const t = e.touches[0];
+            lastX = t.clientX;
+            lastY = t.clientY;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+
+            if (!lockedDir) {
+                if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) {
+                    lockedDir = 'h';
+                } else if (Math.abs(dy) > ACTIVATE_DELTA) {
+                    lockedDir = 'v';
+                }
+            }
+
+            if (lockedDir === 'h') {
+                e.preventDefault(); // prevent scroll/click ghost
+            }
+        }, { passive: false });
+
+        area.addEventListener('touchend', (e) => {
+            if (!tracking) return;
+            tracking = false;
+
+            if (!sidebar.classList.contains('open')) return;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+
+            if (Math.abs(dy) > V_TOLERANCE) return;
+
+            // Right-to-left swipe closes the sidebar
+            if (dx <= -H_THRESHOLD) {
+                e.preventDefault();
+                e.stopPropagation();
+                // Use history-aware close (pops the transient #sidebar state)
+                closeSidebar();
+            }
+        }, { passive: false });
+    });
+}
+
+// Ensure swipes are wired after DOM is ready
 document.addEventListener('DOMContentLoaded', setupTabSwipeNavigation);
+document.addEventListener('DOMContentLoaded', setupSidebarSwipeToClose);
 
 // Disable browser zoom (pinch, key combos, Ctrl+wheel)
 function disableBrowserZoom() {
@@ -2211,134 +2355,3 @@ document.addEventListener('DOMContentLoaded', () => {
         tryStart();
     }
 });
-
-// Home tab swipe navigation (left/right)
-function setupTabSwipeNavigation() {
-    const targets = [mainContent, tabNavigation].filter(Boolean);
-    if (!targets.length || !hidayahTab || !quranTab) return;
-
-    const H_THRESHOLD = 60;    // min horizontal movement to trigger
-    const V_TOLERANCE = 30;    // max vertical drift to allow for a horizontal swipe
-    const ACTIVATE_DELTA = 12; // movement to lock direction
-
-    const canSwipe = () => (
-        homeScreen &&
-        homeScreen.style.display === 'block' &&     // only on Home
-        !sidebar.classList.contains('open') &&      // not when sidebar open
-        !isSearchActive &&                          // not during search
-        !__tourActive                               // not during first-time tour
-    );
-
-    function gotoTab(tab) {
-        if (tab === 'quran' && activeSection !== 'quran') {
-            if (!__suppressHistory) {
-                try { history.pushState({ screen: 'home', tab: 'quran' }, '', '#home-quran'); } catch {}
-            }
-            setActiveSection('quran');
-        } else if (tab === 'hidayah' && activeSection !== 'hidayah') {
-            if (!__suppressHistory) {
-                try { history.pushState({ screen: 'home', tab: 'hidayah' }, '', '#home'); } catch {}
-            }
-            setActiveSection('hidayah');
-        }
-    }
-
-    targets.forEach((area) => {
-        let startX = 0;
-        let startY = 0;
-        let lastX = 0;
-        let lastY = 0;
-        let tracking = false;
-        let lockedDir = null; // 'h' for horizontal, 'v' for vertical
-
-        area.addEventListener('touchstart', (e) => {
-            if (!canSwipe() || !e.touches || e.touches.length !== 1) {
-                tracking = false;
-                return;
-            }
-            const t = e.touches[0];
-            startX = lastX = t.clientX;
-            startY = lastY = t.clientY;
-            tracking = true;
-            lockedDir = null;
-        }, { passive: true });
-
-        area.addEventListener('touchmove', (e) => {
-            if (!tracking || !canSwipe() || !e.touches || e.touches.length !== 1) return;
-
-            const t = e.touches[0];
-            lastX = t.clientX;
-            lastY = t.clientY;
-
-            const dx = lastX - startX;
-            const dy = lastY - startY;
-
-            if (!lockedDir) {
-                if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) {
-                    lockedDir = 'h';
-                } else if (Math.abs(dy) > ACTIVATE_DELTA) {
-                    lockedDir = 'v';
-                }
-            }
-
-            if (lockedDir === 'h') {
-                e.preventDefault(); // requires passive: false listener
-            }
-        }, { passive: false });
-
-        area.addEventListener('touchend', () => {
-            if (!tracking) return;
-            tracking = false;
-
-            if (!canSwipe()) return;
-
-            const dx = lastX - startX;
-            const dy = lastY - startY;
-
-            if (Math.abs(dy) > V_TOLERANCE) return;
-
-            // Any right-swipe on Hidayah -> open sidebar
-            if (dx >= H_THRESHOLD && activeSection === 'hidayah' && !sidebar.classList.contains('open')) {
-                openSidebar();
-                return;
-            }
-
-            // Right-to-left swipe => go to Quran tab (from Hidayah)
-            if (dx <= -H_THRESHOLD && activeSection === 'hidayah') {
-                gotoTab('quran');
-                return;
-            }
-            // Left-to-right swipe => go to Hidayah tab (from Quran)
-            if (dx >= H_THRESHOLD && activeSection === 'quran') {
-                gotoTab('hidayah');
-                return;
-            }
-        });
-    });
-}
-
-// Ensure swipe is wired after DOM is ready
-document.addEventListener('DOMContentLoaded', setupTabSwipeNavigation);
-
-// Disable browser zoom (pinch, key combos, Ctrl+wheel)
-function disableBrowserZoom() {
-    // Desktop: block Ctrl/⌘ + (+/-/=) and Ctrl/⌘ + 0
-    document.addEventListener('keydown', (e) => {
-        if ((e.ctrlKey || e.metaKey) && ['+', '-', '=', '_', '0'].includes(e.key)) {
-            e.preventDefault();
-        }
-    });
-
-    // Desktop: block pinch (Ctrl+wheel) zoom
-    document.addEventListener('wheel', (e) => {
-        if (e.ctrlKey) e.preventDefault();
-    }, { passive: false });
-
-    // iOS Safari: block gesture-based pinch events
-    window.addEventListener('gesturestart', (e) => e.preventDefault(), { passive: false });
-    window.addEventListener('gesturechange', (e) => e.preventDefault(), { passive: false });
-    window.addEventListener('gestureend', (e) => e.preventDefault(), { passive: false });
-}
-
-// Initialize zoom disabling after DOM is ready
-document.addEventListener('DOMContentLoaded', disableBrowserZoom);
