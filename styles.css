@@ -85,13 +85,13 @@ body, html, * {
     background: none;
     border: none;
     color: white;
-    font-size: 1.8rem; /* Increased from 1.5rem */
+    font-size: 1.8rem;
     cursor: pointer;
-    padding: 0.8rem; /* Increased from 0.7rem */
-    border-radius: 8px; /* Increased from 6px */
+    padding: 0.8rem;
+    border-radius: 8px;
     transition: background-color 0.3s ease;
-    min-width: 58px; /* Increased from 52px */
-    height: 58px; /* Increased from 52px */
+    min-width: 58px; 
+    height: 58px; 
     display: flex;
     align-items: center;
     justify-content: center;
