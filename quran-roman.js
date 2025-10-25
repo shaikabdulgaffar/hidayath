@@ -941,7 +941,7 @@ const quranContentData = {
   }
 };
 
-// Replace the flat array index with a sectioned index
+// Replace the flat array with sectioned index (ensure IDs match quranContentData)
 const quranIndexData = {
   sections: [
     {
@@ -949,10 +949,9 @@ const quranIndexData = {
       items: [
         { id: 1001, title: "Surah Al-Fatiha (سورة الفاتحة)" },
         { id: 1007, title: "Ayatul Kursi (آية الكرسي)" },
-        // 4 Qul
         { id: 1016, title: "Surah Al-Kafirun (سورة الكافرون)" },
         { id: 1002, title: "Surah Al-Ikhlas (سورة الإخلاص)" },
-        { id: 1003, title: "Surah Al-Falaq (سورة الفلق)" },
+        { id: 1003, title: "Surah Al-Falaq (סورة الفلق)" },
         { id: 1004, title: "Surah An-Nas (سورة الناس)" },
         { id: 1005, title: "Surah Al-Kawthar (سورة الكوثر)" },
         { id: 1006, title: "Surah Al-Asr (سورة العصر)" },

@@ -943,23 +943,30 @@ const quranContentData = {
 };
 
 // Index for navigation (ordered as requested)
-const quranIndexData = [
-  { id: 1001, title: "Surah Al-Fatiha (سورة الفاتحة)" },
-  { id: 1007, title: "Ayatul Kursi (آية الكرسي)" },
-  { id: 1008, title: "Surah Az-Zalzalah (سورة الزلزلة)" },
-  { id: 1009, title: "Surah Al-Adiyat (سورة العاديات)" },
-  { id: 1010, title: "Surah Al-Qari’ah (سورة القارعة)" },
-  { id: 1011, title: "Surah At-Takathur (سورة التكاثر)" },
-  { id: 1006, title: "Surah Al-Asr (سورة العصر)" },
-  { id: 1012, title: "Surah Al-Humazah (سورة الهمزة)" },
-  { id: 1013, title: "Surah Al-Fil (سورة الفيل)" },
-  { id: 1014, title: "Surah Quraysh (سورة قريش)" },
-  { id: 1015, title: "Surah Al-Ma’un (سورة الماعون)" },
-  { id: 1005, title: "Surah Al-Kawthar (سورة الكوثر)" },
-  { id: 1016, title: "Surah Al-Kafirun (سورة الكافرون)" },
-  { id: 1017, title: "Surah An-Nasr (سورة النصر)" },
-  { id: 1018, title: "Surah Al-Masad (سورة المسد)" },
-  { id: 1002, title: "Surah Al-Ikhlas (سورة الإخلاص)" },
-  { id: 1003, title: "Surah Al-Falaq (سورة الفلق)" },
-  { id: 1004, title: "Surah An-Nas (سورة الناس)" }
-];
+const quranIndexData = {
+  sections: [
+    {
+      title: "Quran",
+      items: [
+        { id: 1001, title: "Surah Al-Fatiha (سورة الفاتحة)" },
+        { id: 1007, title: "Ayatul Kursi (آية الكرسي)" },
+        { id: 1016, title: "Surah Al-Kafirun (سورة الكافرون)" },
+        { id: 1002, title: "Surah Al-Ikhlas (سورة الإخلاص)" },
+        { id: 1003, title: "Surah Al-Falaq (סورة الفلق)" },
+        { id: 1004, title: "Surah An-Nas (سورة الناس)" },
+        { id: 1005, title: "Surah Al-Kawthar (سورة الكوثر)" },
+        { id: 1006, title: "Surah Al-Asr (سورة العصر)" },
+        { id: 1008, title: "Surah Az-Zalzalah (سورة الزلزلة)" },
+        { id: 1009, title: "Surah Al-Adiyat (سورة العاديات)" },
+        { id: 1010, title: "Surah Al-Qari’ah (سورة القارعة)" },
+        { id: 1011, title: "Surah At-Takathur (سورة التكاثر)" },
+        { id: 1012, title: "Surah Al-Humazah (سورة الهمزة)" },
+        { id: 1013, title: "Surah Al-Fil (سورة الفيل)" },
+        { id: 1014, title: "Surah Quraysh (سورة قريش)" },
+        { id: 1015, title: "Surah Al-Ma’un (سورة الماعون)" },
+        { id: 1017, title: "Surah An-Nasr (سورة النصر)" },
+        { id: 1018, title: "Surah Al-Masad (سورة المسد)" }
+      ]
+    }
+  ]
+};

@@ -254,14 +254,13 @@
         (function() {
             const KEY = 'selectedLanguage';
             const lang = localStorage.getItem(KEY) || 'roman_ur';
-
             const hidayahMap = {
                 en: '/basics-english.js',
                 ur: '/basics-urdu.js',
                 roman_ur: '/basics-roman_urdu.js',
                 hi: '/basics-hindi.js',
                 te: '/basics-telugu.js',
-                te_ur: '/basics-telugu_urdu.js'  
+                te_ur: '/basics-telugu_urdu.js'
             };
             const quranMap = {
                 en: '/quran-english.js',
@@ -269,9 +268,8 @@
                 roman_ur: '/quran-roman.js',
                 hi: '/quran-hindi.js',
                 te: '/quran-telugu.js',
-                te_ur: '/quran-telugu.js'     
+                te_ur: '/quran-telugu.js'
             };
-
             function loadScript(src) {
                 return new Promise((resolve, reject) => {
                     const s = document.createElement('script');
@@ -281,7 +279,6 @@
                     document.body.appendChild(s);
                 });
             }
-
             Promise.all([
                 loadScript(hidayahMap[lang]),
                 loadScript(quranMap[lang])
@@ -289,24 +286,11 @@
                 window.__datasetsLoaded = true;
                 document.dispatchEvent(new Event('datasetsReady'));
             }).catch(() => {
-                // Even on error, continue so app can show something/fail gracefully
                 window.__datasetsLoaded = true;
                 document.dispatchEvent(new Event('datasetsReady'));
             });
         })();
     </script>
     <script src="main.js"></script>
-    <script src="basics-english.js"></script>
-    <script src="basics-hindi.js"></script>
-    <script src="basics-roman_urdu.js"></script>
-    <script src="basics-telugu.js"></script>
-    <script src="basics-telugu_urdu.js"></script>
-    <script src="basics-urdu.js"></script>
-    <script src="quran-english.js"></script>
-    <script src="quran-hindi.js"></script>
-    <script src="quran-roman.js"></script>
-    <script src="quran-telugu.js"></script>
-    <script src="quran-telugu_urdu.js"></script>
-    <script src="quran-urdu.js"></script>
 </body>
 </html>
