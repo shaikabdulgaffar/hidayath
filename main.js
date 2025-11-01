@@ -2210,7 +2210,7 @@ function setupTabSwipeNavigation() {
             if (lockedDir === 'h') e.preventDefault();
         }, { passive: false });
 
-        area.addEventListener('touchend', () => {
+        area.addEventListener('touchend', (e) => {
             if (!tracking) return;
             tracking = false;
             if (!canSwipe()) return;
@@ -2220,14 +2220,18 @@ function setupTabSwipeNavigation() {
             if (Math.abs(dy) > V_TOLERANCE) return;
 
             const onHome = isHomeVisible();
+            const onContent = contentScreen && contentScreen.style.display === 'block';
 
-            // NEW: On Home + Quran tab, right-swipe switches to Hidayah first
+            // While reading content: let content swipe handler take over (do nothing here)
+            if (onContent) return;
+
+            // On Home + Quran tab, right-swipe switches to Hidayah first
             if (dx >= H_THRESHOLD && onHome && activeSection === 'quran') {
                 gotoTab('hidayah');
                 return;
             }
 
-            // Left-swipe on Home + Hidayah switches to Quran (unchanged)
+            // Left-swipe on Home + Hidayah switches to Quran
             if (dx <= -H_THRESHOLD && onHome && activeSection === 'hidayah') {
                 gotoTab('quran');
                 return;
@@ -2288,7 +2292,7 @@ function setupSidebarSwipeToClose() {
             }
 
             if (lockedDir === 'h') {
-                e.preventDefault(); // prevent scroll/click ghost
+                e.preventDefault(); // avoid scroll jitter
             }
         }, { passive: false });
 
@@ -2307,16 +2311,97 @@ function setupSidebarSwipeToClose() {
             if (dx <= -H_THRESHOLD) {
                 e.preventDefault();
                 e.stopPropagation();
-                // Use history-aware close (pops the transient #sidebar state)
-                closeSidebar();
+                closeSidebar(); // history-aware close
             }
         }, { passive: false });
+    });
+}
+
+// NEW: Swipe navigation on Content screen (Prev/Next) and suppress sidebar open here
+function setupContentSwipeNavigation() {
+    if (!contentScreen) return;
+
+    const H_THRESHOLD = 60;    // keep consistent with other gestures
+    const V_TOLERANCE = 30;
+    const ACTIVATE_DELTA = 12;
+
+    const isReading = () =>
+        contentScreen.style.display === 'block' &&
+        !sidebar.classList.contains('open') &&
+        !isSearchActive &&
+        !__tourActive;
+
+    const targets = [contentScreen, contentDisplay].filter(Boolean);
+
+    targets.forEach((targetEl) => {
+        let startX = 0, startY = 0, lastX = 0, lastY = 0;
+        let tracking = false;
+        let lockedDir = null;
+
+        targetEl.addEventListener('touchstart', (e) => {
+            if (!isReading() || !e.touches || e.touches.length !== 1) { tracking = false; return; }
+            const t = e.touches[0];
+            startX = lastX = t.clientX;
+            startY = lastY = t.clientY;
+            tracking = true;
+            lockedDir = null;
+        }, { passive: true });
+
+        targetEl.addEventListener('touchmove', (e) => {
+            if (!tracking || !isReading() || !e.touches || e.touches.length !== 1) return;
+
+            const t = e.touches[0];
+            lastX = t.clientX;
+            lastY = t.clientY;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+
+            if (!lockedDir) {
+                if (Math.abs(dx) > ACTIVATE_DELTA && Math.abs(dy) < ACTIVATE_DELTA) lockedDir = 'h';
+                else if (Math.abs(dy) > ACTIVATE_DELTA) lockedDir = 'v';
+            }
+
+            if (lockedDir === 'h') {
+                // Prevent vertical scroll jitter and stop bubbling to global handlers
+                e.preventDefault();
+                e.stopPropagation();
+            }
+        }, { passive: false });
+
+        targetEl.addEventListener('touchend', (e) => {
+            if (!tracking) return;
+            tracking = false;
+
+            if (!isReading()) return;
+
+            const dx = lastX - startX;
+            const dy = lastY - startY;
+
+            // Only act on predominantly horizontal gestures
+            if (Math.abs(dy) > V_TOLERANCE) return;
+
+            // Stop bubbling so global sidebar opener doesn't run
+            e.stopPropagation();
+
+            if (dx <= -H_THRESHOLD) {
+                // Right->Left: Next
+                goToNextContent();
+                return;
+            }
+            if (dx >= H_THRESHOLD) {
+                // Left->Right: Prev (and DO NOT open sidebar here)
+                goToPrevContent();
+                return;
+            }
+        });
     });
 }
 
 // Ensure swipes are wired after DOM is ready
 document.addEventListener('DOMContentLoaded', setupTabSwipeNavigation);
 document.addEventListener('DOMContentLoaded', setupSidebarSwipeToClose);
+document.addEventListener('DOMContentLoaded', setupContentSwipeNavigation);
 
 // Disable browser zoom (pinch, key combos, Ctrl+wheel)
 function disableBrowserZoom() {

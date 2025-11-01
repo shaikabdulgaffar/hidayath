@@ -178,31 +178,31 @@ const contentData = {
         title: "The 5 Kalimahs of Islam",
         content: `<h3>1) Kalimah Tayyibah</h3>
             <p>
-                <strong>Arabic:</strong> لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
+                <strong></strong> لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
                 <strong>Transliteration:</strong> Laa-ilaa-ha illal-laahu muhammadur Rasoolullaah sallallaahu alaihi wasallam<br>
                 <strong>English:</strong> There is no god but Allah, Muhammad ﷺ is the Messenger of Allah.
             </p>
             <h3>2) Kalimah Shahadah</h3>
             <p>
-                <strong>Arabic:</strong> أَشْهَدُ أَن لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ<br>
+                <strong></strong> أَشْهَدُ أَن لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ<br>
                 <strong>Transliteration:</strong> Ash-hadu alla-ilaa-ha illal-laahu wa-ash-hadu anna muhammadan abduhu wa rasooluh.<br>
                 <strong>English:</strong> I bear witness that there is no god but Allah, and Muhammad ﷺ is His servant and Messenger.
             </p>
             <h3>3) Kalimah Tamjeed</h3>
             <p>
-                <strong>Arabic:</strong> سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيم<br>
+                <strong></strong> سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيم<br>
                 <strong>Transliteration:</strong> Subhaanallaahi wal-hamdu lillaahi walaa ilaaha illallaahu wallaahu akbar walaa hawla walaa quwwata illaa billaahil aliyyil azeem.<br>
                 <strong>English:</strong> Allah is pure, all praise belongs to Allah, there is no god but Allah, Allah is the Greatest, and there is no power and no strength except with Allah, the Most High, the Most Great.
             </p>
             <h3>4) Kalimah Tawheed</h3>
             <p>
-                <strong>Arabic:</strong> لا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحيى وَيُمِيتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ<br>
+                <strong></strong> لا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحيى وَيُمِيتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ<br>
                 <strong>Transliteration:</strong> Laa-ilaa-ha illal-laahu wahdahu laa-shareeka lahu lahul-mulku walahul-hamdu yuhyii wa yumeetu biyadihil khairu wahuwa ala kulli shai-in qadeer.<br>
                 <strong>English:</strong> There is no god but Allah, He is alone, He has no partner, His is the sovereignty and the praise, He gives life and death, all good is in His Hands, and He has power over everything.
             </p>
             <h3>5) Kalimah Radde Kufr</h3>
             <p>
-                <strong>Arabic:</strong> اللَّهُمَّ إِنِّي أَعُوذُبِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا أَنَا أَعْلَمُ بِهِ وَاسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالْمَعَاصِي كُلِّهَا أَسْلَمْتُ وَآمَنْتُ وَأَقُولُ لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
+                <strong></strong> اللَّهُمَّ إِنِّي أَعُوذُبِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا أَنَا أَعْلَمُ بِهِ وَاسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالْمَعَاصِي كُلِّهَا أَسْلَمْتُ وَآمَنْتُ وَأَقُولُ لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
                 <strong>Transliteration:</strong> Allaahumma inni a-oozu bika min an ushrika bika shai-au wa ana aalamu bihi wa astaghfiruka lima la aalamu bihi tubtu anhu wa tabarratu minal kufri wal ma'aasi kulliha aslamtu wa aamantu wa aqoolu laa-ilaa-ha illallaahu muhammadur Rasoolullaah.<br>
                 <strong>English:</strong> O Allah! I seek refuge in You from associating anything with You knowingly, and I ask Your forgiveness for what I do not know; I repent from it and disassociate myself from disbelief and all sins. I have submitted, I have believed, and I declare: There is no god but Allah, Muhammad ﷺ is the Messenger of Allah.
             </p>`
