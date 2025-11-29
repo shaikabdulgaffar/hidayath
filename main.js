@@ -1272,13 +1272,35 @@ function showContactUs() {
     applyI18n();
 }
 
+// Add a default recipient for feedback emails (change this to your email)
+const CONTACT_EMAIL = 'hidayateamaal@gmail.com';
+
 // Handle contact form submit
 if (contactForm) {
     contactForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        // You can send data to your backend here, or just show success
-        contactSuccess.style.display = 'block';
-        contactForm.reset();
+
+        const to = CONTACT_EMAIL;
+        const subject = (document.getElementById('contactSubject')?.value || '').trim();
+        const message = (document.getElementById('contactMessage')?.value || '').trim();
+
+        // Build mailto and Gmail web compose URLs
+        const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+        const gmailWeb = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
+
+        // Try to open the user's mail client (on Android/iOS this typically opens Gmail if set)
+        window.location.href = mailto;
+
+        // Optional fallback to Gmail Web after a brief delay (desktop browsers without a mail client)
+        setTimeout(() => {
+            try { window.open(gmailWeb, '_blank'); } catch {}
+        }, 400);
+
+        // Optionally show a small status message
+        if (contactSuccess) {
+            contactSuccess.style.display = 'block';
+            contactSuccess.textContent = 'Opening Gmail...';
+        }
     });
 }
 
@@ -1956,6 +1978,7 @@ if (i18n && i18n.en) {
             pos: 'right',
             onEnter: () => { if (!sidebar.classList.contains('open')) openSidebar(); },
             onExit: () => { if (sidebar.classList.contains('open')) closeSidebar(true); }
+       
         },
         { id: 'swipe', text: () => t('tour_swipe'), target: null, pos: 'center' }
     ];
