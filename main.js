@@ -1284,23 +1284,64 @@ if (contactForm) {
         const subject = (document.getElementById('contactSubject')?.value || '').trim();
         const message = (document.getElementById('contactMessage')?.value || '').trim();
 
-        // Build mailto and Gmail web compose URLs
         const mailto = `mailto:${encodeURIComponent(to)}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
         const gmailWeb = `https://mail.google.com/mail/?view=cm&fs=1&to=${encodeURIComponent(to)}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(message)}`;
 
-        // Try to open the user's mail client (on Android/iOS this typically opens Gmail if set)
-        window.location.href = mailto;
+        // Try to open mail client / gmail web. Show a transient status then clear it when user returns.
+        try {
+            // Mobile will usually open the native mail client via mailto
+            window.location.href = mailto;
+        } catch (err) {
+            // ignore
+        }
 
-        // Optional fallback to Gmail Web after a brief delay (desktop browsers without a mail client)
+        // Also attempt to open Gmail web in a new tab after a short delay (desktop fallback)
         setTimeout(() => {
             try { window.open(gmailWeb, '_blank'); } catch {}
-        }, 400);
+        }, 500);
 
-        // Optionally show a small status message
+        // Show transient status
         if (contactSuccess) {
             contactSuccess.style.display = 'block';
             contactSuccess.textContent = 'Opening Gmail...';
         }
+
+        // Clear function: hide status, reset form & textarea, and remove listeners
+        const clearStatus = () => {
+            if (contactSuccess) {
+                contactSuccess.style.display = 'none';
+                contactSuccess.textContent = t('contact_success');
+            }
+
+            // Reset form fields so when user returns the form is cleared
+            try {
+                if (contactForm) {
+                    contactForm.reset();
+                }
+                if (feedbackTextarea) {
+                    feedbackTextarea.style.height = '';
+                    feedbackTextarea.style.overflowY = 'hidden';
+                    requestAnimationFrame(() => autosizeTextarea(feedbackTextarea));
+                }
+            } catch (e) {
+                // ignore reset errors
+            }
+
+            // remove listeners and timeout
+            window.removeEventListener('focus', onFocus);
+            document.removeEventListener('visibilitychange', onVisibility);
+            clearTimeout(fallbackTimeout);
+        };
+
+        const onFocus = () => clearStatus();
+        const onVisibility = () => { if (document.visibilityState === 'visible') clearStatus(); };
+
+        // Listen for user returning to the page
+        window.addEventListener('focus', onFocus, { once: true });
+        document.addEventListener('visibilitychange', onVisibility);
+
+        // safety fallback: hide after 3.5s if focus/visibility didn't fire
+        const fallbackTimeout = setTimeout(clearStatus, 3500);
     });
 }
 
