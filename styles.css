@@ -1696,3 +1696,28 @@ body.tour-active .tour-overlay * {
         margin-left: -30px;
     }
 }
+
+/* Remove mobile tap highlight and unify focus outlines for interactive elements */
+button, .menu-item, .language-option, .index-item, .bookmark-item, .scroll-to-top-btn {
+  -webkit-tap-highlight-color: transparent;
+  outline: none; /* hide default outline */
+}
+
+/* Keep an accessible visible focus for keyboard users */
+button:focus-visible,
+.menu-item:focus-visible,
+.language-option:focus-visible,
+.index-item:focus-visible,
+.bookmark-item:focus-visible,
+.scroll-to-top-btn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(127,176,105,0.22);
+  border-radius: 8px;
+}
+
+/* Optional: make search button show the same focus style if it retains focus */
+.search-btn:focus-visible,
+.search-close-btn:focus-visible {
+  box-shadow: 0 0 0 3px rgba(127,176,105,0.22);
+  border-radius: 8px;
+}
