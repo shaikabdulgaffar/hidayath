@@ -1,5 +1,5 @@
 const contentData = {
-    1: {
+    101: {
         title: "Beliefs (Our Islamic Aqeedah)",
         content: `
             <h3>Our Belief About Allah Almighty</h3>
@@ -27,7 +27,7 @@ const contentData = {
             <p>The coming of the Day of Judgment is certain. The coming of angels, the taking of the soul, the arrival of Munkar and Nakir, questioning, resurrection after death, appearing before Allah, reckoning, weighing of deeds, crossing the bridge (Pul Siraat), Paradise and all its blessings, Hell and all its torments and punishments, seeing Allah, and everything the Prophet Muhammad (ﷺ) has informed us about - we accept and believe in all of it as he conveyed. Similarly, the news that the grave will either be a pit of Hell or a garden of Paradise is true. Also, the signs of the Day of Judgment such as the appearance of Dajjal, the coming of Jesus (peace be upon him), the appearance of Gog and Magog (Ya'juj Ma'juj), the rising of the sun from the west, and every sign reported—all are true.</p>
         `
     },
-    2: {
+    102: {
         title: "Brief and Detailed Faith (Iman-e-Mujmal and Iman-e-Mufassal)",
         content: `
             <h3>Iman-e-Mujmal (Brief Faith)</h3>
@@ -61,7 +61,7 @@ const contentData = {
             </p>
         `
     },
-    3: {
+    103: {
         title: "Islam Is Founded On 5 Pillars",
         content: `<p>Islam is founded on five pillars, which are:</p>
         <ol>
@@ -77,6 +77,386 @@ const contentData = {
             (Hajj is obligatory if one has wealth and ability)</li>
         </ol>`
     },
+    104: {
+        title: "The 5 Kalimahs of Islam",
+        content: `<h3>1) Kalimah Tayyibah</h3>
+            <p>
+                <strong></strong> لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
+                <strong>Transliteration:</strong> Laa-ilaa-ha illal-laahu muhammadur Rasoolullaah sallallaahu alaihi wasallam<br>
+                <strong>English:</strong> There is no god but Allah, Muhammad ﷺ is the Messenger of Allah.
+            </p>
+            <h3>2) Kalimah Shahadah</h3>
+            <p>
+                <strong></strong> أَشْهَدُ أَن لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ<br>
+                <strong>Transliteration:</strong> Ash-hadu alla-ilaa-ha illal-laahu wa-ash-hadu anna muhammadan abduhu wa rasooluh.<br>
+                <strong>English:</strong> I bear witness that there is no god but Allah, and Muhammad ﷺ is His servant and Messenger.
+            </p>
+            <h3>3) Kalimah Tamjeed</h3>
+            <p>
+                <strong></strong> سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيم<br>
+                <strong>Transliteration:</strong> Subhaanallaahi wal-hamdu lillaahi walaa ilaaha illallaahu wallaahu akbar walaa hawla walaa quwwata illaa billaahil aliyyil azeem.<br>
+                <strong>English:</strong> Allah is pure, all praise belongs to Allah, there is no god but Allah, Allah is the Greatest, and there is no power and no strength except with Allah, the Most High, the Most Great.
+            </p>
+            <h3>4) Kalimah Tawheed</h3>
+            <p>
+                <strong></strong> لا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحيى وَيُمِيتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ<br>
+                <strong>Transliteration:</strong> Laa-ilaa-ha illal-laahu wahdahu laa-shareeka lahu lahul-mulku walahul-hamdu yuhyii wa yumeetu biyadihil khairu wahuwa ala kulli shai-in qadeer.<br>
+                <strong>English:</strong> There is no god but Allah, He is alone, He has no partner, His is the sovereignty and the praise, He gives life and death, all good is in His Hands, and He has power over everything.
+            </p>
+            <h3>5) Kalimah Radde Kufr</h3>
+            <p>
+                <strong></strong> اللَّهُمَّ إِنِّي أَعُوذُبِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا أَنَا أَعْلَمُ بِهِ وَاسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالْمَعَاصِي كُلِّهَا أَسْلَمْتُ وَآمَنْتُ وَأَقُولُ لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
+                <strong>Transliteration:</strong> Allaahumma inni a-oozu bika min an ushrika bika shai-au wa ana aalamu bihi wa astaghfiruka lima la aalamu bihi tubtu anhu wa tabarratu minal kufri wal ma'aasi kulliha aslamtu wa aamantu wa aqoolu laa-ilaa-ha illallaahu muhammadur Rasoolullaah.<br>
+                <strong>English:</strong> O Allah! I seek refuge in You from associating anything with You knowingly, and I ask Your forgiveness for what I do not know; I repent from it and disassociate myself from disbelief and all sins. I have submitted, I have believed, and I declare: There is no god but Allah, Muhammad ﷺ is the Messenger of Allah.
+            </p>`
+    },
+    105: {
+        title: "Levels of Imaan (Faith)",
+        content: `<ol>
+        <li>If you see something unlawful, stop it with your hand</li>
+        <li>If that is not possible, stop it with your tongue</li>
+        <li>If that is not possible, at least consider it evil in your heart—this is the lowest level of faith</li>
+    </ol>`
+    },
+    106: {
+        title: "Sweetness of Faith Comes from 3 Things",
+        content: `<ol>
+        <li>Love of Allah and His Messenger (ﷺ) above all else</li>
+        <li>Whoever you love, love them for the sake of Allah</li>
+        <li>To return to disbelief is as detestable and difficult as falling into the fire</li>
+    </ol>`
+    },
+    107: {
+        title: "Means Are Only a Medium - Everything Happens by Allah's Command",
+        content: `<ol>
+        <li>The earth is a medium—sustenance is given by Allah’s command</li>
+        <li>The sun is a medium—light is given by Allah’s command</li>
+        <li>The sky is a medium—shade is given by Allah’s command</li>
+        <li>The clouds are a medium—rain occurs by Allah’s command</li>
+        <li>The mother's womb is a medium—human beings are created by Allah’s command</li>
+        <li>Medicine (tablet) is a medium—healing is given by Allah’s command</li>
+        <li>Vitamin is a medium—strength is given by Allah’s command</li>
+        <li>The eye is a medium—sight is given by Allah’s command</li>
+        <li>The ear is a medium—sound is delivered by Allah’s command</li>
+        <li>The nose is a medium—fragrance is delivered by Allah’s command</li>
+        <li>The mind is a medium—the intellect is given by Allah’s command</li>
+        <li>Business or job is a medium—wealth is given by Allah’s command</li>
+        <li>The soul in the body is a medium—the body works by Allah’s command</li>
+        <li>Death is a medium—life ends by Allah’s command</li>
+    </ol>
+    <p>May Allah grant us all true conviction in these matters (Aameen)</p>`
+    },
+
+    201: {
+        title: "What Are Fard, Wajib, Sunnah, and Nafl?",
+        content: `<ul>
+            <li><strong>Fard (Obligatory):</strong> That which is established by absolute proof, with no doubt about its evidence; whoever denies its obligation becomes a disbeliever. One who leaves it without excuse is sinful and deserving of punishment.</li>
+            <li><strong>Wajib (Necessary):</strong> That which is established by less absolute proof; denying it does not make one a disbeliever, but leaving it without excuse is sinful and deserving of punishment.</li>
+            <li><strong>Sunnah:</strong> That which the Prophet (ﷺ) or his Companions (may Allah be pleased with them) did or ordered to be done.</li>
+            <li><strong>Nafl (Voluntary):</strong> Acts whose merit is established in Islamic law; performing them earns reward, not performing them does not incur punishment. They are also called "Mustahab", "Mandoob", and "Tatawwu".</li>
+        </ul>`
+    },
+    202: {
+        title: "Number of Prayers and Rak'ahs",
+        content: `
+        <table class="mini-namaz-table">
+            <thead>
+                <tr>
+                    <th>Prayer</th>
+                    <th>Muakkadah</th>
+                    <th>Ghair</th>
+                    <th>Fard</th>
+                    <th>After</th>
+                    <th>Nafil</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>Fajr</td><td>2</td><td>-</td><td>2</td><td>-</td><td>-</td><td>4</td></tr>
+                <tr><td>Dhuhr</td><td>4</td><td>-</td><td>4</td><td>2</td><td>2</td><td>12</td></tr>
+                <tr><td>Asr</td><td>-</td><td>4</td><td>4</td><td>-</td><td>-</td><td>8</td></tr>
+                <tr><td>Maghrib</td><td>-</td><td>-</td><td>3</td><td>2</td><td>2</td><td>7</td></tr>
+                <tr><td>Isha</td><td>-</td><td>4</td><td>4</td><td>2<br>(3 Witr)</td><td>2</td><td>17</td></tr>
+                <tr><td>Jumu'ah</td><td>4</td><td>-</td><td>2</td><td>4+2</td><td>2</td><td>14</td></tr>
+            </tbody>
+        </table>
+        <div style="font-size:0.8em;opacity:0.7;margin-top:0.3em;text-align:center;">
+            <b>Note:</b> "Muakkadah" = Sunnat-e-Muakkadah, "Ghair" = Ghair Muakkadah, "After" = Sunnah/Witr after Fard.
+        </div>
+        `
+    },
+    203: {
+            title: "Obligatory, Necessary, Sunnah, Recommended, Disliked, Invalidating Acts, and Issues of Prayer",
+            content: `<h4>7 External Obligatory Conditions of Prayer (Shara'ite Namaz)</h4>
+        <ul>
+            <li>Body must be pure</li>
+            <li>Clothes must be pure</li>
+            <li>The place of prayer must be pure</li>
+            <li>Covering the private parts (Satar)</li>
+            <li>Prayer time must have entered</li>
+            <li>Facing the Qiblah</li>
+            <li>Intention</li>
+        </ul>
+        <h4>6 Internal Obligatory Acts of Prayer (Arkaan-e-Namaz)</h4>
+        <ul>
+            <li>Takbeer-e-Tahreema (opening takbeer)</li>
+            <li>Standing (Qiyam)</li>
+            <li>Recitation (Qiraat) of Qur'an</li>
+            <li>Bowing (Ruku)</li>
+            <li>Two prostrations (Sajdah)</li>
+            <li>Final sitting (Qa'da Akhira) for reciting Attahiyyaat</li>
+        </ul>
+        <h4>Necessary Acts of Prayer (Wajibaat)</h4>
+        <ul>
+            <li>Recitation in the first two rak'ahs of Fard prayers</li>
+            <li>Reciting Surah Al-Fatiha in all rak'ahs except the third and fourth of Fard prayers</li>
+            <li>After Surah Al-Fatiha, recite one long verse or three short verses in the first two rak'ahs of Fard and all rak'ahs of Wajib, Sunnah, and Nafl prayers</li>
+            <li>Recite Surah Al-Fatiha before any other Surah</li>
+            <li>Maintain order in recitation, bowing, prostrations, and rak'ahs</li>
+            <li>Qauma (standing after ruku)</li>
+            <li>Jalsa (sitting peacefully between two prostrations)</li>
+            <li>Performing the pillars (ruku, sajdah, etc.) with calmness</li>
+            <li>First sitting (Qa'da Ula) for reciting Tashahhud in 3 or 4 rak'ah prayers after two rak'ahs</li>
+            <li>Reciting Attahiyyaat in both sittings</li>
+            <li>The Imam should recite aloud in Fajr, Maghrib, Isha, Jumu'ah, Taraweeh, and Ramadan Witr prayers</li>
+            <li>Recite quietly in Dhuhr, Asr, etc.</li>
+            <li>Ending the prayer with Salaam</li>
+            <li>Reciting Takbeer and Du'a-e-Qunoot in Witr prayer</li>
+            <li>Reciting extra Takbeers in both Eid prayers</li>
+        </ul>
+        <p><strong>Note:</strong> All these acts are necessary in prayer; if any is missed by mistake, performing Sajda-e-Sahu (prostration of forgetfulness) completes the prayer. If left out intentionally, the prayer must be repeated.</p>
+        <h4>Sunnahs of Prayer</h4>
+        <strong>11 Sunnahs of Standing (Qiyam)</strong>
+        <ol>
+            <li>Stand straight for Takbeer-e-Tahreema</li>
+            <li>Keep a gap of four fingers between feet</li>
+            <li>Follower's Takbeer-e-Tahreema should coincide with the Imam's</li>
+            <li>Raise both hands up to the ears during Takbeer-e-Tahreema</li>
+            <li>Keep palms facing the Qiblah</li>
+            <li>Keep fingers in their natural position</li>
+            <li>Place the right hand's palm over the back of the left hand's palm</li>
+            <li>Make a ring with the little finger and thumb, holding the wrist</li>
+            <li>Place the middle three fingers on the forearm</li>
+            <li>Fold hands below the navel</li>
+            <li>Recite Sana (opening supplication)</li>
+        </ol>
+        <strong>7 Sunnahs of Recitation (Qiraat)</strong>
+        <p>... (continue as above for bowing, prostration, sitting, recommended acts, disliked acts, invalidators and issues; maintaining full detail as in the user's text)</p>`
+        },
+    204: {
+            title: "Method of Performing Prayer",
+            content: `<p>When you stand for prayer, face the Qiblah and say "Allahu Akbar," then recite Surah Al-Fatiha along with any other Surah from the Qur'an. When you bow (ruku), place both palms on your knees, keep your back straight, and perform the bow calmly so that your head and back are level. For Qauma (standing after ruku), rise calmly and stand straight so all bones are settled in their joints. When you prostrate (sajdah), sit calmly. Likewise, perform every rak'ah's bowing, standing, prostration, and sitting with calmness. When you have done this, your prayer is complete, but if you missed any part, your prayer is incomplete (Abu Dawood, Tirmidhi, Nasa'i).</p>`
+        },
+    205: {
+            title: "Method of Qasar Prayer, Travel Distance, and Issues",
+            content: `
+                <h3>Method of Qasar Prayer</h3>
+                <p>
+                    According to Imam-e-Azam Abu Hanifa (ra), a traveler is one who undertakes a journey of 3 stages (according to English miles, 48 miles, approximately 88 kilometers), and whose stay at that place is less than 15 days. If the intention is to stay for more than fifteen days, then he is not considered a traveler, but a resident, and must offer full prayers. If the journey is less than 48 miles, he is not a traveler and must offer full prayers.
+                </p>
+                <p>
+                    During travel, Qasar (shortened prayer) applies only to Dhuhr, Asr, and Isha prayers. That is, four rak'ah prayers are performed as half (two rak'ahs). Fajr and Maghrib remain the same, Witr is obligatory and must be performed as three rak'ahs. Sunnah prayers, except for Fajr, are optional; the two rak'ahs of Sunnah for Fajr must be performed. For other prayers' Sunnahs, if there is time and ease, they should be performed, otherwise only the obligatory (fard) is enough. It is necessary for the traveler (according to Hanafi school) to perform Qasar in prayer.
+                </p>
+                
+                <h3>How Much Is the Travel Distance?</h3>
+                <p>
+                    In kilometers: 87 kilometers 782 meters 40 centimeters, which is approximately 88 kilometers (Modern Fiqhi Issues, Deoband).
+                </p>
+                
+                <h3>Issues of Qasar Prayer</h3>
+                <ul>
+                    <li>Anyone who does not shorten the prayer during the prescribed travel distance is sinful</li>
+                    <li>It is forbidden to offer full prayer during the prescribed journey; Qasar is obligatory</li>
+                    <li>Some people feel guilty about shortening the prayer instead of offering the full prayer; this is incorrect</li>
+                    <li>During the prescribed journey, offering two rak'ahs instead of four is proven from the Qur'an and Hadith</li>
+                    <li>According to the Hanafi school, Qasar is mandatory for travelers, even if the journey is comfortable (e.g., by train); offering full prayer is not correct</li>
+                    <li>Whether there is fear or not during travel, in all cases Qasar should be performed</li>
+                </ul>`
+        },
+    206: {
+            title: "Method of Offering Missed Prayers (Qaza Namaz)",
+            content: `<ul>
+            <li>"Umre Qaza" refers to making up all prayers missed after reaching puberty</li>
+            <li>Offer Qaza prayers outside the disliked times, observing all other proper prayer times</li>
+            <li>The easy way is to offer Umre Qaza prayers before Fajr, Dhuhr, Asr, and Isha each day, and after Maghrib</li>
+            <li>For example, make intention: "I am offering the first Fajr Qaza prayer of my life"</li>
+            <li>Make intention for the time of prayer missed; if you do not remember, then say at the beginning of each prayer: "I am offering the first Fajr or Dhuhr Qaza prayer of my life"</li>
+        </ul>`
+        },
+    207: {
+            title: "Method of Eid Prayers",
+            content: `<ul>
+                <li>Perform ghusl and use miswaak</li>
+                <li>Wear your best clothes</li>
+                <li>Apply perfume</li>
+                <li>Eat dates or something sweet before going for Eidul Fitr prayer</li>
+                <li>Pay Sadaqatul Fitr before going</li>
+                <li>For Eidul Azha, eat the meat of your sacrifice after the prayer</li>
+                <li>Pray Eid at the Eidgah</li>
+                <li>Go by foot</li>
+                <li>Go by one route and return by another</li>
+                <li>Do not offer any nafl prayer at home or Eidgah before Eid prayer</li>
+                <li>Do not offer any nafl prayer at the Eidgah after Eid prayer</li>
+                <li>Both Eid prayers are two rak'ahs. There is no adhan or iqamah for these prayers. First make intention: "I am offering the wajib Eidul Fitr or Eidul Azha prayer with 6 additional takbeers behind this Imam."</li>
+                <li>Method of prayer is detailed above (refer to original text for step-by-step takbeers and actions).</li>
+                <li>The Imam should deliver the sermon standing and everyone should sit quietly and listen.</li>
+                <li>There are two sermons for Eid like Friday, and sitting between both is Sunnah.</li>
+            </ul>`
+        },
+    208: {
+            title: "Method of Salatut Tasbih Prayer",
+            content: `<p>It is best to perform Salatut Tasbih before Dhuhr, daily, on Fridays, once a month, once a year, or even once in a lifetime with sincerity; whether sins are small or large, Allah Almighty will forgive them, inshaAllah.</p>
+            <p>Intention: "I am offering 4 rak'ahs of Salatut Tasbih voluntary (nafil) prayer for Allah, facing the Sacred Kaaba."</p>
+            <p>In this prayer, the third kalimah should be recited 300 times:</p>
+            <blockquote>sub-haa-nallaahi wal-hamdu lillaahi walaa ilaaha illal-lahu wallaahu ak-bar</blockquote>
+            <ul>
+                <li>After Sana: 15 times</li>
+                <li>After reciting Surah: 10 times</li>
+                <li>In Ruku: 10 times</li>
+                <li>In Qauma: 10 times</li>
+                <li>In the first Sajdah: 10 times</li>
+                <li>In Jalsa (sitting between Sajdahs): 10 times</li>
+                <li>In the second Sajdah: 10 times</li>
+                <li>In one rak'ah: 75 times, in 4 rak'ahs: 300 times</li>
+            </ul>`
+        },
+    209: {
+            title: "Method of Istekharah Prayer",
+            content: `<p>Whenever you have an important matter, offer 2 rak'ahs of voluntary prayer and recite the Istekharah supplication. Insha Allah, your heart will be opened (clarity will come). This prayer and supplication can be offered at any suitable time.</p>
+            <p>After 2 rak'ahs of voluntary prayer, recite this supplication:</p>
+            <blockquote>Allahumma inni astakheeruka bi ilmika ... (full Arabic and transliteration as above)</blockquote>
+            <p>After this supplication, ask Allah for goodness regarding your matter.</p>`
+        },
+    210: {
+            title: "Times and Virtues of Voluntary Prayers (Nafil)",
+            content: `<ul>
+                <li><strong>Tahajjud</strong>: 2 to 12 rak'ahs, after midnight or after some sleep; light for the grave, praying Tahajjud regularly will prepare you for death</li>
+                <li><strong>Ishraq</strong>: 2+2=4 rak'ahs, after the sun rises high; reward of accepted Hajj and Umrah, Allah will help in all daily tasks</li>
+                <li><strong>Chasht</strong>: 2+2 up to 12 rak'ahs, before noon; brings blessing in sustenance</li>
+                <li><strong>Awwabeen</strong>: 2+2+2=6 up to 20 rak'ahs, after Maghrib; reward and blessings</li>
+                <li><strong>Tahiyyatul Wudu</strong>: 2 rak'ahs, whenever you make wudu; according to Hadith, one who makes wudu well without worldly thoughts, Allah forgives all his sins</li>
+                <li><strong>Tahiyyatul Masjid</strong>: 2 rak'ahs, whenever you enter the mosque; fulfills the right of the mosque</li>
+                <li><strong>Salatul Hajat</strong>: 2 rak'ahs, when you have a need or necessity; your needs are fulfilled</li>
+                <li><strong>Salatut Tauba</strong>: 2 rak'ahs, if you commit a sin knowingly or unknowingly; you receive repentance</li>
+                <li><strong>Salatut Tasbih</strong>: daily, weekly, yearly, or once in a lifetime; Allah forgives small and big sins</li>
+            </ul>`
+        },
+    211: {
+            title: "Method of Funeral Prayer (Janazah)",
+            content: `<ol>
+                <li>Form rows and stand, 3, 5, or 7 rows are better.</li>
+                <li>Intention: "I am offering this funeral prayer for Allah for this deceased person, for forgiveness, behind this Imam."</li>
+                <li>Imam says Takbeer loudly, followers say it quietly, raise hands to ears and fold below the navel, all recite Sana quietly</li>
+                <li>Second Takbeer, all recite Durood Ibrahim quietly</li>
+                <li>Third Takbeer, recite appropriate supplication for adult/minor (see original text for Arabic)</li>
+                <li>Fourth Takbeer, turn right and then left and say Salaam</li>
+            </ol>`
+        },
+    212: {
+            title: "Method of Women's Prayer",
+            content: `<p>Women's prayer is like men's, but with a few differences:</p>
+        <ol>
+            <li>When saying Takbeer-e-Taherima, raise hands up to the shoulders.</li>
+            <li>Do not take hands out from under the scarf (dupatta).</li>
+            <li>Fold hands on the chest.</li>
+            <li>Place the right palm over the back of the left palm.</li>
+            <li>Bend less in ruku (bowing).</li>
+            <li>When holding the knees in ruku, keep the fingers together.</li>
+            <li>Keep both arms close to the sides.</li>
+            <li>Keep both ankles together.</li>
+            <li>Perform sajda (prostration) compactly and firmly.</li>
+            <li>Do not spread the arms in sajda.</li>
+            <li>Keep the stomach joined to the thighs in sajda.</li>
+            <li>Place the elbows on the ground in sajda.</li>
+            <li>Turn the fingers of hands and feet towards the Qiblah in sajda.</li>
+            <li>Sit to the left in Qa'da (sitting).</li>
+            <li>Take both feet out to the right in Qa'da.</li>
+            <li>Keep fingers together in Qa'da and Jalsa (between prostrations).</li>
+        </ol>`
+        },
+    213: {
+            title: "Explanation and Rules of Sajda-e-Sahu (Prostration of Forgetfulness)",
+            content: `
+                <h3>Explanation of Sajda-e-Sahu</h3>
+                <p>
+                    "Sahu" means forgetfulness. Sometimes, due to a mistake or excess/deficiency, a defect occurs in prayer. Some defects can be corrected by performing two prostrations after reciting Attahiyyaat in the last sitting of prayer, after turning the head to the right for Salaam; these are called Sajda-e-Sahu.
+                </p>
+                <p>
+                    The method of Sajda-e-Sahu is: After reciting Attahiyyaat in the final sitting, turn the head to the right for Salaam, say Takbeer and perform a prostration, recite the Tasbeeh three times, then rise with Takbeer and sit, again with Takbeer perform the second prostration, recite the Tasbeeh three times, then rise with Takbeer, sit, recite Attahiyyaat, Durood Shareef and Du'a, and then complete prayer with Salaam on both sides.
+                </p>
+                <p>
+                    The ruling of Sajda-e-Sahu is the same in all prayers. If both sides Salaam is given, according to one narration it is allowed, but the stronger narration is to not perform Sajda-e-Sahu, rather the prayer should be repeated.
+                </p>
+
+                <h3>Principles When Sajda-e-Sahu Becomes Necessary</h3>
+                <p>Sajda-e-Sahu becomes necessary in the following cases:</p>
+                <ul>
+                    <li>If any necessary act (wajib) is missed by mistake, e.g., the first sitting is omitted</li>
+                    <li>If a wajib is delayed from its proper place, e.g., reciting another Surah before Surah Al-Fatiha</li>
+                    <li>If a wajib is delayed by the duration of a pillar (rukn) due to forgetfulness</li>
+                    <li>If a wajib is performed twice by mistake</li>
+                    <li>If a wajib is changed by mistake</li>
+                    <li>If any obligatory act (farz) is delayed from its place</li>
+                    <li>If a farz is performed before its proper time</li>
+                    <li>If a farz is performed twice by mistake</li>
+                </ul>`
+        },
+    214: {
+            title: "Rulings for Friday (Jumu'ah)",
+            content: `<ul>
+            <li>Wake up early on Friday and perform ghusl (ritual bath)</li>
+            <li>It is Sunnah to cut your nails before Friday; whoever does so will be protected from calamities until the next Friday</li>
+            <li>It is obligatory to leave trade and business at the time of the Friday call to prayer and come to the mosque</li>
+            <li>There must be at least 3 people in the congregation along with the Imam</li>
+            <li>Listen to the Friday sermon attentively</li>
+            <li>If the Friday sermon is not heard, perform the four obligatory rak'ahs of Dhuhr prayer</li>
+            <li>The Messenger of Allah ﷺ said: "Whoever misses Friday without a valid excuse will be written as a hypocrite in this book"</li>
+        </ul>`
+        },
+    215: {
+            title: "Friday Sermon: First and Second Khutbah",
+            content: `
+                <h3>First Khutbah (Khutbaaye Awwal)</h3>
+                <p>
+                    <strong>Arabic:</strong><br>
+                    الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالله من شرور أنفسنا ومن سيئات أعمالنا من يهده الله فلا مضل له ومن يضلل فلا هادي له ونشهد أن لا إله إلا الله وحده لا شريك له ونشهد أن محمداً عبده ورسوله أرسله بالحق بشيراً ونذيراً بين يدي الساعة من يطع الله ورسوله فقد رشد ومن يعصهما فإنه لا يضر إلا نفسه ولا يضر الله شيئاً أما بعد فإن خير الحديث كتاب الله وخير الهدي هدي محمد صلى الله عليه وسلم وشر الأمور محدثاتها وكل بدعة ضلالة وكل ضلالة في النار بارك الله لنا ولكم في القرآن العظيم ونفعنا وإياكم بالآيات والذكر الحكيم فاستغفروه إنه هو الغفور الرحيم
+                </p>
+                <p>
+                    <strong>Transliteration:</strong><br>
+                    Al-hamdu lillaahi nahmaduhuu nas-ta-yiinuhuu wa-nas-tag fi-ruhuu wa na-oozu billaahi min shuroori an-fusinaa wa-min-sayyi-aati aamaalinaa mai-yah-di-hillaa-hu falaa muzillalahu wa mai-yuz-lil-hu falaa haadi-ya-lahu wa nash-hadu allaa ilaa-ha illal-laahu wah-dahu la sharii-ka lahu. wa nash-hadu anna muhammadan ab-duhu wa rasooluhu. ar-salahu bil-haqqi bashi-rau wa-nazeeran bai-na yada-yissaa-ati my-yuti-illaa-ha wa-rasoolahu, faqad rasha-da wa-man ya-a-si-hima fa-innahu laa yazoorru illaa naf-sahu. walaa yazur-rullaa-ha shaia. amma baad fa-inna kairal hadisi kitaa-bullaa-hi wakairal had-yi had-yu muhammadin swalellaahu alai-hi wasallam wa sharral umoori mu-hadda saa-tuha wa-kullu bid-ateen zalaa-latun wa kullu zalaa-lateen finnar. baa-ra-kallaa-hu lanaa walakum fil-qur-aanil ałeem. Wa nafa-a-na wa iyyaa-kum bil aayaati wazzik-ril hakeem. Fastag-firuhu innahu huval gafurur raheem.
+                </p>
+                <p>
+                    <strong>Roman Urdu Translation:</strong><br>
+                    “All praise is for Allah. We praise Him, seek His help and forgiveness, and seek refuge in Allah from the evils of ourselves and our bad deeds. Whomever Allah guides, none can misguide, and whomever He lets go astray, none can guide. We testify that there is no deity but Allah, He is One, has no partner, and we testify that Muhammad ﷺ is His servant and Messenger. Allah sent him with truth as a bringer of good news and a warner before the Hour. Whoever obeys Allah and His Messenger is rightly guided, and whoever disobeys them harms only himself and does not harm Allah in the least. The best speech is the Book of Allah, and the best guidance is the way of Muhammad ﷺ. The worst matters are newly invented ones; every innovation is misguidance, and every misguidance leads to Hell. May Allah bless us and you with the Noble Qur'an, and benefit us and you with verses and wise remembrance. Seek forgiveness from Him, truly He is the Most Forgiving, Most Merciful.”
+                </p>
+
+                <hr>
+
+                <h3>Second Khutbah (Khutbaaye Saaniya)</h3>
+                <p>
+                    <strong>Arabic:</strong><br>
+                    الحمد لله نحمده ونستعينه ونستغفره ونؤمن به ونتوكل عليه ونعوذ بالله من شرور أنفسنا ومن سيئات أعمالنا من يهده الله فلا مضل له ومن يضلل فلا هادي له ونشهد أن لا إله إلا الله وحده لا شريك له ونشهد أن سيدنا ومولانا محمداً عبده ورسوله الذي أرسل بالحق بشيراً ونذيراً إن الله وملائكته يصلون على النبي يا أيها الذين آمنوا صلوا عليه وسلموا تسليماً اللهم صل وسلم وبارك على سيدنا محمد وعلى آله وأصحابه وأتباعه أجمعين إلى يوم الدين خصوصاً على أمير المؤمنين سيدنا أبي بكر الصديق رضي الله تعالى عنه وعلى أمير المؤمنين سيدنا عمر بن الخطاب رضي الله تعالى عنه وعلى أمير المؤمنين سيدنا عثمان بن عفان رضي الله تعالى عنه وعلى أمير المؤمنين سيدنا علي بن أبي طالب رضي الله تعالى عنه وعلى الإمامين سيدنا الحسن والحسين رضي الله تعالى عنهما وعلى أمهما سيدة النساء فاطمة الزهراء رضي الله تعالى عنها وعلى عميه سيدنا حمزة والعباس رضي الله تعالى عنهما وعلى الستة الباقية من العشرة المبشرة وعلى سائر الصحابة والتابعين رضوان الله تعالى عليهم أجمعين اللهم اغفر للمؤمنين والمؤمنات والمسلمين والمسلمات الأحياء منهم والأموات برحمتك يا أرحم الراحمين أعوذ بالله من الشيطان الرجيم إن الله يأمر بالعدل والإحسان وإيتاء ذي القربى وينهى عن الفحشاء والمنكر والبغي يعظكم لعلكم تذكرون اذكروا الله يذكركم وادعوه يستجب لكم ولذكر الله تعالى أعلى وأولى وأعز وأجل وأهم وأتم وأكبر
+                </p>
+                <p>
+                    <strong>Transliteration:</strong><br>
+                    Al-ham-du lillaahi nah-maduhu wa nas-taeenuhu wa nas-tag-firuhuu wa nu-minu bihii wa na-ta-wakkalu alaihi wa na-oozu billaa-hi min-shuroori an-fusinaa wa min-sayyi-aati aamaa-lina mai-yah-di hillaa-hu falaa muzillalahuu wa mai-yuz-lil-hu falaa haadi-ya-lahuu. wa-nash-hadu allaa ilaa-ha illal-laahu wah-dahuu laa-sharii-ka lahuu wa-nash-hadu anna-sayyidanaa wa-mau-laanaa. Muhammadan ab-duhu wa rasooluhu. al-lazii wur-sila bil-haqqi bashiirau-wa-nazeera. Iinnal-laa-ha wa-malaa-ikatahuu yu-swallu-na alan-nabiyyi. Ya-ayyu-hal-lazii-na aamanu swallu alaihi wa salli-mu-tas-leema. allaa-humma swalli wa-sallim wa-baarik alaa sayyidinaa muhammadiu wa-alaa aalihii wa-ashaa-bihii wa-at-baa-ihii aj-ma-eena ilaa yaumiddeen. Khusoosan alaa ameeril mu-mi-neena. sayyidinaa abii bakri nis-siddeeqi. razi-yallaa-hu ta-aalaa anh. wa-alaa ameeril mu-mi-neena sayyidinaa umarab-nil khat-twaab razi-yallaahu ta-aala anh. Wa-alaa ameeril muu-mi-neena sayyidinaa us-maa-nab-ni affaan razi-yallaahu ta-aala anh. Wa-alaa ameeril muu-mi-neena sayyidinaa aliyyib-ni abii twaalib razi-yallaahu ta-aala anh. Waalal-imaa-maini sayyi-dinal hasani wa-husaini razi-yallaahu ta-aala an- huma. wa-ala ummihimaa sayyi-datin-nisaayi faa-thima-taz-zahraayi razi-yallaahu ta-aala anhaa. wa-alaa ammaihi sayyi-dinaa hamzata wal-abbaasi razi-yallaahu ta-aala anhumaa. Wa-alas sit-tatil baaqi-yati minal asha-ratil mubash-sharati wa-alaa saa-irisswahaa-bati wat-taabi-yeen. riz-waa-nullaa-hi ta-aala alai-him aj-ma-yeen. allaa-hummag-fir lilmuu-mi-neena wal-muu-mi-naati. wal-muslimeena wal-musli-maat. al-ah-yaa-yi min-hum wal-am-waat. Bi-rah-mati-ka yaa ar-hamar-raahimeen. aoozu bil-laahi minash-shai twaa-nirrajeemi. Innal-laa-ha yaa-muru bil-ad-li wal-ihsaani wa-yii-taayi zil-qur-baa wa-yan-haa anil fah-shaayi wal mun-kari wal-bag-yi ya-izukum la-allakum tazak-karoon. uz-kurullaa-ha yaz-kurkum wad-oohuu yas-tajib lakum wa-la-zikrullaahi ta-aala aa-laa wa aulaa wa-a-azzu wa-ajallu wa-ahammu wa-atammu wa ak-bar.
+                </p>
+                <p>
+                    <strong>Roman Urdu Translation:</strong><br>
+                    “All praise is for Allah. We praise Him, seek His help and forgiveness, believe in Him, and put our trust in Him. We seek refuge in Him from the evils within ourselves and our bad deeds. Whomever Allah guides, none can misguide, and whomever He lets go astray, none can guide. We testify that there is no deity but Allah, He is One, has no partner, and we testify that our Master, Muhammad ﷺ, is Allah’s servant and Messenger. Allah sent him with truth as a bringer of good news and a warner. Indeed, Allah and His angels send blessings upon the Prophet ﷺ. O believers! Send blessings and peace upon him. Allahumma swalli wa sallim wa baarik ala sayyidinaa Muhammad wa ala aalihi wa ashabihi wa atba'ihi ajmaeen until the Day of Judgment. Especially: Abu Bakr, Umar, Usman, Ali (may Allah be pleased with them), Hasan, Husain, their mother Fatima Zahra, his uncles Hamza and Abbas, the remaining four Sahabah among the ten promised Paradise, all Sahabah and Tabe'een (may Allah be pleased with them). May Allah forgive all believing men and women, Muslim men and women, living and deceased (Ameen). I seek refuge in Allah from the accursed Satan. Allah commands justice, excellence, giving to relatives, and forbids immorality, evil, and rebellion; He advises you so that you remember. Remember Allah, He will remember you; call upon Him, He will answer you; Allah's remembrance is the highest, most important, most complete, and greatest.”
+                </p>`
+        },
+    216: {
+            title: "Mobile Phone Issues",
+            content: `<ol>
+            <li>Using Qur'anic verses or the sound of Adhan as a ringtone is disrespectful to these words.</li>
+            <li>Using music and songs as a mobile ringtone is never permissible; it is a grave sin.</li>
+            <li>Playing games on mobile is a useless activity.</li>
+            <li>Having religious words (like Allah or Prophet Muhammad ﷺ) on the mobile screen and then taking it to the toilet is disrespectful.</li>
+            <li>Taking and storing pictures with a mobile phone is not permissible according to scholars.</li>
+            <li>Before starting prayer, it is necessary to switch off the mobile; if you forget and the ringtone sounds during prayer, break the prayer and switch it off—the prayer is invalid due to excessive action, and must be restarted (latest fatwa, Darul Uloom Deoband).</li>
+        </ol>`
+        },
     4: {
         title: "Islamic Months",
         content: `<ol>
@@ -165,48 +545,8 @@ const contentData = {
             <p>Qiyamah is the day when all humans and jinn will be presented before Allah Almighty, their deeds will be accounted for, and reward or punishment will be given: entered into Paradise or Hell. This is certain, with no doubt. The Qur'an and Hadith mention many signs and details about it, all of which we believe.</p>
         `
     },
-    8: {
-        title: "What Are Fard, Wajib, Sunnah, and Nafl?",
-        content: `<ul>
-            <li><strong>Fard (Obligatory):</strong> That which is established by absolute proof, with no doubt about its evidence; whoever denies its obligation becomes a disbeliever. One who leaves it without excuse is sinful and deserving of punishment.</li>
-            <li><strong>Wajib (Necessary):</strong> That which is established by less absolute proof; denying it does not make one a disbeliever, but leaving it without excuse is sinful and deserving of punishment.</li>
-            <li><strong>Sunnah:</strong> That which the Prophet (ﷺ) or his Companions (may Allah be pleased with them) did or ordered to be done.</li>
-            <li><strong>Nafl (Voluntary):</strong> Acts whose merit is established in Islamic law; performing them earns reward, not performing them does not incur punishment. They are also called "Mustahab", "Mandoob", and "Tatawwu".</li>
-        </ul>`
-    },
-    9: {
-        title: "The 5 Kalimahs of Islam",
-        content: `<h3>1) Kalimah Tayyibah</h3>
-            <p>
-                <strong></strong> لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
-                <strong>Transliteration:</strong> Laa-ilaa-ha illal-laahu muhammadur Rasoolullaah sallallaahu alaihi wasallam<br>
-                <strong>English:</strong> There is no god but Allah, Muhammad ﷺ is the Messenger of Allah.
-            </p>
-            <h3>2) Kalimah Shahadah</h3>
-            <p>
-                <strong></strong> أَشْهَدُ أَن لَا إِلَهَ إِلَّا اللَّهُ وَأَشْهَدُ أَنَّ مُحَمَّدًا عَبْدُهُ وَرَسُولُهُ<br>
-                <strong>Transliteration:</strong> Ash-hadu alla-ilaa-ha illal-laahu wa-ash-hadu anna muhammadan abduhu wa rasooluh.<br>
-                <strong>English:</strong> I bear witness that there is no god but Allah, and Muhammad ﷺ is His servant and Messenger.
-            </p>
-            <h3>3) Kalimah Tamjeed</h3>
-            <p>
-                <strong></strong> سُبْحَانَ اللَّهِ وَالْحَمْدُ لِلَّهِ وَلَا إِلَهَ إِلَّا اللَّهُ وَاللَّهُ أَكْبَرُ وَلَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيم<br>
-                <strong>Transliteration:</strong> Subhaanallaahi wal-hamdu lillaahi walaa ilaaha illallaahu wallaahu akbar walaa hawla walaa quwwata illaa billaahil aliyyil azeem.<br>
-                <strong>English:</strong> Allah is pure, all praise belongs to Allah, there is no god but Allah, Allah is the Greatest, and there is no power and no strength except with Allah, the Most High, the Most Great.
-            </p>
-            <h3>4) Kalimah Tawheed</h3>
-            <p>
-                <strong></strong> لا إِلَهَ إِلَّا اللَّهُ وَحْدَهُ لَا شَرِيكَ لَهُ لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ يُحيى وَيُمِيتُ بِيَدِهِ الْخَيْرُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ<br>
-                <strong>Transliteration:</strong> Laa-ilaa-ha illal-laahu wahdahu laa-shareeka lahu lahul-mulku walahul-hamdu yuhyii wa yumeetu biyadihil khairu wahuwa ala kulli shai-in qadeer.<br>
-                <strong>English:</strong> There is no god but Allah, He is alone, He has no partner, His is the sovereignty and the praise, He gives life and death, all good is in His Hands, and He has power over everything.
-            </p>
-            <h3>5) Kalimah Radde Kufr</h3>
-            <p>
-                <strong></strong> اللَّهُمَّ إِنِّي أَعُوذُبِكَ مِنْ أَنْ أُشْرِكَ بِكَ شَيْئًا أَنَا أَعْلَمُ بِهِ وَاسْتَغْفِرُكَ لِمَا لَا أَعْلَمُ بِهِ تُبْتُ عَنْهُ وَتَبَرَّأْتُ مِنَ الْكُفْرِ وَالْمَعَاصِي كُلِّهَا أَسْلَمْتُ وَآمَنْتُ وَأَقُولُ لَا إِلَهَ إِلَّا اللَّهُ مُحَمَّدٌ رَّسُولُ اللَّهِ<br>
-                <strong>Transliteration:</strong> Allaahumma inni a-oozu bika min an ushrika bika shai-au wa ana aalamu bihi wa astaghfiruka lima la aalamu bihi tubtu anhu wa tabarratu minal kufri wal ma'aasi kulliha aslamtu wa aamantu wa aqoolu laa-ilaa-ha illallaahu muhammadur Rasoolullaah.<br>
-                <strong>English:</strong> O Allah! I seek refuge in You from associating anything with You knowingly, and I ask Your forgiveness for what I do not know; I repent from it and disassociate myself from disbelief and all sins. I have submitted, I have believed, and I declare: There is no god but Allah, Muhammad ﷺ is the Messenger of Allah.
-            </p>`
-    },
+    
+    
     10: {
         title: "Names of Famous Heavenly Books and On Whom They Were Revealed",
         content: `<ul>
@@ -582,124 +922,9 @@ const contentData = {
                 <li>Do not use miswaak made from pomegranate, basil, or bamboo wood</li>
             </ul>`
     },
-    17: {
-        title: "Number of Prayers and Rak'ahs",
-        content: `
-        <table class="mini-namaz-table">
-            <thead>
-                <tr>
-                    <th>Prayer</th>
-                    <th>Muakkadah</th>
-                    <th>Ghair</th>
-                    <th>Fard</th>
-                    <th>After</th>
-                    <th>Nafil</th>
-                    <th>Total</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr><td>Fajr</td><td>2</td><td>-</td><td>2</td><td>-</td><td>-</td><td>4</td></tr>
-                <tr><td>Dhuhr</td><td>4</td><td>-</td><td>4</td><td>2</td><td>2</td><td>12</td></tr>
-                <tr><td>Asr</td><td>-</td><td>4</td><td>4</td><td>-</td><td>-</td><td>8</td></tr>
-                <tr><td>Maghrib</td><td>-</td><td>-</td><td>3</td><td>2</td><td>2</td><td>7</td></tr>
-                <tr><td>Isha</td><td>-</td><td>4</td><td>4</td><td>2<br>(3 Witr)</td><td>2</td><td>17</td></tr>
-                <tr><td>Jumu'ah</td><td>4</td><td>-</td><td>2</td><td>4+2</td><td>2</td><td>14</td></tr>
-            </tbody>
-        </table>
-        <div style="font-size:0.8em;opacity:0.7;margin-top:0.3em;text-align:center;">
-            <b>Note:</b> "Muakkadah" = Sunnat-e-Muakkadah, "Ghair" = Ghair Muakkadah, "After" = Sunnah/Witr after Fard.
-        </div>
-        `
-    },
-    18: {
-        title: "Obligatory, Necessary, Sunnah, Recommended, Disliked, Invalidating Acts, and Issues of Prayer",
-        content: `<h4>7 External Obligatory Conditions of Prayer (Shara'ite Namaz)</h4>
-    <ul>
-        <li>Body must be pure</li>
-        <li>Clothes must be pure</li>
-        <li>The place of prayer must be pure</li>
-        <li>Covering the private parts (Satar)</li>
-        <li>Prayer time must have entered</li>
-        <li>Facing the Qiblah</li>
-        <li>Intention</li>
-    </ul>
-    <h4>6 Internal Obligatory Acts of Prayer (Arkaan-e-Namaz)</h4>
-    <ul>
-        <li>Takbeer-e-Tahreema (opening takbeer)</li>
-        <li>Standing (Qiyam)</li>
-        <li>Recitation (Qiraat) of Qur'an</li>
-        <li>Bowing (Ruku)</li>
-        <li>Two prostrations (Sajdah)</li>
-        <li>Final sitting (Qa'da Akhira) for reciting Attahiyyaat</li>
-    </ul>
-    <h4>Necessary Acts of Prayer (Wajibaat)</h4>
-    <ul>
-        <li>Recitation in the first two rak'ahs of Fard prayers</li>
-        <li>Reciting Surah Al-Fatiha in all rak'ahs except the third and fourth of Fard prayers</li>
-        <li>After Surah Al-Fatiha, recite one long verse or three short verses in the first two rak'ahs of Fard and all rak'ahs of Wajib, Sunnah, and Nafl prayers</li>
-        <li>Recite Surah Al-Fatiha before any other Surah</li>
-        <li>Maintain order in recitation, bowing, prostrations, and rak'ahs</li>
-        <li>Qauma (standing after ruku)</li>
-        <li>Jalsa (sitting peacefully between two prostrations)</li>
-        <li>Performing the pillars (ruku, sajdah, etc.) with calmness</li>
-        <li>First sitting (Qa'da Ula) for reciting Tashahhud in 3 or 4 rak'ah prayers after two rak'ahs</li>
-        <li>Reciting Attahiyyaat in both sittings</li>
-        <li>The Imam should recite aloud in Fajr, Maghrib, Isha, Jumu'ah, Taraweeh, and Ramadan Witr prayers</li>
-        <li>Recite quietly in Dhuhr, Asr, etc.</li>
-        <li>Ending the prayer with Salaam</li>
-        <li>Reciting Takbeer and Du'a-e-Qunoot in Witr prayer</li>
-        <li>Reciting extra Takbeers in both Eid prayers</li>
-    </ul>
-    <p><strong>Note:</strong> All these acts are necessary in prayer; if any is missed by mistake, performing Sajda-e-Sahu (prostration of forgetfulness) completes the prayer. If left out intentionally, the prayer must be repeated.</p>
-    <h4>Sunnahs of Prayer</h4>
-    <strong>11 Sunnahs of Standing (Qiyam)</strong>
-    <ol>
-        <li>Stand straight for Takbeer-e-Tahreema</li>
-        <li>Keep a gap of four fingers between feet</li>
-        <li>Follower's Takbeer-e-Tahreema should coincide with the Imam's</li>
-        <li>Raise both hands up to the ears during Takbeer-e-Tahreema</li>
-        <li>Keep palms facing the Qiblah</li>
-        <li>Keep fingers in their natural position</li>
-        <li>Place the right hand's palm over the back of the left hand's palm</li>
-        <li>Make a ring with the little finger and thumb, holding the wrist</li>
-        <li>Place the middle three fingers on the forearm</li>
-        <li>Fold hands below the navel</li>
-        <li>Recite Sana (opening supplication)</li>
-    </ol>
-    <strong>7 Sunnahs of Recitation (Qiraat)</strong>
-    <p>... (continue as above for bowing, prostration, sitting, recommended acts, disliked acts, invalidators and issues; maintaining full detail as in the user's text)</p>`
-    },
-    19: {
-        title: "Method of Performing Prayer",
-        content: `<p>When you stand for prayer, face the Qiblah and say "Allahu Akbar," then recite Surah Al-Fatiha along with any other Surah from the Qur'an. When you bow (ruku), place both palms on your knees, keep your back straight, and perform the bow calmly so that your head and back are level. For Qauma (standing after ruku), rise calmly and stand straight so all bones are settled in their joints. When you prostrate (sajdah), sit calmly. Likewise, perform every rak'ah's bowing, standing, prostration, and sitting with calmness. When you have done this, your prayer is complete, but if you missed any part, your prayer is incomplete (Abu Dawood, Tirmidhi, Nasa'i).</p>`
-    },
-    20: {
-        title: "Explanation and Rules of Sajda-e-Sahu (Prostration of Forgetfulness)",
-        content: `
-            <h3>Explanation of Sajda-e-Sahu</h3>
-            <p>
-                "Sahu" means forgetfulness. Sometimes, due to a mistake or excess/deficiency, a defect occurs in prayer. Some defects can be corrected by performing two prostrations after reciting Attahiyyaat in the last sitting of prayer, after turning the head to the right for Salaam; these are called Sajda-e-Sahu.
-            </p>
-            <p>
-                The method of Sajda-e-Sahu is: After reciting Attahiyyaat in the final sitting, turn the head to the right for Salaam, say Takbeer and perform a prostration, recite the Tasbeeh three times, then rise with Takbeer and sit, again with Takbeer perform the second prostration, recite the Tasbeeh three times, then rise with Takbeer, sit, recite Attahiyyaat, Durood Shareef and Du'a, and then complete prayer with Salaam on both sides.
-            </p>
-            <p>
-                The ruling of Sajda-e-Sahu is the same in all prayers. If both sides Salaam is given, according to one narration it is allowed, but the stronger narration is to not perform Sajda-e-Sahu, rather the prayer should be repeated.
-            </p>
-
-            <h3>Principles When Sajda-e-Sahu Becomes Necessary</h3>
-            <p>Sajda-e-Sahu becomes necessary in the following cases:</p>
-            <ul>
-                <li>If any necessary act (wajib) is missed by mistake, e.g., the first sitting is omitted</li>
-                <li>If a wajib is delayed from its proper place, e.g., reciting another Surah before Surah Al-Fatiha</li>
-                <li>If a wajib is delayed by the duration of a pillar (rukn) due to forgetfulness</li>
-                <li>If a wajib is performed twice by mistake</li>
-                <li>If a wajib is changed by mistake</li>
-                <li>If any obligatory act (farz) is delayed from its place</li>
-                <li>If a farz is performed before its proper time</li>
-                <li>If a farz is performed twice by mistake</li>
-            </ul>`
-    },
+    
+   
+    
     21: {
         title: "Special Supplications of Ramadan",
         content: `<ul>
@@ -723,32 +948,7 @@ const contentData = {
         <li>The fifth way is that the reward of the supplication is given in the Hereafter</li>
     </ol>`
     },
-    65: {
-        title: "Method of Qasar Prayer, Travel Distance, and Issues",
-        content: `
-            <h3>Method of Qasar Prayer</h3>
-            <p>
-                According to Imam-e-Azam Abu Hanifa (ra), a traveler is one who undertakes a journey of 3 stages (according to English miles, 48 miles, approximately 88 kilometers), and whose stay at that place is less than 15 days. If the intention is to stay for more than fifteen days, then he is not considered a traveler, but a resident, and must offer full prayers. If the journey is less than 48 miles, he is not a traveler and must offer full prayers.
-            </p>
-            <p>
-                During travel, Qasar (shortened prayer) applies only to Dhuhr, Asr, and Isha prayers. That is, four rak'ah prayers are performed as half (two rak'ahs). Fajr and Maghrib remain the same, Witr is obligatory and must be performed as three rak'ahs. Sunnah prayers, except for Fajr, are optional; the two rak'ahs of Sunnah for Fajr must be performed. For other prayers' Sunnahs, if there is time and ease, they should be performed, otherwise only the obligatory (fard) is enough. It is necessary for the traveler (according to Hanafi school) to perform Qasar in prayer.
-            </p>
-            
-            <h3>How Much Is the Travel Distance?</h3>
-            <p>
-                In kilometers: 87 kilometers 782 meters 40 centimeters, which is approximately 88 kilometers (Modern Fiqhi Issues, Deoband).
-            </p>
-            
-            <h3>Issues of Qasar Prayer</h3>
-            <ul>
-                <li>Anyone who does not shorten the prayer during the prescribed travel distance is sinful</li>
-                <li>It is forbidden to offer full prayer during the prescribed journey; Qasar is obligatory</li>
-                <li>Some people feel guilty about shortening the prayer instead of offering the full prayer; this is incorrect</li>
-                <li>During the prescribed journey, offering two rak'ahs instead of four is proven from the Qur'an and Hadith</li>
-                <li>According to the Hanafi school, Qasar is mandatory for travelers, even if the journey is comfortable (e.g., by train); offering full prayer is not correct</li>
-                <li>Whether there is fear or not during travel, in all cases Qasar should be performed</li>
-            </ul>`
-    },
+    
     68: {
         title: "Method of Offering Missed Prayers (Qaza Namaz)",
         content: `<ul>
@@ -759,51 +959,8 @@ const contentData = {
         <li>Make intention for the time of prayer missed; if you do not remember, then say at the beginning of each prayer: "I am offering the first Fajr or Dhuhr Qaza prayer of my life"</li>
     </ul>`
     },
-    69: {
-        title: "Rulings for Friday (Jumu'ah)",
-        content: `<ul>
-        <li>Wake up early on Friday and perform ghusl (ritual bath)</li>
-        <li>It is Sunnah to cut your nails before Friday; whoever does so will be protected from calamities until the next Friday</li>
-        <li>It is obligatory to leave trade and business at the time of the Friday call to prayer and come to the mosque</li>
-        <li>There must be at least 3 people in the congregation along with the Imam</li>
-        <li>Listen to the Friday sermon attentively</li>
-        <li>If the Friday sermon is not heard, perform the four obligatory rak'ahs of Dhuhr prayer</li>
-        <li>The Messenger of Allah ﷺ said: "Whoever misses Friday without a valid excuse will be written as a hypocrite in this book"</li>
-    </ul>`
-    },
-    70: {
-        title: "Friday Sermon: First and Second Khutbah",
-        content: `
-            <h3>First Khutbah (Khutbaaye Awwal)</h3>
-            <p>
-                <strong>Arabic:</strong><br>
-                الحمد لله نحمده ونستعينه ونستغفره ونعوذ بالله من شرور أنفسنا ومن سيئات أعمالنا من يهده الله فلا مضل له ومن يضلل فلا هادي له ونشهد أن لا إله إلا الله وحده لا شريك له ونشهد أن محمداً عبده ورسوله أرسله بالحق بشيراً ونذيراً بين يدي الساعة من يطع الله ورسوله فقد رشد ومن يعصهما فإنه لا يضر إلا نفسه ولا يضر الله شيئاً أما بعد فإن خير الحديث كتاب الله وخير الهدي هدي محمد صلى الله عليه وسلم وشر الأمور محدثاتها وكل بدعة ضلالة وكل ضلالة في النار بارك الله لنا ولكم في القرآن العظيم ونفعنا وإياكم بالآيات والذكر الحكيم فاستغفروه إنه هو الغفور الرحيم
-            </p>
-            <p>
-                <strong>Transliteration:</strong><br>
-                Al-hamdu lillaahi nahmaduhuu nas-ta-yiinuhuu wa-nas-tag fi-ruhuu wa na-oozu billaahi min shuroori an-fusinaa wa-min-sayyi-aati aamaalinaa mai-yah-di-hillaa-hu falaa muzillalahu wa mai-yuz-lil-hu falaa haadi-ya-lahu wa nash-hadu allaa ilaa-ha illal-laahu wah-dahu la sharii-ka lahu. wa nash-hadu anna muhammadan ab-duhu wa rasooluhu. ar-salahu bil-haqqi bashi-rau wa-nazeeran bai-na yada-yissaa-ati my-yuti-illaa-ha wa-rasoolahu, faqad rasha-da wa-man ya-a-si-hima fa-innahu laa yazoorru illaa naf-sahu. walaa yazur-rullaa-ha shaia. amma baad fa-inna kairal hadisi kitaa-bullaa-hi wakairal had-yi had-yu muhammadin swalellaahu alai-hi wasallam wa sharral umoori mu-hadda saa-tuha wa-kullu bid-ateen zalaa-latun wa kullu zalaa-lateen finnar. baa-ra-kallaa-hu lanaa walakum fil-qur-aanil ałeem. Wa nafa-a-na wa iyyaa-kum bil aayaati wazzik-ril hakeem. Fastag-firuhu innahu huval gafurur raheem.
-            </p>
-            <p>
-                <strong>Roman Urdu Translation:</strong><br>
-                “All praise is for Allah. We praise Him, seek His help and forgiveness, and seek refuge in Allah from the evils of ourselves and our bad deeds. Whomever Allah guides, none can misguide, and whomever He lets go astray, none can guide. We testify that there is no deity but Allah, He is One, has no partner, and we testify that Muhammad ﷺ is His servant and Messenger. Allah sent him with truth as a bringer of good news and a warner before the Hour. Whoever obeys Allah and His Messenger is rightly guided, and whoever disobeys them harms only himself and does not harm Allah in the least. The best speech is the Book of Allah, and the best guidance is the way of Muhammad ﷺ. The worst matters are newly invented ones; every innovation is misguidance, and every misguidance leads to Hell. May Allah bless us and you with the Noble Qur'an, and benefit us and you with verses and wise remembrance. Seek forgiveness from Him, truly He is the Most Forgiving, Most Merciful.”
-            </p>
-
-            <hr>
-
-            <h3>Second Khutbah (Khutbaaye Saaniya)</h3>
-            <p>
-                <strong>Arabic:</strong><br>
-                الحمد لله نحمده ونستعينه ونستغفره ونؤمن به ونتوكل عليه ونعوذ بالله من شرور أنفسنا ومن سيئات أعمالنا من يهده الله فلا مضل له ومن يضلل فلا هادي له ونشهد أن لا إله إلا الله وحده لا شريك له ونشهد أن سيدنا ومولانا محمداً عبده ورسوله الذي أرسل بالحق بشيراً ونذيراً إن الله وملائكته يصلون على النبي يا أيها الذين آمنوا صلوا عليه وسلموا تسليماً اللهم صل وسلم وبارك على سيدنا محمد وعلى آله وأصحابه وأتباعه أجمعين إلى يوم الدين خصوصاً على أمير المؤمنين سيدنا أبي بكر الصديق رضي الله تعالى عنه وعلى أمير المؤمنين سيدنا عمر بن الخطاب رضي الله تعالى عنه وعلى أمير المؤمنين سيدنا عثمان بن عفان رضي الله تعالى عنه وعلى أمير المؤمنين سيدنا علي بن أبي طالب رضي الله تعالى عنه وعلى الإمامين سيدنا الحسن والحسين رضي الله تعالى عنهما وعلى أمهما سيدة النساء فاطمة الزهراء رضي الله تعالى عنها وعلى عميه سيدنا حمزة والعباس رضي الله تعالى عنهما وعلى الستة الباقية من العشرة المبشرة وعلى سائر الصحابة والتابعين رضوان الله تعالى عليهم أجمعين اللهم اغفر للمؤمنين والمؤمنات والمسلمين والمسلمات الأحياء منهم والأموات برحمتك يا أرحم الراحمين أعوذ بالله من الشيطان الرجيم إن الله يأمر بالعدل والإحسان وإيتاء ذي القربى وينهى عن الفحشاء والمنكر والبغي يعظكم لعلكم تذكرون اذكروا الله يذكركم وادعوه يستجب لكم ولذكر الله تعالى أعلى وأولى وأعز وأجل وأهم وأتم وأكبر
-            </p>
-            <p>
-                <strong>Transliteration:</strong><br>
-                Al-ham-du lillaahi nah-maduhu wa nas-taeenuhu wa nas-tag-firuhuu wa nu-minu bihii wa na-ta-wakkalu alaihi wa na-oozu billaa-hi min-shuroori an-fusinaa wa min-sayyi-aati aamaa-lina mai-yah-di hillaa-hu falaa muzillalahuu wa mai-yuz-lil-hu falaa haadi-ya-lahuu. wa-nash-hadu allaa ilaa-ha illal-laahu wah-dahuu laa-sharii-ka lahuu wa-nash-hadu anna-sayyidanaa wa-mau-laanaa. Muhammadan ab-duhu wa rasooluhu. al-lazii wur-sila bil-haqqi bashiirau-wa-nazeera. Iinnal-laa-ha wa-malaa-ikatahuu yu-swallu-na alan-nabiyyi. Ya-ayyu-hal-lazii-na aamanu swallu alaihi wa salli-mu-tas-leema. allaa-humma swalli wa-sallim wa-baarik alaa sayyidinaa muhammadiu wa-alaa aalihii wa-ashaa-bihii wa-at-baa-ihii aj-ma-eena ilaa yaumiddeen. Khusoosan alaa ameeril mu-mi-neena. sayyidinaa abii bakri nis-siddeeqi. razi-yallaa-hu ta-aalaa anh. wa-alaa ameeril mu-mi-neena sayyidinaa umarab-nil khat-twaab razi-yallaahu ta-aala anh. Wa-alaa ameeril muu-mi-neena sayyidinaa us-maa-nab-ni affaan razi-yallaahu ta-aala anh. Wa-alaa ameeril muu-mi-neena sayyidinaa aliyyib-ni abii twaalib razi-yallaahu ta-aala anh. Waalal-imaa-maini sayyi-dinal hasani wa-husaini razi-yallaahu ta-aala an- huma. wa-ala ummihimaa sayyi-datin-nisaayi faa-thima-taz-zahraayi razi-yallaahu ta-aala anhaa. wa-alaa ammaihi sayyi-dinaa hamzata wal-abbaasi razi-yallaahu ta-aala anhumaa. Wa-alas sit-tatil baaqi-yati minal asha-ratil mubash-sharati wa-alaa saa-irisswahaa-bati wat-taabi-yeen. riz-waa-nullaa-hi ta-aala alai-him aj-ma-yeen. allaa-hummag-fir lilmuu-mi-neena wal-muu-mi-naati. wal-muslimeena wal-musli-maat. al-ah-yaa-yi min-hum wal-am-waat. Bi-rah-mati-ka yaa ar-hamar-raahimeen. aoozu bil-laahi minash-shai twaa-nirrajeemi. Innal-laa-ha yaa-muru bil-ad-li wal-ihsaani wa-yii-taayi zil-qur-baa wa-yan-haa anil fah-shaayi wal mun-kari wal-bag-yi ya-izukum la-allakum tazak-karoon. uz-kurullaa-ha yaz-kurkum wad-oohuu yas-tajib lakum wa-la-zikrullaahi ta-aala aa-laa wa aulaa wa-a-azzu wa-ajallu wa-ahammu wa-atammu wa ak-bar.
-            </p>
-            <p>
-                <strong>Roman Urdu Translation:</strong><br>
-                “All praise is for Allah. We praise Him, seek His help and forgiveness, believe in Him, and put our trust in Him. We seek refuge in Him from the evils within ourselves and our bad deeds. Whomever Allah guides, none can misguide, and whomever He lets go astray, none can guide. We testify that there is no deity but Allah, He is One, has no partner, and we testify that our Master, Muhammad ﷺ, is Allah’s servant and Messenger. Allah sent him with truth as a bringer of good news and a warner. Indeed, Allah and His angels send blessings upon the Prophet ﷺ. O believers! Send blessings and peace upon him. Allahumma swalli wa sallim wa baarik ala sayyidinaa Muhammad wa ala aalihi wa ashabihi wa atba'ihi ajmaeen until the Day of Judgment. Especially: Abu Bakr, Umar, Usman, Ali (may Allah be pleased with them), Hasan, Husain, their mother Fatima Zahra, his uncles Hamza and Abbas, the remaining four Sahabah among the ten promised Paradise, all Sahabah and Tabe'een (may Allah be pleased with them). May Allah forgive all believing men and women, Muslim men and women, living and deceased (Ameen). I seek refuge in Allah from the accursed Satan. Allah commands justice, excellence, giving to relatives, and forbids immorality, evil, and rebellion; He advises you so that you remember. Remember Allah, He will remember you; call upon Him, He will answer you; Allah's remembrance is the highest, most important, most complete, and greatest.”
-            </p>`
-    },
+    
+   
     61: {
         title: "On What Can Tayammum Be Performed?",
         content: `<p>Tayammum can be performed on pure earth, sand, stone, lime, and unglazed or glazed clay pots without oil, as well as unbaked or baked bricks, earth, bricks, stone or lime walls, and also on clean dust.</p>`
@@ -849,16 +1006,7 @@ const contentData = {
         <li>Whether there is fear or not during travel, Qasar should be performed in all cases</li>
     </ul>`
     },
-    68: {
-        title: "Method of Offering Missed Prayers (Qaza Namaz)",
-        content: `<ul>
-        <li>"Umre Qaza" refers to making up all prayers missed after reaching puberty</li>
-        <li>Offer Qaza prayers outside the disliked times, observing all other proper prayer times</li>
-        <li>The easy way is to offer Umre Qaza prayers before Fajr, Dhuhr, Asr, and Isha each day, and after Maghrib</li>
-        <li>For example, make intention: "I am offering the first Fajr Qaza prayer of my life"</li>
-        <li>Make intention for the time of prayer missed; if you do not remember, then say at the beginning of each prayer: "I am offering the first Fajr or Dhuhr Qaza prayer of my life"</li>
-    </ul>`
-    },
+    
     69: {
         title: "Rulings for Friday (Jumu'ah)",
         content: `<ul>
@@ -871,75 +1019,9 @@ const contentData = {
         <li>The Messenger of Allah ﷺ said: If one misses Friday without a valid excuse, he will be written as a hypocrite in this book</li>
     </ul>`
     },
-    72: {
-        title: "Method of Eid Prayers",
-        content: `<ul>
-            <li>Perform ghusl and use miswaak</li>
-            <li>Wear your best clothes</li>
-            <li>Apply perfume</li>
-            <li>Eat dates or something sweet before going for Eidul Fitr prayer</li>
-            <li>Pay Sadaqatul Fitr before going</li>
-            <li>For Eidul Azha, eat the meat of your sacrifice after the prayer</li>
-            <li>Pray Eid at the Eidgah</li>
-            <li>Go by foot</li>
-            <li>Go by one route and return by another</li>
-            <li>Do not offer any nafl prayer at home or Eidgah before Eid prayer</li>
-            <li>Do not offer any nafl prayer at the Eidgah after Eid prayer</li>
-            <li>Both Eid prayers are two rak'ahs. There is no adhan or iqamah for these prayers. First make intention: "I am offering the wajib Eidul Fitr or Eidul Azha prayer with 6 additional takbeers behind this Imam."</li>
-            <li>Method of prayer is detailed above (refer to original text for step-by-step takbeers and actions).</li>
-            <li>The Imam should deliver the sermon standing and everyone should sit quietly and listen.</li>
-            <li>There are two sermons for Eid like Friday, and sitting between both is Sunnah.</li>
-        </ul>`
-    },
-    73: {
-        title: "Method of Salatut Tasbih Prayer",
-        content: `<p>It is best to perform Salatut Tasbih before Dhuhr, daily, on Fridays, once a month, once a year, or even once in a lifetime with sincerity; whether sins are small or large, Allah Almighty will forgive them, inshaAllah.</p>
-        <p>Intention: "I am offering 4 rak'ahs of Salatut Tasbih voluntary (nafil) prayer for Allah, facing the Sacred Kaaba."</p>
-        <p>In this prayer, the third kalimah should be recited 300 times:</p>
-        <blockquote>sub-haa-nallaahi wal-hamdu lillaahi walaa ilaaha illal-lahu wallaahu ak-bar</blockquote>
-        <ul>
-            <li>After Sana: 15 times</li>
-            <li>After reciting Surah: 10 times</li>
-            <li>In Ruku: 10 times</li>
-            <li>In Qauma: 10 times</li>
-            <li>In the first Sajdah: 10 times</li>
-            <li>In Jalsa (sitting between Sajdahs): 10 times</li>
-            <li>In the second Sajdah: 10 times</li>
-            <li>In one rak'ah: 75 times, in 4 rak'ahs: 300 times</li>
-        </ul>`
-    },
-    74: {
-        title: "Method of Istekharah Prayer",
-        content: `<p>Whenever you have an important matter, offer 2 rak'ahs of voluntary prayer and recite the Istekharah supplication. Insha Allah, your heart will be opened (clarity will come). This prayer and supplication can be offered at any suitable time.</p>
-        <p>After 2 rak'ahs of voluntary prayer, recite this supplication:</p>
-        <blockquote>Allahumma inni astakheeruka bi ilmika ... (full Arabic and transliteration as above)</blockquote>
-        <p>After this supplication, ask Allah for goodness regarding your matter.</p>`
-    },
-    75: {
-        title: "Times and Virtues of Voluntary Prayers (Nafil)",
-        content: `<ul>
-            <li><strong>Tahajjud</strong>: 2 to 12 rak'ahs, after midnight or after some sleep; light for the grave, praying Tahajjud regularly will prepare you for death</li>
-            <li><strong>Ishraq</strong>: 2+2=4 rak'ahs, after the sun rises high; reward of accepted Hajj and Umrah, Allah will help in all daily tasks</li>
-            <li><strong>Chasht</strong>: 2+2 up to 12 rak'ahs, before noon; brings blessing in sustenance</li>
-            <li><strong>Awwabeen</strong>: 2+2+2=6 up to 20 rak'ahs, after Maghrib; reward and blessings</li>
-            <li><strong>Tahiyyatul Wudu</strong>: 2 rak'ahs, whenever you make wudu; according to Hadith, one who makes wudu well without worldly thoughts, Allah forgives all his sins</li>
-            <li><strong>Tahiyyatul Masjid</strong>: 2 rak'ahs, whenever you enter the mosque; fulfills the right of the mosque</li>
-            <li><strong>Salatul Hajat</strong>: 2 rak'ahs, when you have a need or necessity; your needs are fulfilled</li>
-            <li><strong>Salatut Tauba</strong>: 2 rak'ahs, if you commit a sin knowingly or unknowingly; you receive repentance</li>
-            <li><strong>Salatut Tasbih</strong>: daily, weekly, yearly, or once in a lifetime; Allah forgives small and big sins</li>
-        </ul>`
-    },
-    76: {
-        title: "Method of Funeral Prayer (Janazah)",
-        content: `<ol>
-            <li>Form rows and stand, 3, 5, or 7 rows are better.</li>
-            <li>Intention: "I am offering this funeral prayer for Allah for this deceased person, for forgiveness, behind this Imam."</li>
-            <li>Imam says Takbeer loudly, followers say it quietly, raise hands to ears and fold below the navel, all recite Sana quietly</li>
-            <li>Second Takbeer, all recite Durood Ibrahim quietly</li>
-            <li>Third Takbeer, recite appropriate supplication for adult/minor (see original text for Arabic)</li>
-            <li>Fourth Takbeer, turn right and then left and say Salaam</li>
-        </ol>`
-    },
+    
+    
+    
     77: {
         title: "Meanings of Tableeg's Letters",
         content: `<ul>
@@ -1426,7 +1508,7 @@ const contentData = {
         <li>The one who reminds others of his favors</li>
     </ol>`
     },
-    101: {
+    1001: {
         title: "Three People Who Will Not Be Looked Upon with Mercy on the Day of Judgment",
         content: `<ol>
         <li>The one who makes a deal by swearing falsely</li>
@@ -1450,22 +1532,8 @@ const contentData = {
         <li>Who forgives those who wrong him</li>
     </ol>`
     },
-    104: {
-        title: "Levels of Imaan (Faith)",
-        content: `<ol>
-        <li>If you see something unlawful, stop it with your hand</li>
-        <li>If that is not possible, stop it with your tongue</li>
-        <li>If that is not possible, at least consider it evil in your heart—this is the lowest level of faith</li>
-    </ol>`
-    },
-    105: {
-        title: "Sweetness of Faith Comes from 3 Things",
-        content: `<ol>
-        <li>Love of Allah and His Messenger (ﷺ) above all else</li>
-        <li>Whoever you love, love them for the sake of Allah</li>
-        <li>To return to disbelief is as detestable and difficult as falling into the fire</li>
-    </ol>`
-    },
+    
+    
     106: {
         title: "Advice of the Prophet (ﷺ)",
         content: `<p>Hazrat Anas bin Malik (may Allah be pleased with him) said:</p>
@@ -1794,26 +1862,7 @@ const contentData = {
         <li>Women: Desiring women leads a person toward irreligion</li>
     </ol>`
     },
-    137: {
-        title: "Means Are Only a Medium—Everything Happens by Allah's Command",
-        content: `<ol>
-        <li>The earth is a medium—sustenance is given by Allah’s command</li>
-        <li>The sun is a medium—light is given by Allah’s command</li>
-        <li>The sky is a medium—shade is given by Allah’s command</li>
-        <li>The clouds are a medium—rain occurs by Allah’s command</li>
-        <li>The mother's womb is a medium—human beings are created by Allah’s command</li>
-        <li>Medicine (tablet) is a medium—healing is given by Allah’s command</li>
-        <li>Vitamin is a medium—strength is given by Allah’s command</li>
-        <li>The eye is a medium—sight is given by Allah’s command</li>
-        <li>The ear is a medium—sound is delivered by Allah’s command</li>
-        <li>The nose is a medium—fragrance is delivered by Allah’s command</li>
-        <li>The mind is a medium—the intellect is given by Allah’s command</li>
-        <li>Business or job is a medium—wealth is given by Allah’s command</li>
-        <li>The soul in the body is a medium—the body works by Allah’s command</li>
-        <li>Death is a medium—life ends by Allah’s command</li>
-    </ol>
-    <p>May Allah grant us all true conviction in these matters (Aameen)</p>`
-    },
+    
     138: {
         title: "Seven Things Forbidden in Halal Animals",
         content: `<ol>
@@ -1863,17 +1912,7 @@ const contentData = {
         <li>When meeting at the time of Nikah, making supplications will result in pious and righteous children. Educate children in religion and the work of invitation; otherwise, parents will be deprived of the service of their children.</li>
     </ol>`
     },
-    141: {
-        title: "Mobile Phone Issues",
-        content: `<ol>
-        <li>Using Qur'anic verses or the sound of Adhan as a ringtone is disrespectful to these words.</li>
-        <li>Using music and songs as a mobile ringtone is never permissible; it is a grave sin.</li>
-        <li>Playing games on mobile is a useless activity.</li>
-        <li>Having religious words (like Allah or Prophet Muhammad ﷺ) on the mobile screen and then taking it to the toilet is disrespectful.</li>
-        <li>Taking and storing pictures with a mobile phone is not permissible according to scholars.</li>
-        <li>Before starting prayer, it is necessary to switch off the mobile; if you forget and the ringtone sounds during prayer, break the prayer and switch it off—the prayer is invalid due to excessive action, and must be restarted (latest fatwa, Darul Uloom Deoband).</li>
-    </ol>`
-    },
+    
     142: {
         title: "Some Sunnahs of the Prophet (ﷺ)",
         content: `<ol>
@@ -1903,28 +1942,7 @@ const contentData = {
         <li>Do not oppress her</li>
     </ol>`
     },
-    144: {
-        title: "Method of Women's Prayer",
-        content: `<p>Women's prayer is like men's, but with a few differences:</p>
-    <ol>
-        <li>When saying Takbeer-e-Taherima, raise hands up to the shoulders.</li>
-        <li>Do not take hands out from under the scarf (dupatta).</li>
-        <li>Fold hands on the chest.</li>
-        <li>Place the right palm over the back of the left palm.</li>
-        <li>Bend less in ruku (bowing).</li>
-        <li>When holding the knees in ruku, keep the fingers together.</li>
-        <li>Keep both arms close to the sides.</li>
-        <li>Keep both ankles together.</li>
-        <li>Perform sajda (prostration) compactly and firmly.</li>
-        <li>Do not spread the arms in sajda.</li>
-        <li>Keep the stomach joined to the thighs in sajda.</li>
-        <li>Place the elbows on the ground in sajda.</li>
-        <li>Turn the fingers of hands and feet towards the Qiblah in sajda.</li>
-        <li>Sit to the left in Qa'da (sitting).</li>
-        <li>Take both feet out to the right in Qa'da.</li>
-        <li>Keep fingers together in Qa'da and Jalsa (between prostrations).</li>
-    </ol>`
-    },
+    
     145: {
         title: "Three Degrees of Veiling (Purdah) in Shariah for Women",
         content: `<ol>
@@ -2100,34 +2118,34 @@ const indexData = {
         {
             title: "Belief and Faith",
             items: [
-                { id: 1, title: "Belief (Our Islamic Creed)" },
-                { id: 2, title: "Brief Faith and Detailed Faith (Iman-e-Mujmal & Iman-e-Mufassal)" },
-                { id: 3, title: "Islam Is Founded On 5 Pillars" },
-                { id: 9, title: "The 5 Kalimahs of Islam" },
-                { id: 104, title: "Levels of Imaan (Faith)" },
-                { id: 105, title: "Sweetness of Faith Comes from 3 Things" },
-                { id: 137, title: "Means Are Only a Medium - Everything Happens by Allah's Command" },
+                { id: 101, title: "Belief (Our Islamic Aqeedah)" },
+                { id: 102, title: "Brief Faith and Detailed Faith (Iman-e-Mujmal & Iman-e-Mufassal)" },
+                { id: 103, title: "Islam Is Founded On 5 Pillars" },
+                { id: 104, title: "The 5 Kalimahs of Islam" },
+                { id: 105, title: "Levels of Imaan (Faith)" },
+                { id: 106, title: "Sweetness of Faith Comes from 3 Things" },
+                { id: 107, title: "Means Are Only a Medium - Everything Happens by Allah's Command" },
             ]
         },
         {
             title: "Prayer and Related Worship",
             items: [
-                { id: 8, title: "What Are Fard, Wajib, Sunnah, and Nafl?" },
-                { id: 17, title: "Number of Prayers and Rak'ahs" },
-                { id: 18, title: "Obligatory, Necessary, Sunnah, Recommended, Disliked, Invalidating Acts, and Issues of Prayer" },
-                { id: 19, title: "Method of Performing Prayer" },
-                { id: 65, title: "Method of Qasar Prayer, Travel Distance, and Issues" },
-                { id: 68, title: "Method of Offering Missed Prayers (Qaza Namaz)" },
-                { id: 71, title: "Method of Eid Prayers" },
-                { id: 72, title: "Method of Salatut Tasbih Prayer" },
-                { id: 73, title: "Method of Istekharah Prayer" },
-                { id: 74, title: "Times and Virtues of Voluntary Prayers (Nafil)" },
-                { id: 75, title: "Method of Funeral Prayer (Janazah)" },
-                { id: 144, title: "Method of Women's Prayer" },
-                { id: 20, title: "Explanation and Rules of Sajda-e-Sahu (Prostration of Forgetfulness)" },
-                { id: 69, title: "Rulings for Friday (Jumu'ah)" },
-                { id: 70, title: "Friday Sermon: First and Second Khutbah" },
-                { id: 141, title: "Mobile Phone Issues" },
+                { id: 201, title: "What Are Fard, Wajib, Sunnah, and Nafl?" },
+                { id: 202, title: "Number of Prayers and Rak'ahs" },
+                { id: 203, title: "Obligatory, Necessary, Sunnah, Recommended, Disliked, Invalidating Acts, and Issues of Prayer" },
+                { id: 204, title: "Method of Performing Prayer" },
+                { id: 205, title: "Method of Qasar Prayer, Travel Distance, and Issues" },
+                { id: 206, title: "Method of Offering Missed Prayers (Qaza Namaz)" },
+                { id: 207, title: "Method of Eid Prayers" },
+                { id: 208, title: "Method of Salatut Tasbih Prayer" },
+                { id: 209, title: "Method of Istekharah Prayer" },
+                { id: 210, title: "Times and Virtues of Voluntary Prayers (Nafil)" },
+                { id: 211, title: "Method of Funeral Prayer (Janazah)" },
+                { id: 212, title: "Method of Women's Prayer" },
+                { id: 213, title: "Explanation and Rules of Sajda-e-Sahu (Prostration of Forgetfulness)" },
+                { id: 214, title: "Rulings for Friday (Jumu'ah)" },
+                { id: 215, title: "Friday Sermon: First and Second Khutbah" },
+                { id: 216, title: "Mobile Phone Issues" },
             ]
         },
         {
