@@ -255,20 +255,20 @@
             const KEY = 'selectedLanguage';
             const lang = localStorage.getItem(KEY) || 'roman_ur';
             const hidayahMap = {
-                en: '/basics-english.js',
-                ur: '/basics-urdu.js',
-                roman_ur: '/basics-roman_urdu.js',
-                hi: '/basics-hindi.js',
-                te: '/basics-telugu.js',
-                te_ur: '/basics-telugu_urdu.js'
+                en: '/basics/basics-english.js',
+                ur: '/basics/basics-urdu.js',
+                roman_ur: '/basics/basics-roman_urdu.js',
+                hi: '/basics/basics-hindi.js',
+                te: '/basics/basics-telugu.js',
+                te_ur: '/basics/basics-telugu_urdu.js'
             };
             const quranMap = {
-                en: '/quran-english.js',
-                ur: '/quran-urdu.js',
-                roman_ur: '/quran-roman.js',
-                hi: '/quran-hindi.js',
-                te: '/quran-telugu.js',
-                te_ur: '/quran-telugu.js'
+                en: '/quran/quran-english.js',
+                ur: '/quran/quran-urdu.js',
+                roman_ur: '/quran/quran-roman.js',
+                hi: '/quran/quran-hindi.js',
+                te: '/quran/quran-telugu.js',
+                te_ur: '/quran/quran-telugu.js'
             };
             function loadScript(src) {
                 return new Promise((resolve, reject) => {
