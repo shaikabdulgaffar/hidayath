@@ -700,7 +700,7 @@ const i18n = {
     hi: {
         appTitle: 'हिदायते आमाल',
         tab_hidayah: 'इस्लाम की बुनियाद',
-        tab_quran: 'क़ुरआन व दुआ',
+        tab_quran: 'क़ुरआन',
         search_placeholder: 'विषय खोजें...',
         contents_title: 'विषय-सूची',
         search_results: 'खोज परिणाम',
@@ -770,7 +770,7 @@ const i18n = {
     te_ur: {
         appTitle: 'హిదాయతే ఆమాల్',
         tab_hidayah: 'ఇస్లాం యొక్క పునాదులు',
-        tab_quran: 'ఖుర్‌ఆన్ & దుఆ',
+        tab_quran: 'ఖుర్‌ఆన్',
         search_placeholder: 'కంటెంట్ వెతకండి...',
         contents_title: 'విషయ సూచిక',
         search_results: 'శోధ ఫలితాలు',

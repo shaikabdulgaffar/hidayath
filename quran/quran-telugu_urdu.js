@@ -785,7 +785,7 @@ const quranContentData = {
 const quranIndexData = {
   sections: [
     {
-      title: "Quran",
+      title: "ఖుర్‌ఆన్",
       items:
       [
         { id: 1001, title: "సూరా అల్-ఫాతిహా (سورة الفاتحة)" },

@@ -785,27 +785,27 @@ const quranContentData = {
 const quranIndexData = {
   sections: [
     {
-      title: "Quran",
+      title: "क़ुरआन",
       items:
       [
-        { id: 1001, title: "Surah Al-Fatiha (सूरह अल-फातिहा)" },
-        { id: 1007, title: "Ayatul Kursi (आयतुल कुर्सी)" },
-        { id: 1008, title: "Surah Az-Zalzalah (सूरह अज़-ज़लज़ला)" },
-        { id: 1009, title: "Surah Al-Adiyat (सूरह अल-आदियात)" },
-        { id: 1010, title: "Surah Al-Qari'ah (सूरह अल-क़ारिआ)" },
-        { id: 1011, title: "Surah At-Takathur (सूरह अत-तकासुर)" },
-        { id: 1006, title: "Surah Al-Asr (सूरह अल-अस्र)" },
-        { id: 1012, title: "Surah Al-Humazah (सूरह अल-हुमज़ा)" },
-        { id: 1013, title: "Surah Al-Fil (सूरह अल-फ़ील)" },
-        { id: 1014, title: "Surah Quraysh (सूरह क़ुरैश)" },
-        { id: 1015, title: "Surah Al-Ma'un (सूरह अल-माऊन)" },
-        { id: 1005, title: "Surah Al-Kawthar (सूरह अल-कौसर)" },
-        { id: 1016, title: "Surah Al-Kafirun (सूरह अल-काफिरून)" },
-        { id: 1017, title: "Surah An-Nasr (सूरह अन-नस्र)" },
-        { id: 1018, title: "Surah Al-Masad (सूरह अल-मसद)" },
-        { id: 1002, title: "Surah Al-Ikhlas (सूरह अल-इख़्लास)" },
-        { id: 1003, title: "Surah Al-Falaq (सूरह अल-फ़लक़)" },
-        { id: 1004, title: "Surah An-Nas (सूरह अन-नास)" }
+        { id: 1001, title: "सूरह अल-फातिहा (سورة الفاتحة)" },
+        { id: 1007, title: "आयतुल कुर्सी (آية الكرسي)" },
+        { id: 1008, title: "सूरह अज़-ज़लज़ला (سورة الزلزلة)" },
+        { id: 1009, title: "सूरह अल-आदियात (سورة العاديات)" },
+        { id: 1010, title: "सूरह अल-क़ारिआ (سورة القارعة)" },
+        { id: 1011, title: "सूरह अत-तकासुर (سورة التكاثر)" },
+        { id: 1006, title: "सूरह अल-अस्र (سورة العصر)" },
+        { id: 1012, title: "सूरह अल-हुमज़ा (سورة الهمزة)" },
+        { id: 1013, title: "सूरह अल-फ़ील (سورة الفيل)" },
+        { id: 1014, title: "सूरह क़ुरैश (سورة قريش)" },
+        { id: 1015, title: "सूरह अल-माऊन (سورة الماعون)" },
+        { id: 1005, title: "सूरह अल-कौसर (سورة الكوثر)" },
+        { id: 1016, title: "सूरह अल-काफिरून (سورة الكافرون)" },
+        { id: 1017, title: "सूरह अन-नस्र (سورة النصر)" },
+        { id: 1018, title: "सूरह अल-मसद (سورة المسد)" },
+        { id: 1002, title: "सूरह अल-इख़्लास (سورة الإخلاص)" },
+        { id: 1003, title: "सूरह अल-फ़लक़ (سورة الفلق)" },
+        { id: 1004, title: "सूरह अन-नास (سورة الناس)" }
       ]
     }
   ]
