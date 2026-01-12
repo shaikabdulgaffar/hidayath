@@ -6,43 +6,43 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Bismi Allahi arrahmani arraheem</div>
+            <div class="ayah-translit translit">bismillāhir-raḥmānir-raḥim</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alhamdu lillahi rabbi alAAalameen</div>
+            <div class="ayah-translit translit">al-ḥamdu lillāhi rabbil-'ālamin</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Arrahmani arraheem</div>
+            <div class="ayah-translit translit">ar-raḥmānir-raḥim</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Maliki yawmi addeen</div>
+            <div class="ayah-translit translit">māliki yaumid-din</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Iyyaka naAAbudu wa-iyyaka nastaAAeen</div>
+            <div class="ayah-translit translit">iyyāka naʼbudu wa iyyāka nastaʼin</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Ihdina assirata almustaqeem</div>
+            <div class="ayah-translit translit">ihdinaș-șirāțal-mustaqim</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Sirata allatheena anAAamta AAalayhim ghayri almaghdoobi AAalayhim wala addalleen</div>
+            <div class="ayah-translit translit">șirāțallażina anʼamta 'alaihim gairil-magḍūbi 'alaihim wa laḍ-ḍāllin</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
@@ -56,25 +56,25 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Qul huwa Allahu ahad</div>
+            <div class="ayah-translit translit">qul huwallāhu aḥad</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Allahu as-samad</div>
+            <div class="ayah-translit translit">allāhuș-șamad</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Lam yalid wa lam yulad</div>
+            <div class="ayah-translit translit">lam yalid wa lam yūlad</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa lam yakun lahu kufuwan ahad</div>
+            <div class="ayah-translit translit">wa lam yakul lahū kufuwan aḥad</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
@@ -88,31 +88,31 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Qul a'udhu birabbil-falaq</div>
+            <div class="ayah-translit translit">qul a'ūżu birabbil-falaq</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Min sharri ma khalaq</div>
+            <div class="ayah-translit translit">min syarri mā khalaq</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa min sharri ghasiqin idha waqab</div>
+            <div class="ayah-translit translit">wa min syarri gāsiqin iżā waqab</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa min sharri an-naffathati fil-'uqad</div>
+            <div class="ayah-translit translit">wa min syarrin-naffāsāti fil-ʼuqad</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa min sharri hasidin idha hasad</div>
+            <div class="ayah-translit translit">wa min syarri ḥāsidin iżā ḥasad</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
@@ -126,37 +126,37 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Qul a'udhu birabbin-nas</div>
+            <div class="ayah-translit translit">qul aʼūżu birabbin-nās</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Malikin-nas</div>
+            <div class="ayah-translit translit">malikin-nās</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Ilahin-nas</div>
+            <div class="ayah-translit translit">ilāhin-nās</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Min sharri al-waswasil khannas</div>
+            <div class="ayah-translit translit">min syarril-waswāsil-khannās</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alladhi yuwaswisu fi sudurin-nas</div>
+            <div class="ayah-translit translit">allażi yuwaswisu fi șudūrin-nās</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Minal-jinnati wan-nas</div>
+            <div class="ayah-translit translit">minal-jinnati wan-nās</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
@@ -170,19 +170,19 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Inna a'taynaka al-kawthar</div>
+            <div class="ayah-translit translit">innā aʼțainākal-kausar</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fasalli li-rabbika wanhar</div>
+            <div class="ayah-translit translit">fa șalli lirabbika wan-har</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Inna shani'aka huwa al-abtar</div>
+            <div class="ayah-translit translit">inna syāni\`aka huwal-abtar</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
@@ -196,19 +196,19 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wal-'asr</div>
+            <div class="ayah-translit translit">wal-'aşr</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Inna al-insana lafi khusr</div>
+            <div class="ayah-translit translit">innal-insāna lafi khusr</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Illa alladhina amanu wa 'amilus-salihat watawasaw bil-haqqi watawasaw bis-sabr</div>
+            <div class="ayah-translit translit">illallażīna āmanū wa ʼamiluș-șāliḥāti wa tawāșau bil-ḥaqqi wa tawāșau biș-șabr</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
@@ -216,14 +216,13 @@ const quranContentData = {
     `
   },
 
-  // New additions start here (IDs continue sequentially)
   1007: {
     title: "Ayatul Kursi (آية الكرسي)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Allahu la ilaha illa huwa al-hayyu al-qayyum la takhuthuhu sinatun wala nawm lahu ma fis-samawati wama fil-ard man tha allathee yashfa'u 'indahu illa bi-idhnih ya'lamu ma bayna aydihim wama khalfahum wala yuhituna bishay'in min 'ilmihi illa bima sha'a wasi'a kursiyyuhu as-samawati wal-ard wala ya'uduhu hifzuhuma wahuwa al-'aliyyu al-'azim</div>
+            <div class="ayah-translit translit">allāhu lā ilāha illā huw, al-ḥayyul-qayyūm, lā ta\`khużuhū sinatuw wa lā na ūm, lahū mā fis-samāwāti wa mā fil-arḍ, man żallażi yasyfaʼu 'indahū illā bi'iżnih, ya\`lamu mā baina aidīhim wa mā khalfahum, wa lā yuḥīțūna bisyai\`im min ʼilmihi illā bimā syā\`, wasiʼa kursiyyuhus-samāwāti wal-arḍ, wa lā ya\`ūduhū ḥifẓuhumā, wa huwal-'aliyyul-'aẓīm</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
@@ -237,49 +236,49 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Itha zulzilati al-ardu zilzalaha</div>
+            <div class="ayah-translit translit">iżā zulzilatil-arḍu zilzālahā</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa akhrajati al-ardu athqalaha</div>
+            <div class="ayah-translit translit">wa akhrajatil-arḍu aśqālahā</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa qala al-insanu ma laha</div>
+            <div class="ayah-translit translit">wa qālal-insānu mā lahā</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Yawma-idhin tuhaddithu akhbaraha</div>
+            <div class="ayah-translit translit">yauma\`iżin tuḥaddisu akhbārahā</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Bi-anna rabbaka awha laha</div>
+            <div class="ayah-translit translit">bi anna rabbaka auḥā lahā</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Yawma-idhin yasduru an-nasu ashtatan liyuraw a'malahum</div>
+            <div class="ayah-translit translit">yauma iżiy yaşdurun-nāsu asytātal liyurau a'mālahum</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Faman ya'mal mithqala dharratin khayran yarah</div>
+            <div class="ayah-translit translit">fa may ya'mal miśqāla żarratin khairay yarah</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Waman ya'mal mithqala dharratin sharran yarah</div>
+            <div class="ayah-translit translit">wa may ya'mal miśqāla żarratin syarray yarah</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
@@ -293,67 +292,67 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wal-'adiyati dhabha</div>
+            <div class="ayah-translit translit">wal-'ādiyāti ḍab-ḥā</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fal-muriyati qadha</div>
+            <div class="ayah-translit translit">fal-mūriyāti qad-ḥā</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fal-mughirati subha</div>
+            <div class="ayah-translit translit">fal-mugirāti șub-ņā</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fa-atharna bihi naq'a</div>
+            <div class="ayah-translit translit">fa asarna bihi naqʼā</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fawassatna bihi jam'a</div>
+            <div class="ayah-translit translit">fa wasațna bihi jam'ā</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Inna al-insana lirabbihi lakanud</div>
+            <div class="ayah-translit translit">innal-insāna lirabbihi lakanūd</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa innahu 'ala dhalika lashahid</div>
+            <div class="ayah-translit translit">wa innahū 'alā żālika lasyahid</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa innahu lihubbi al-khayri lashadid</div>
+            <div class="ayah-translit translit">wa innahū liḥubbil-khairi lasyadid</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Afala ya'lamu idha bu'thira ma fil-qubur</div>
+            <div class="ayah-translit translit">a fa lā yaʼlamu iżā buʼśira mā fil-qubūr</div>
             <span class="ayah-number">9</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa hussila ma fis-sudur</div>
+            <div class="ayah-translit translit">wa ḥușșila mā fiș-șudūr</div>
             <span class="ayah-number">10</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Inna rabbahum bihim yawma-idhin lakhabir</div>
+            <div class="ayah-translit translit">inna rabbahum bihim yauma'iżil lakhabir</div>
             <span class="ayah-number">11</span>
           </div>
         </li>
@@ -367,67 +366,67 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Al-qari'ah</div>
+            <div class="ayah-translit translit">al-qāri'ah</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Mal-qari'ah</div>
+            <div class="ayah-translit translit">mal-qāri'ah</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa ma adraka mal-qari'ah</div>
+            <div class="ayah-translit translit">wa mā adrāka mal-qāriʼah</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Yawma yakunu an-nasu kal-farashi al-mabthuth</div>
+            <div class="ayah-translit translit">yauma yakūnun-nāsu kal-farāsyil-mabsūś</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa takunu al-jibalu kal-'ihni al-manfush</div>
+            <div class="ayah-translit translit">wa takūnul-jibālu kal-'ihnil-manfūsy</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fa-amma man thaqulat mawazinuhu</div>
+            <div class="ayah-translit translit">fa ammā man šaqulat mawāzinuh</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fahuwa fi 'ishatin radiyah</div>
+            <div class="ayah-translit translit">fa huwa fi isyatir rāḍiyah</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa amma man khaffat mawazinuhu</div>
+            <div class="ayah-translit translit">wa ammā man khaffat mawāzīnuh</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fa-ummuhu hawiyah</div>
+            <div class="ayah-translit translit">fa ummuhū hāwiyah</div>
             <span class="ayah-number">9</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa ma adraka ma hiyah</div>
+            <div class="ayah-translit translit">wa mā adrāka mā hiyah</div>
             <span class="ayah-number">10</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Narun hamiyah</div>
+            <div class="ayah-translit translit">nārun ḥāmiyah</div>
             <span class="ayah-number">11</span>
           </div>
         </li>
@@ -441,49 +440,49 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alhakumu at-takathur</div>
+            <div class="ayah-translit translit">al-hākumut-takāsur</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Hatta zurtumu al-maqabir</div>
+            <div class="ayah-translit translit">ḥattā zurtumul-maqābir</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Kalla sawfa ta'lamun</div>
+            <div class="ayah-translit translit">kallā saufa taʼlamūn</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Thumma kalla sawfa ta'lamun</div>
+            <div class="ayah-translit translit">śumma kallā saufa taʼlamūn</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Kalla law ta'lamuna 'ilma al-yaqin</div>
+            <div class="ayah-translit translit">kallā lau ta'lamūna 'ilmal-yaqin</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Latarawunna al-jahim</div>
+            <div class="ayah-translit translit">latarawunnal-jaḥim</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Thumma latarawunnaha 'ayna al-yaqin</div>
+            <div class="ayah-translit translit">summa latarawunnahā 'ainal-yaqin</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Thumma latus'alunna yawma-idhin 'ani an-na'im</div>
+            <div class="ayah-translit translit">summa latus alunna yauma'iżin anin-na'im</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
@@ -497,55 +496,55 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Waylun likulli humazatin lumazah</div>
+            <div class="ayah-translit translit">wailul likulli humazatil lumazah</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alladhi jama'a malan wa 'addadah</div>
+            <div class="ayah-translit translit">allażī jamaʼa mālaw wa 'addadah</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Yahsabu anna malahu akhladah</div>
+            <div class="ayah-translit translit">yaḥsabu anna mālahū akhladah</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Kalla layunbadhanna fil-hutamah</div>
+            <div class="ayah-translit translit">kallā layumbażanna fil-ḥuțamah</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa ma adraka ma al-hutamah</div>
+            <div class="ayah-translit translit">wa mā adrāka mal-ḥuțamah</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Narullahi al-muqadah</div>
+            <div class="ayah-translit translit">nārullāhil-mūqadah</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Allati tattali'u 'ala al-af'idah</div>
+            <div class="ayah-translit translit">allati tațțali'u 'alal-af idah</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Innaha 'alayhim mu'sadah</div>
+            <div class="ayah-translit translit">innahā 'alaihim mu\`șadah</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fi 'amadin mumaddadah</div>
+            <div class="ayah-translit translit">fi'amadim mumaddadah</div>
             <span class="ayah-number">9</span>
           </div>
         </li>
@@ -559,31 +558,31 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alam tara kayfa fa'ala rabbuka bi-ashabi al-fil</div>
+            <div class="ayah-translit translit">a lam tara kaifa faʼala rabbuka bi\`aș-ḥābil-fil</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alam yaj'al kaydahum fi tadlil</div>
+            <div class="ayah-translit translit">a lam yajʼal kaidahum fi taḍlil</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa arsal 'alayhim tayran ababil</div>
+            <div class="ayah-translit translit">wa arsala ʼalaihim ṭairan abābil</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Tarmihim bi-hijaratin min sijjil</div>
+            <div class="ayah-translit translit">tarmihim biḥijāratim min sijjil</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Faja'alahum ka'asfin ma'kul</div>
+            <div class="ayah-translit translit">fa ja'alahum ka'așfim ma\`kūl</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
@@ -597,25 +596,25 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Li-ilafi Quraysh</div>
+            <div class="ayah-translit translit">li'ilāfi quraisy</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Ilafihim rihlatash-shita'i was-sayf</div>
+            <div class="ayah-translit translit">ilāfihim riḥlatasy-syitā'i waș-șaif</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Falya'budu rabba hadha al-bayt</div>
+            <div class="ayah-translit translit">falya'budū rabba hāżal-bait</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alladhi at'amahum min ju' wa amanahum min khawf</div>
+            <div class="ayah-translit translit">allażi ațʼamahum min jūʼiw wa āmanahum min khaūf</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
@@ -629,43 +628,43 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Ara'ayta alladhi yukadhdhibu bid-din</div>
+            <div class="ayah-translit translit">a ra aitallażī yukażżibu bid-dīn</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fadhalika alladhi yadu'u al-yatim</div>
+            <div class="ayah-translit translit">fa żālikallażī yadu"ul-yatim</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wala yahuddu 'ala ta'ami al-miskin</div>
+            <div class="ayah-translit translit">wa lā yaḥuḍḍu 'alā țaʼāmil-miskin</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fawaylun lil-musallin</div>
+            <div class="ayah-translit translit">fa wailul lil-muşallīn</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alladhina hum 'an salatihim sahun</div>
+            <div class="ayah-translit translit">allażina hum 'an șalātihim sāhūn</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Alladhina hum yura'un</div>
+            <div class="ayah-translit translit">allażina hum yurā\`ūn</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa yamna'un al-ma'un</div>
+            <div class="ayah-translit translit">wa yamna'ūnal-mā'ūn</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
@@ -679,37 +678,37 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Qul ya ayyuhal kafirun</div>
+            <div class="ayah-translit translit">qul yā ayyuhal-kāfirūn</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">La a'budu ma ta'budun</div>
+            <div class="ayah-translit translit">lā a'budu mā taʼbudūn</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wala antum 'abiduna ma a'bud</div>
+            <div class="ayah-translit translit">wa lā antum ʼābidūna mā aʼbud</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wala ana 'abidun ma 'abadtum</div>
+            <div class="ayah-translit translit">wa lā ana ʼābidum mā ʼabattum</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wala antum 'abiduna ma a'bud</div>
+            <div class="ayah-translit translit">wa lā antum 'ābidūna mā aʼbud</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Lakum dinukum waliya din</div>
+            <div class="ayah-translit translit">lakum dĪnukum wa liya dīn</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
@@ -723,19 +722,19 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Itha ja'a nasrullahi wal-fath</div>
+            <div class="ayah-translit translit">iżā jā\`a nașrullāhi wal-fat-ḥ</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa ra'ayta an-nasa yadkhuluna fi dinillahi afwaja</div>
+            <div class="ayah-translit translit">wa ra\`aitan-nāsa yadkhulūna fi dĪnillāhi afwājā</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fasabbih bihamdi rabbika wastaghfirhu innahu kana tawwaba</div>
+            <div class="ayah-translit translit">fa sabbiḥ biḥamdi rabbika wastagfir-h, innahū kāna tawwābā</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
@@ -749,31 +748,31 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Tabbat yada Abi Lahabin watabb</div>
+            <div class="ayah-translit translit">tabbat yadā abi lahabiw wa tabb</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Ma aghna 'anhu maluhu wa ma kasab</div>
+            <div class="ayah-translit translit">mā agnā ʼan-hu māluhū wa mā kasab</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Sayasla naran dhata lahab</div>
+            <div class="ayah-translit translit">sayașlā nāran żāta lahab</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Wa imra'atuhu hammalata al-hatab</div>
+            <div class="ayah-translit translit">wamra\`atuh, ḥammālatal-ḥațab</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">Fi jidiha hablun min masad</div>
+            <div class="ayah-translit translit">fi jīdihā ḥablum mim masad</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
