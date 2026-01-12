@@ -446,25 +446,25 @@ const quranContentData = {
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">హత్త జుర్తుముల్-మఖాబిర్</div>
+            <div class="ayah-translit translit">హత్తా జుర్తుముల్-మఖాబిర్</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">కల్ల సౌఫ తఅల్మూన్</div>
+            <div class="ayah-translit translit">కల్లా సౌఫ తఅ్-లమూన్</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">సుమ్మ కల్ల సౌఫ తఅల్మూన్</div>
+            <div class="ayah-translit translit">సుమ్మ కల్లా సౌఫ తఅ్-లమూన్</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">కల్ల లౌ తఅల్మూన ఇల్మల్-యఖీన్</div>
+            <div class="ayah-translit translit">కల్లా లౌ తఅ్-లమూన ఇల్మల్-యఖీన్</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
@@ -476,13 +476,13 @@ const quranContentData = {
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">సుమ్మ లతరవున్నహ ఐనల్-యఖీన్</div>
+            <div class="ayah-translit translit">సుమ్మ లతరవున్నహా ఐనల్ యఖీన్</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">సుమ్మ లతుసఅలున్న యౌమఇజిన్ అనిన్-నఈమ్</div>
+            <div class="ayah-translit translit">సుమ్మ లతుస్ అలున్న యౌమఇజిన్ అనిన్-నయీమ్</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
@@ -502,19 +502,19 @@ const quranContentData = {
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">అల్లజీ జమఅ మాలవ్ వ అదదహ్</div>
+            <div class="ayah-translit translit">అల్లజీ జమ-అ మాలవ్ వ అద్దదహ్</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">యహ్సబు అన్న మాలహూ అఖ్లదహ్</div>
+            <div class="ayah-translit translit">యహ్ సబు అన్న మాలహూ అఖ్లదహ్</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">కల్ల లయుమ్బజన్న ఫిల్-హుతమహ్</div>
+            <div class="ayah-translit translit">కల్లా లయుమ్ బజన్న ఫిల్ హుతమ</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
@@ -532,19 +532,19 @@ const quranContentData = {
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">అల్లతీ తత్లిఉ అలల్-అఫిదహ్</div>
+            <div class="ayah-translit translit">అల్లతీ తత్తలిఉ అలల్-అఫిదహ్</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">ఇన్నహ అలైహిం ముఇుసదహ్</div>
+            <div class="ayah-translit translit">ఇన్నహా అలైహిమ్ ముఅ్-సద</div>
             <span class="ayah-number">8</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">ఫీ అమదిం ముమదదహ్</div>
+            <div class="ayah-translit translit">ఫీ అమదిమ్ ముమద్దద</div>
             <span class="ayah-number">9</span>
           </div>
         </li>
@@ -558,31 +558,31 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">అ లమ్ తర్ కైఫ్ ఫఅల్ రబ్బుక బి-అస్హాబిల్-ఫీల్</div>
+            <div class="ayah-translit translit">అలమ్ తర కైఫ ఫఅల రబ్బుక బి అస్ హాబిల్ ఫీల్</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">అ లమ్ యజఅల్ కైదహుం ఫీ తజ్లీల్</div>
+            <div class="ayah-translit translit">అలమ్ యజ్-అల్ కైదహుమ్ ఫీ తజ్లీల్</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">వ అర్సల అలైహిం తైరన్ అబాబీల్</div>
+            <div class="ayah-translit translit">వ అర్సల అలైహిమ్ తైరన్ అబాబీల్</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">తర్మీహిం బి-హిజారతిం మిన్ సిజ్జీల్</div>
+            <div class="ayah-translit translit">తర్మీహిమ్ బి హిజారతిమ్ మిన్ సిజ్జీల్</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">ఫా జఅలహుం కఅసఫిం మఅకూల్</div>
+            <div class="ayah-translit translit">ఫజ అలహుమ్ కఅస్ ఫిమ్ మాఅ్-కూల్</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
@@ -596,25 +596,25 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">లి-ఇలాఫి ఖురైష్</div>
+            <div class="ayah-translit translit">లి ఈలాఫి ఖురైష్</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">ఇలాఫిహిం రిహ్లతష్-షితాయ్ వస్-సైఫ్</div>
+            <div class="ayah-translit translit">ఈలాఫిహిమ్ రిహ్ లతష్ షితాఇ వస్ సైఫ్</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">ఫల్-యఅబుదూ రబ్బ హాజల్-బైత్</div>
+            <div class="ayah-translit translit">ఫల్-యఅ్-బుదూ రబ్బ హాజల్-బైత్</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">అల్లజీ అతఅమహుం మిన్ జూఇవ్ వ ఆమనహుం మిన్ ఖౌఫ్</div>
+            <div class="ayah-translit translit">అల్లజీ అత్-అమహుమ్ మిన్ జూ-ఇవ్ వ ఆమనహుమ్ మిన్ ఖౌఫ్</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
@@ -788,24 +788,24 @@ const quranIndexData = {
       title: "Quran",
       items:
       [
-        { id: 1001, title: "Surah Al-Fatiha (సూరా అల్-ఫాతిహా)" },
-        { id: 1007, title: "Ayatul Kursi (ఆయతుల్ కుర్సీ)" },
-        { id: 1008, title: "Surah Az-Zalzalah (సూరా అజ్-జల్జలా)" },
-        { id: 1009, title: "Surah Al-Adiyat (సూరా అల్-ఆదియాత్)" },
-        { id: 1010, title: "Surah Al-Qari'ah (సూరా అల్-ఖారిఆ)" },
-        { id: 1011, title: "Surah At-Takathur (సూరా అత్-తకాసుర్)" },
-        { id: 1006, title: "Surah Al-Asr (సూరా అల్-అస్ర్)" },
-        { id: 1012, title: "Surah Al-Humazah (సూరా అల్-హుమజా)" },
-        { id: 1013, title: "Surah Al-Fil (సూరా అల్-ఫీల్)" },
-        { id: 1014, title: "Surah Quraysh (సూరా ఖురైష్)" },
-        { id: 1015, title: "Surah Al-Ma'un (సూరా అల్-మాఊన్)" },
-        { id: 1005, title: "Surah Al-Kawthar (సూరా అల్-కౌసర్)" },
-        { id: 1016, title: "Surah Al-Kafirun (సూరా అల్-కాఫిరూన్)" },
-        { id: 1017, title: "Surah An-Nasr (సూరా అన్-నస్ర్)" },
-        { id: 1018, title: "Surah Al-Masad (సూరా అల్-మసద్)" },
-        { id: 1002, title: "Surah Al-Ikhlas (సూరా అల్-ఇఖ్లాస్)" },
-        { id: 1003, title: "Surah Al-Falaq (సూరా అల్-ఫలఖ్)" },
-        { id: 1004, title: "Surah An-Nas (సూరా అన్-నాస్)" }
+        { id: 1001, title: "సూరా అల్-ఫాతిహా (سورة الفاتحة)" },
+        { id: 1007, title: "ఆయతుల్ కుర్సీ (آية الكرسي)" },
+        { id: 1008, title: "సూరా అజ్-జల్జలా (سورة الزلزلة)" },
+        { id: 1009, title: "సూరా అల్-ఆదియాత్ (سورة العاديات)" },
+        { id: 1010, title: "సూరా అల్-ఖారిఆ (سورة القارعة)" },
+        { id: 1011, title: "సూరా అత్-తకాసుర్ (سورة التكاثر)" },
+        { id: 1006, title: "సూరా అల్-అస్ర్ (سورة العصر)" },
+        { id: 1012, title: "సూరా అల్-హుమజా (سورة الهمزة)" },
+        { id: 1013, title: "సూరా అల్-ఫీల్ (سورة الفيل)" },
+        { id: 1014, title: "సూరా ఖురైష్ (سورة قريش)" },
+        { id: 1015, title: "సూరా అల్-మాఊన్ (سورة الماعون)" },
+        { id: 1005, title: "సూరా అల్-కౌసర్ (سورة الكوثر)" },
+        { id: 1016, title: "సూరా అల్-కాఫిరూన్ (سورة الكافرون)" },
+        { id: 1017, title: "సూరా అన్-నస్ర్ (سورة النصر)" },
+        { id: 1018, title: "సూరా అల్-మసద్ (سورة المسد)" },
+        { id: 1002, title: "సూరా అల్-ఇఖ్లాస్ (سورة الإخلاص)" },
+        { id: 1003, title: "సూరా అల్-ఫలఖ్ (سورة الفلق)" },
+        { id: 1004, title: "సూరా అన్-నాస్ (سورة الناس)" }
       ]
     }
   ]

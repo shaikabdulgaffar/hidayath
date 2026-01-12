@@ -28,7 +28,7 @@ const contentData = {
         `
     },
     102: {
-        title: "Brief and Detailed Faith (Iman-e-Mujmal and Iman-e-Mufassal)",
+        title: "Iman-e-Mujmal and Iman-e-Mufassal",
         content: `
             <h3>Iman-e-Mujmal (Brief Faith)</h3>
             <p>
@@ -2119,7 +2119,7 @@ const indexData = {
             title: "Belief and Faith",
             items: [
                 { id: 101, title: "Belief (Our Islamic Aqeedah)" },
-                { id: 102, title: "Brief Faith and Detailed Faith (Iman-e-Mujmal & Iman-e-Mufassal)" },
+                { id: 102, title: "Iman-e-Mujmal & Iman-e-Mufassal" },
                 { id: 103, title: "Islam Is Founded On 5 Pillars" },
                 { id: 104, title: "The 5 Kalimahs of Islam" },
                 { id: 105, title: "Levels of Imaan (Faith)" },
