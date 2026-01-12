@@ -824,13 +824,33 @@ function getLastReadFor(section) {
     return map[section] || null;
 }
 
-// UPDATED: render Continue card only for activeSection
+// UPDATED: render Continue card only for activeSection and use localized title
 function renderContinueCard() {
     const container = document.getElementById('continueContainer');
     if (!container) return;
 
     const last = getLastReadFor(activeSection);
-    if (!last || !last.id || !last.title) {
+    if (!last || !last.id) {
+        container.style.display = 'none';
+        container.innerHTML = '';
+        return;
+    }
+
+    // Look up the title from the current language dataset
+    let localizedTitle = '';
+    try {
+        const dataset = currentContentData || {};
+        if (dataset && dataset[last.id] && dataset[last.id].title) {
+            localizedTitle = dataset[last.id].title; // localized title for current language
+        } else if (last.title) {
+            // Fallback to stored title if not found in current dataset
+            localizedTitle = last.title;
+        }
+    } catch {
+        // ignore lookup errors
+    }
+
+    if (!localizedTitle) {
         container.style.display = 'none';
         container.innerHTML = '';
         return;
@@ -841,7 +861,7 @@ function renderContinueCard() {
             <div class="continue-icon"><i class="fas fa-book-open"></i></div>
             <div class="continue-text">
                 <div class="continue-label">${t('continue_reading')}</div>
-                <div class="continue-title">${last.title}</div>
+                <div class="continue-title">${localizedTitle}</div>
             </div>
             <div class="continue-chevron"><i class="fas fa-chevron-right"></i></div>
         </div>
@@ -850,10 +870,7 @@ function renderContinueCard() {
 
     const btn = document.getElementById('continueCardBtn');
     if (btn) {
-        btn.onclick = () => {
-            // Already rendering for activeSection; just open content
-            showContent(last.id);
-        };
+        btn.onclick = () => showContent(last.id);
     }
 }
 
