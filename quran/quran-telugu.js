@@ -1,7 +1,7 @@
 // Quran content data
 const quranContentData = {
   1001: {
-    title: "Surah Al-Fatiha (సూరా అల్-ఫాతిహా)",
+    title: "సూరా అల్-ఫాతిహా (سورة الفاتحة)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -51,7 +51,7 @@ const quranContentData = {
   },
 
   1002: {
-    title: "Surah Al-Ikhlas (సూరా అల్-ఇఖ్లాస్)",
+    title: "సూరా అల్-ఇఖ్లాస్ (سورة الإخلاص)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -83,7 +83,7 @@ const quranContentData = {
   },
 
   1003: {
-    title: "Surah Al-Falaq (సూరా అల్-ఫలఖ్)",
+    title: "సూరా అల్-ఫలఖ్ (سورة الفلق)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -121,7 +121,7 @@ const quranContentData = {
   },
 
   1004: {
-    title: "Surah An-Nas (సూరా అన్-నాస్)",
+    title: "సూరా అన్-నాస్ (سورة الناس)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -165,7 +165,7 @@ const quranContentData = {
   },
 
   1005: {
-    title: "Surah Al-Kawthar (సూరా అల్-కౌసర్)",
+    title: "సూరా అల్-కౌసర్ (سورة الكوثر)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -191,7 +191,7 @@ const quranContentData = {
   },
 
   1006: {
-    title: "Surah Al-Asr (సూరా అల్-అస్ర్)",
+    title: "సూరా అల్-అస్ర్ (سورة العصر)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -217,7 +217,7 @@ const quranContentData = {
   },
 
   1007: {
-    title: "Ayatul Kursi (ఆయతుల్ కుర్సీ)",
+    title: "ఆయతుల్ కుర్సీ (آية الكرسي)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -231,7 +231,7 @@ const quranContentData = {
   },
 
   1008: {
-    title: "Surah Az-Zalzalah (సూరా అజ్-జల్జలా)",
+    title: "సూరా అజ్-జల్జలా (سورة الزلزلة)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -287,7 +287,7 @@ const quranContentData = {
   },
 
   1009: {
-    title: "Surah Al-Adiyat (సూరా అల్-ఆదియాత్)",
+    title: "సూరా అల్-ఆదియాత్ (سورة العاديات)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -361,7 +361,7 @@ const quranContentData = {
   },
 
   1010: {
-    title: "Surah Al-Qari'ah (సూరా అల్-ఖారిఆ)",
+    title: "సూరా అల్-ఖారిఆ (سورة القارعة)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -435,7 +435,7 @@ const quranContentData = {
   },
 
   1011: {
-    title: "Surah At-Takathur (సూరా అత్-తకాసుర్)",
+    title: "సూరా అత్-తకాసుర్ (سورة التكاثر)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -491,7 +491,7 @@ const quranContentData = {
   },
 
   1012: {
-    title: "Surah Al-Humazah (సూరా అల్-హుమజా)",
+    title: "సూరా అల్-హుమజా (سورة الهمزة)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -553,7 +553,7 @@ const quranContentData = {
   },
 
   1013: {
-    title: "Surah Al-Fil (సూరా అల్-ఫీల్)",
+    title: "సూరా అల్-ఫీల్ (سورة الفيل)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -591,7 +591,7 @@ const quranContentData = {
   },
 
   1014: {
-    title: "Surah Quraysh (సూరా ఖురైష్)",
+    title: "సూరా ఖురైష్ (سورة قريش)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -623,7 +623,7 @@ const quranContentData = {
   },
 
   1015: {
-    title: "Surah Al-Ma'un (సూరా అల్-మాఊన్)",
+    title: "సూరా అల్-మాఊన్ (سورة الماعون)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -673,7 +673,7 @@ const quranContentData = {
   },
 
   1016: {
-    title: "Surah Al-Kafirun (సూరా అల్-కాఫిరూన్)",
+    title: "సూరా అల్-కాఫిరూన్ (سورة الكافرون)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -717,7 +717,7 @@ const quranContentData = {
   },
 
   1017: {
-    title: "Surah An-Nasr (సూరా అన్-నస్ర్)",
+    title: "సూరా అన్-నస్ర్ (سورة النصر)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
@@ -743,7 +743,7 @@ const quranContentData = {
   },
 
   1018: {
-    title: "Surah Al-Masad (సూరా అల్-మసద్)",
+    title: "సూరా అల్-మసద్ (سورة المسد)",
     content: `
       <ol class="ayah-list">
         <li class="ayah">
