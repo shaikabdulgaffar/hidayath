@@ -6,43 +6,43 @@ const quranContentData = {
       <ol class="ayah-list">
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">बिस्मिल्लाहिर-रहमानिर-रहीम</div>
+            <div class="ayah-translit translit">बिस्मिल्लाह-हिर्रहमान-निर्रहीम</div>
             <span class="ayah-number">1</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">अल-हम्दु लिल्लाहि रब्बिल-आलमीन</div>
+            <div class="ayah-translit translit">अल्हम्दु लिल्लाहि रब्बिल आलमीन</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">अर-रहमानिर-रहीम</div>
+            <div class="ayah-translit translit">अर्रहमानिर्रहीम</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">मालिकि यौमिद-दीन</div>
+            <div class="ayah-translit translit">मालिकि यौमिद्दीन</div>
             <span class="ayah-number">4</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">इय्याका नअबुदु व इय्याका नस्तईन</div>
+            <div class="ayah-translit translit">इय्या-क न बुदु व इय्या-क नस्तीइन</div>
             <span class="ayah-number">5</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">इह्दिनस-सिरातल-मुस्तकीम</div>
+            <div class="ayah-translit translit">इहदिनस्सिरातल्-मुस्तकीम</div>
             <span class="ayah-number">6</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">सिरातल्लज़ीना अनअम्ता अलैहिम ग़ैरिल-मग़्ज़ूबि अलैहिम व लज़-ज़ाल्लीन</div>
+            <div class="ayah-translit translit">सिरातल्लज़ी-न अन्अम्-त अलैहिम, गैरिल्-मग़जूबि अलैहिम् व लज्जॉल्लीन</div>
             <span class="ayah-number">7</span>
           </div>
         </li>
@@ -62,13 +62,13 @@ const quranContentData = {
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">अल्लाहुस-स्समद</div>
+            <div class="ayah-translit translit">अल्लाहुस-समद</div>
             <span class="ayah-number">2</span>
           </div>
         </li>
         <li class="ayah">
           <div class="ayah-line">
-            <div class="ayah-translit translit">लम यलीद व लम यूलद</div>
+            <div class="ayah-translit translit">लम यलिद वलम यूलद</div>
             <span class="ayah-number">3</span>
           </div>
         </li>
